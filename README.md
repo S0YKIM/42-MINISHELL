@@ -9,8 +9,8 @@ C project to mimic the bash shell
 ## 커밋 메시지 규칙
 
 `타입 내용 (#이슈번호)` (이슈번호가 없는 경우 생략)
-
-예) Update README.md (#2)
+- 내용은 영어로 작성
+- 예) Update README.md (#2)
 
 ### 커밋 타입
 
