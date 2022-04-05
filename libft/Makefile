@@ -5,56 +5,32 @@
 #                                                     +:+ +:+         +:+      #
 #    By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/04/04 20:05:45 by sokim             #+#    #+#              #
-#    Updated: 2022/04/05 19:50:18 by heehkim          ###   ########.fr        #
+#    Created: 2022/04/05 19:07:22 by heehkim           #+#    #+#              #
+#    Updated: 2022/04/05 19:15:03 by heehkim          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = minishell
 
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
+NAME = libft.a
 
-SRCDIR = srcs/
-SRCS = $(addprefix $(SRCDIR), main.c init.c env.c)
+SRCS = ft_strdup.c ft_strlen.c ft_strlcpy.c
 OBJS = $(SRCS:.c=.o)
-
-LIBDIR = libft/
-LIB_FLAGS = -L$(LIBDIR) -lft
-
-# heeehkim local path
-READLINE_DIR = /opt/homebrew/opt/readline
-# READLINE_DIR = ${HOME}/.brew/Cellar/readline/8.1.2
-INC_FLAGS = -I includes -I libft
-LINK_FLAGS = -L${READLINE_DIR}/lib -lreadline
-
-%.o: %.c
-	@make -s -C $(LIBDIR)
-	$(CC) $(CFLAGS) -c $< -o $@ $(INC_FLAGS)
 
 .PHONY: all
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) -o $@ $(OBJS) $(LIB_FLAGS) $(LINK_FLAGS)
+	ar rcs $(NAME) $(OBJS)
 
 .PHONY: clean
 clean:
-	@make clean -s -C $(LIBDIR)
-	rm -rf $(OBJS)
+	rm -f $(OBJS)
 
 .PHONY: fclean
 fclean: clean
-	@make fclean -s -C $(LIBDIR)
-	rm -rf $(NAME)
+	rm -f $(NAME)
 
 .PHONY: re
 re: fclean all
-
-.PHONY: debug
-debug:
-	$(CC) $(CFLAGS) -g -o $(NAME) $(SRCS) $(INC_FLAGS)
-
-.PHONY: leak
-leak:
-	$(CC) $(CFLAGS) -g3 -fsanitize=address -o $(NAME) $(SRCS) $(INC_FLAGS)

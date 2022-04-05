@@ -1,32 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/04 20:05:42 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/05 20:12:45 by heehkim          ###   ########.fr       */
+/*   Created: 2022/04/05 19:28:40 by heehkim           #+#    #+#             */
+/*   Updated: 2022/04/05 19:39:10 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "minishell.h"
 
-# include <unistd.h>
-# include <stdio.h>
-# include <string.h>
-# include <sys/errno.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include "libft.h"
-# include "struct.h"
-
-# define TRUE		1
-# define FALSE		0
-
-void	init_data(t_data *data);
-
-int		parse_env(char **envp, t_data *data);
-
-#endif
+void	init_data(t_data *data)
+{
+	data->env_list = NULL;
+}

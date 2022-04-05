@@ -1,32 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/04 20:05:42 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/05 20:12:45 by heehkim          ###   ########.fr       */
+/*   Created: 2022/04/05 19:16:22 by heehkim           #+#    #+#             */
+/*   Updated: 2022/04/05 19:22:16 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef LIBFT_H
+# define LIBFT_H
+# include <stdlib.h>
 
-# include <unistd.h>
-# include <stdio.h>
-# include <string.h>
-# include <sys/errno.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include "libft.h"
-# include "struct.h"
-
-# define TRUE		1
-# define FALSE		0
-
-void	init_data(t_data *data);
-
-int		parse_env(char **envp, t_data *data);
+size_t	ft_strlen(const char *str);
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
+char	*ft_strdup(const char *str);
 
 #endif

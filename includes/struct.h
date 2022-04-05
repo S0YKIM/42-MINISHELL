@@ -1,32 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/04 20:05:42 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/05 20:12:45 by heehkim          ###   ########.fr       */
+/*   Created: 2022/04/05 18:27:56 by heehkim           #+#    #+#             */
+/*   Updated: 2022/04/05 18:56:59 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef STRUCT_H
+# define STRUCT_H
 
-# include <unistd.h>
-# include <stdio.h>
-# include <string.h>
-# include <sys/errno.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include "libft.h"
-# include "struct.h"
+typedef struct s_env
+{
+	char			*key;
+	char			*value;
+	struct s_env	*next;
+}	t_env;
 
-# define TRUE		1
-# define FALSE		0
-
-void	init_data(t_data *data);
-
-int		parse_env(char **envp, t_data *data);
+typedef struct s_data
+{
+	t_env	*env_list;
+}	t_data;
 
 #endif

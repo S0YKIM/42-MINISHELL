@@ -1,32 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/04 20:05:42 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/05 20:12:45 by heehkim          ###   ########.fr       */
+/*   Created: 2021/05/07 16:16:35 by heehkim           #+#    #+#             */
+/*   Updated: 2022/04/05 19:21:29 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "libft.h"
 
-# include <unistd.h>
-# include <stdio.h>
-# include <string.h>
-# include <sys/errno.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include "libft.h"
-# include "struct.h"
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+{
+	size_t	i;
+	size_t	src_size;
 
-# define TRUE		1
-# define FALSE		0
-
-void	init_data(t_data *data);
-
-int		parse_env(char **envp, t_data *data);
-
-#endif
+	if (!dst || !src)
+		return (-1);
+	src_size = ft_strlen(src);
+	if (dstsize == 0)
+		return (src_size);
+	i = 0;
+	while (src[i] && i < dstsize - 1)
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	dst[i] = '\0';
+	return (src_size);
+}
