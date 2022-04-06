@@ -6,15 +6,15 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 18:53:17 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/06 19:53:33 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/06 21:02:02 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int ft_env(t_env *env_list)
+int	ft_env(t_env *env_list)
 {
-    t_env   *curr;
+	t_env	*curr;
 
 	curr = env_list;
 	while (curr)
