@@ -1,49 +1,48 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/04/04 20:05:45 by sokim             #+#    #+#              #
-#    Updated: 2022/04/04 21:04:31 by sokim            ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 NAME = minishell
 
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 
-SRCS = srcs/main.c
+SRCDIR = srcs/
+SRCS = $(addprefix $(SRCDIR), main.c init.c env.c)
 OBJS = $(SRCS:.c=.o)
 
-READLINE_DIR = ${HOME}/.brew/Cellar/readline/8.1.2
-INC_FLAGS = -I includes
+LIBDIR = libft/
+LIB_FLAGS = -L$(LIBDIR) -lft
+
+# heeehkim local path
+READLINE_DIR = /opt/homebrew/opt/readline
+# READLINE_DIR = ${HOME}/.brew/Cellar/readline/8.1.2
+INC_FLAGS = -I includes -I libft
 LINK_FLAGS = -L${READLINE_DIR}/lib -lreadline
 
 %.o: %.c
+	@make -s -C $(LIBDIR)
 	$(CC) $(CFLAGS) -c $< -o $@ $(INC_FLAGS)
 
-all : $(NAME)
+.PHONY: all
+all: $(NAME)
 
-$(NAME) : $(OBJS)
-	$(CC) $(CFLAGS) -o $@ $(OBJS) $(LINK_FLAGS)
+$(NAME): $(OBJS)
+	$(CC) $(CFLAGS) -o $@ $(OBJS) $(LIB_FLAGS) $(LINK_FLAGS)
 
-bonus : $(NAME)
-
-clean :
+.PHONY: clean
+clean:
+	@make clean -s -C $(LIBDIR)
 	rm -rf $(OBJS)
 
-fclean : clean
+.PHONY: fclean
+fclean: clean
+	@make fclean -s -C $(LIBDIR)
 	rm -rf $(NAME)
 
-re : fclean all
+.PHONY: re
+re: fclean all
 
-test :
+.PHONY: debug
+debug:
 	$(CC) $(CFLAGS) -g -o $(NAME) $(SRCS) $(INC_FLAGS)
 
-leak :
+.PHONY: leak
+leak:
 	$(CC) $(CFLAGS) -g3 -fsanitize=address -o $(NAME) $(SRCS) $(INC_FLAGS)
-
-.PHONY : all clean fclean re bonus
