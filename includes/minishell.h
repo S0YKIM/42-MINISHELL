@@ -17,4 +17,10 @@ void	init_data(t_data *data);
 
 int		parse_env(char **envp, t_data *data);
 
+/*
+ * Builtin Functions
+*/
+int		ft_env(t_env *env_list);
+int		ft_pwd(void);
+
 #endif
