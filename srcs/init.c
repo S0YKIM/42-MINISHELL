@@ -2,5 +2,5 @@
 
 void	init_data(t_data *data)
 {
-	data->env_list = NULL;
+	ft_memset(data, 0, sizeof(t_data));
 }
