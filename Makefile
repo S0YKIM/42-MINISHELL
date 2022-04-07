@@ -4,26 +4,39 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 
 SRCDIR = srcs/
-SRCS = $(addprefix $(SRCDIR), main.c init.c env.c)
+D_BUILTIN = builtins/
+D_PARSING = parsing/
+SRC_LIST = main.c	\
+			init.c	\
+			$(D_BUILTIN)ft_env.c	\
+			$(D_PARSING)env.c
+			# $(D_BUILTIN)ft_pwd.c
+SRCS = $(addprefix $(SRCDIR), $(SRC_LIST))
 OBJS = $(SRCS:.c=.o)
 
 LIBDIR = libft/
 LIB_FLAGS = -L$(LIBDIR) -lft
 
-# heeehkim local path
-READLINE_DIR = /opt/homebrew/opt/readline
-# READLINE_DIR = ${HOME}/.brew/Cellar/readline/8.1.2
+MODE = EVAL
+ifeq ($(MODE), EVAL)
+	READLINE_DIR= ${HOME}/.brew/Cellar/readline/8.1.2
+else ifeq ($(MODE), HEEHKIM)
+	READLINE_DIR = /opt/homebrew/opt/readline
+# else ifeq ($(MODE), SOKIM)
+# 	READLINE_DIR = /usr/local/opt/readline/include
+endif
+
 INC_FLAGS = -I includes -I libft
 LINK_FLAGS = -L${READLINE_DIR}/lib -lreadline
 
 %.o: %.c
-	@make -s -C $(LIBDIR)
 	$(CC) $(CFLAGS) -c $< -o $@ $(INC_FLAGS)
 
 .PHONY: all
 all: $(NAME)
 
 $(NAME): $(OBJS)
+	@make -s -C $(LIBDIR)
 	$(CC) $(CFLAGS) -o $@ $(OBJS) $(LIB_FLAGS) $(LINK_FLAGS)
 
 .PHONY: clean
