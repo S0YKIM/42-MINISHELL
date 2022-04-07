@@ -9,6 +9,7 @@ C project to mimic the bash shell
 ## 커밋 메시지 규칙
 
 `타입 내용 (#이슈번호)` (이슈번호가 없는 경우 생략)
+
 - 내용은 영어로 작성
 - 예) Update README.md (#2)
 
@@ -22,8 +23,26 @@ C project to mimic the bash shell
 
 ## 진행 기록
 
-### 4월 4일(수)
+> 🍀 sokim | 🌙 heehkim
 
-- 레포 생성 및 진행 계획
-- 🍀 sokim: 이슈 작성 및 프로젝트 생성
-- 🌙 heehkim: README.md 작성
+### 4월 4일(월)
+
+레포 생성 및 진행 계획
+
+- 중간 점검
+  - 🍀 이슈 작성 및 프로젝트 생성
+  - 🌙 README.md 작성
+- 할일
+  - 🍀 빌트인 env, pwd 구현
+  - 🌙 환경변수 파싱 구현
+
+### 4월 7일(목)
+
+명령어 파싱 로직에 대한 논의
+
+- 중간 점검
+  - 🍀 빌트인 env, pwd 구현
+  - 🌙 환경변수 파싱 구현
+- 할일
+  - 🍀 빌트인 export 구현
+  - 🌙 토큰화 구현, AST 이해하고 구조 구상
