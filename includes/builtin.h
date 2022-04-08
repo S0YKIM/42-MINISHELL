@@ -8,6 +8,6 @@
 */
 int		ft_env(t_env *env_list);
 int		ft_pwd(void);
-int 	ft_export(char **cmds, t_env *env_list);
+int 	ft_export(char **cmds, t_data *data);
 
 #endif
