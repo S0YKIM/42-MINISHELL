@@ -6,7 +6,7 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 18:11:19 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/07 20:21:07 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/08 19:20:35 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	export_only(t_env *env_list)
 	while (curr)
 	{
 		if (curr->value)
-			printf("declare -x %s="%s"\n", curr->key, curr->value);
+			printf("declare -x %s=\"%s\"\n", curr->key, curr->value);
 		else
 			printf("declare -x %s\n", curr->key);
 		curr = curr->next;
