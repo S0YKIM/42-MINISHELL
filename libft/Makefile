@@ -2,7 +2,10 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 NAME = libft.a
 
-SRCS = ft_strdup.c ft_strlen.c ft_strlcpy.c
+SRCS = ft_strdup.c	\
+		ft_strlen.c	\
+		ft_strlcpy.c	\
+		ft_memset.c
 OBJS = $(SRCS:.c=.o)
 
 .PHONY: all
