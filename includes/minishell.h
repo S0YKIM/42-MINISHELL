@@ -9,19 +9,12 @@
 # include <readline/history.h>
 # include "libft.h"
 # include "struct.h"
+# include "parsing.h"
+# include "builtin.h"
 
 # define TRUE		1
 # define FALSE		0
 
 void	init_data(t_data *data);
-
-int		parse_env(char **envp, t_data *data);
-
-/*
- * Builtin Functions
-*/
-int		ft_env(t_env *env_list);
-int		ft_pwd(void);
-int 	ft_export(char **cmds, t_env *env_list);
 
 #endif
