@@ -6,7 +6,7 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 18:11:19 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/08 19:20:35 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/08 20:12:14 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,11 @@ static int	export_only(t_env *env_list)
 
 static int	is_valid_key_name(char *name)
 {
-	int	i;
-
 	if (!name)
 		return (FALSE);
-	if (name[0] = '=' || ft_isdigit(name[0]))
+	if (name[0] == '=' || ft_isdigit(name[0]))
 		return (FALSE);
+	return (TRUE);
 }
 
 int	ft_export(char **cmds, t_env *env_list)
@@ -44,7 +43,8 @@ int	ft_export(char **cmds, t_env *env_list)
 		return (export_only(env_list));
 	if (!is_valid_key_name(cmds[1]))
 	{
-		
+		printf("export: `123=123': not a valid identifier");
 		return (EXIT_FAILURE);
 	}
+	return (EXIT_SUCCESS);
 }
