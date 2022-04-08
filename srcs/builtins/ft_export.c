@@ -6,7 +6,7 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 18:11:19 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/08 22:32:34 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/08 22:55:42 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	ft_export(char **cmds, t_data *data)
 	if (!is_valid_key_name(key))
 	{
 		free(key);
-		printf("export: `%s`: not a valid identifier", cmds[1]);
+		printf("export: `%s`: not a valid identifier\n", cmds[1]);
 		return (EXIT_FAILURE);
 	}
 	free(key);
