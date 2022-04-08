@@ -3,7 +3,7 @@
 int	main(int argc, char **argv, char **envp)
 {
 	t_data	data;
-	// char	*command;
+	char	*command;
 
 	(void)argv;
 	if (argc != 1)
@@ -11,12 +11,12 @@ int	main(int argc, char **argv, char **envp)
 	init_data(&data);
 	if (!parse_env(envp, &data))
 		exit(EXIT_FAILURE);
-	// while (1)
-	// {
-	// 	command = readline("microshell> ");
-	// 	add_history(command);
-	// 	free(command);
-	// 	//printf("input: %s\n", command);
-	// }
+	while (1)
+	{
+		command = readline("microshell> ");
+		add_history(command);
+		printf("input: %s\n", command);
+		free(command);
+	}
 	return (0);
 }

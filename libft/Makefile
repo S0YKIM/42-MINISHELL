@@ -5,7 +5,8 @@ NAME = libft.a
 SRCS = ft_strdup.c	\
 		ft_strlen.c	\
 		ft_strlcpy.c	\
-		ft_memset.c
+		ft_memset.c	\
+		ft_isdigit.c
 OBJS = $(SRCS:.c=.o)
 
 .PHONY: all

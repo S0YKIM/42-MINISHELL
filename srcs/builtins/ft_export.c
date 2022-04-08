@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_env.c                                           :+:      :+:    :+:   */
+/*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/06 18:53:17 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/07 18:13:19 by sokim            ###   ########.fr       */
+/*   Created: 2022/04/07 18:11:19 by sokim             #+#    #+#             */
+/*   Updated: 2022/04/08 20:12:14 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_env(t_env *env_list)
+static int	export_only(t_env *env_list)
 {
 	t_env	*curr;
 
@@ -20,8 +20,31 @@ int	ft_env(t_env *env_list)
 	while (curr)
 	{
 		if (curr->value)
-			printf("%s=%s\n", curr->key, curr->value);
+			printf("declare -x %s=\"%s\"\n", curr->key, curr->value);
+		else
+			printf("declare -x %s\n", curr->key);
 		curr = curr->next;
+	}
+	return (EXIT_SUCCESS);
+}
+
+static int	is_valid_key_name(char *name)
+{
+	if (!name)
+		return (FALSE);
+	if (name[0] == '=' || ft_isdigit(name[0]))
+		return (FALSE);
+	return (TRUE);
+}
+
+int	ft_export(char **cmds, t_env *env_list)
+{
+	if (!cmds[1])
+		return (export_only(env_list));
+	if (!is_valid_key_name(cmds[1]))
+	{
+		printf("export: `123=123': not a valid identifier");
+		return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);
 }
