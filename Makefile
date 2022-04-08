@@ -8,9 +8,10 @@ D_BUILTIN = builtins/
 D_PARSING = parsing/
 SRC_LIST = main.c	\
 			init.c	\
-			$(D_BUILTIN)ft_env.c	\
+			$(D_BUILTIN)ft_env.c \
+			$(D_BUILTIN)ft_pwd.c \
+			$(D_BUILTIN)ft_export.c \
 			$(D_PARSING)env.c
-			# $(D_BUILTIN)ft_pwd.c
 SRCS = $(addprefix $(SRCDIR), $(SRC_LIST))
 OBJS = $(SRCS:.c=.o)
 
@@ -22,8 +23,8 @@ ifeq ($(MODE), EVAL)
 	READLINE_DIR= ${HOME}/.brew/Cellar/readline/8.1.2
 else ifeq ($(MODE), HEEHKIM)
 	READLINE_DIR = /opt/homebrew/opt/readline
-# else ifeq ($(MODE), SOKIM)
-# 	READLINE_DIR = /usr/local/opt/readline/include
+else ifeq ($(MODE), SOKIM)
+ 	READLINE_DIR = /opt/homebrew/Cellar/readline/8.1.2
 endif
 
 INC_FLAGS = -I includes -I libft
