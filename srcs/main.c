@@ -3,7 +3,7 @@
 int	main(int argc, char **argv, char **envp)
 {
 	t_data	data;
-	char	*command;
+	char	*line;
 
 	(void)argv;
 	if (argc != 1)
@@ -13,10 +13,13 @@ int	main(int argc, char **argv, char **envp)
 		exit(EXIT_FAILURE);
 	while (1)
 	{
-		command = readline("microshell> ");
-		add_history(command);
-		printf("input: %s\n", command);
-		free(command);
+		line = readline("microshell> ");
+		if (!line)
+			continue ;
+		add_history(line);
+		tokenize(&data, line);
+		free(line);
+		free_token_list(&data);
 	}
 	return (0);
 }
