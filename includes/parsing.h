@@ -6,7 +6,7 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 19:17:43 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/08 21:23:29 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/08 22:32:23 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 
 int		add_env_node(t_data *data, char *env);
 int		parse_env(char **envp, t_data *data);
-void	tokenize(char *line, t_data *data);
+int		tokenize(t_data *data, char *line);
+void	free_token_list(t_data *data);
 
 #endif
