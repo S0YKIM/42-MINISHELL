@@ -10,7 +10,7 @@ typedef struct s_env
 
 typedef struct s_token
 {
-	char 			*data;
+	char			*data;
 	struct s_token	*next;
 }	t_token;
 
