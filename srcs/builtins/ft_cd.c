@@ -6,7 +6,7 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 12:19:46 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/10 14:16:49 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/10 14:31:05 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	ft_cd(char **cmds, t_data *data)
 		return (change_directory("~", data));
 	ret = change_directory(cmds[1], data);
 	if (ret == EXIT_FAILURE)
-		printf("bash: cd: %s: No such file or directory\n", cmds[1]);
+		printf("cd: %s: No such file or directory\n", cmds[1]);
 	else
 	{
 		getcwd(pwd, 1024);
