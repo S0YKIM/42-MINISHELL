@@ -12,6 +12,7 @@ SRC_LIST = main.c \
 			$(D_BUILTIN)ft_env.c \
 			$(D_BUILTIN)ft_pwd.c \
 			$(D_BUILTIN)ft_export.c \
+			$(D_BUILTIN)ft_cd.c \
 			$(D_PARSING)env.c \
 			$(D_ENV)get.c \
 			$(D_ENV)update.c \
@@ -22,7 +23,7 @@ OBJS = $(SRCS:.c=.o)
 LIBDIR = libft/
 LIB_FLAGS = -L$(LIBDIR) -lft
 
-MODE = SOKIM
+MODE = EVAL
 ifeq ($(MODE), EVAL)
 	READLINE_DIR= ${HOME}/.brew/Cellar/readline/8.1.2
 else ifeq ($(MODE), HEEHKIM)
