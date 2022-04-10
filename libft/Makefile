@@ -11,7 +11,8 @@ SRCS = ft_strdup.c \
 		ft_calloc.c \
 		ft_strchr.c \
 		ft_substr.c \
-		ft_isspace.c
+		ft_isspace.c \
+		ft_strncmp.c
 OBJS = $(SRCS:.c=.o)
 
 .PHONY: all
