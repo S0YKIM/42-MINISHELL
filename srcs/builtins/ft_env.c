@@ -6,17 +6,17 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 18:53:17 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/10 14:40:42 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/10 15:27:03 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_env(t_env *env_list)
+int	ft_env(t_data *data)
 {
 	t_env	*curr;
 
-	curr = env_list;
+	curr = data->env_list;
 	while (curr)
 	{
 		if (!ft_strncmp(curr->key, "?", 1))
