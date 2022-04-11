@@ -6,7 +6,7 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 19:17:43 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/11 22:30:27 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/11 22:38:15 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,6 @@ void	free_env_list(t_data *data);
 int		tokenize(t_data *data, char *line);
 void	free_token_list(t_data *data);
 int		trim_token(t_data *data);
+int		expand_env(t_data *data);
 
 #endif
