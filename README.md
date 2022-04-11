@@ -46,3 +46,16 @@ C project to mimic the bash shell
 - 할일
   - 🍀 빌트인 export 구현
   - 🌙 토큰화 구현, AST 이해하고 구조 구상
+
+### 4월 11일(월)
+
+진행 상황 점검 및 코드 리뷰
+
+- 중간 점검
+  - 🍀 빌트인 export, cd 구현
+  - 🌙 토큰화 구현 (WIP), AST 이해 및 구조 구상
+- 할일
+  - 🍀 빌트인 unset, exit 구현
+  - 🌙 토큰화 구현 완성, AST 구현
+
+
