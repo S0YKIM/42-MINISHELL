@@ -6,7 +6,7 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 19:11:57 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/09 14:44:03 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/11 21:57:34 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,15 @@ void	free_token_list(t_data *data)
 	data->token_list = NULL;
 }
 
-int	add_token_node(t_data *data, char *token)
+static int	add_token_node(t_data *data, char *token)
 {
 	t_token	*new;
 	t_token	*curr;
 
-	new = (t_token *)malloc(sizeof(t_token));
+	new = (t_token *)ft_calloc(1, sizeof(t_token));
 	if (!new)
 		return (FALSE);
 	new->data = token;
-	new->next = NULL;
 	if (!data->token_list)
 		data->token_list = new;
 	else
@@ -63,7 +62,7 @@ int	add_token_node(t_data *data, char *token)
 	return (TRUE);
 }
 
-char	*find_end(char *start)
+static char	*find_end(char *start)
 {
 	char	*end;
 	char	*tmp;
@@ -114,6 +113,7 @@ int	tokenize(t_data *data, char *line)
 			start = end + 1;
 		}
 	}
+	trim_token(data);
 	// display_token_list(data);
 	return (TRUE);
 }
