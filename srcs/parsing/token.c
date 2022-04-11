@@ -6,7 +6,7 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 19:11:57 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/11 21:57:34 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/11 22:40:11 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,8 @@ int	tokenize(t_data *data, char *line)
 			start = end + 1;
 		}
 	}
-	trim_token(data);
+	if (!trim_token(data))
+		return (FALSE);
 	// display_token_list(data);
 	return (TRUE);
 }
