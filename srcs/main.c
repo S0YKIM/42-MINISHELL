@@ -17,7 +17,10 @@ int	main(int argc, char **argv, char **envp)
 		if (!line)
 			continue ;
 		add_history(line);
-		tokenize(&data, line);
+		if (!tokenize(&data, line))
+			exit(EXIT_FAILURE);
+		if (expand_env(&data))
+			exit(EXIT_FAILURE);
 		free(line);
 		free_token_list(&data);
 	}
