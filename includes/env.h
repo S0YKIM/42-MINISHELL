@@ -1,29 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_env.c                                           :+:      :+:    :+:   */
+/*   env.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/06 18:53:17 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/10 15:27:03 by sokim            ###   ########.fr       */
+/*   Created: 2022/04/10 13:34:53 by sokim             #+#    #+#             */
+/*   Updated: 2022/04/10 13:43:40 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef ENV_H
+# define ENV_H
 
-int	ft_env(t_data *data)
-{
-	t_env	*curr;
+#include "struct.h"
 
-	curr = data->env_list;
-	while (curr)
-	{
-		if (!ft_strncmp(curr->key, "?", 1))
-			;
-		else if (curr->value)
-			printf("%s=%s\n", curr->key, curr->value);
-		curr = curr->next;
-	}
-	return (EXIT_SUCCESS);
-}
+int		update_env(t_data *data, char *key, char *value);
+char	*get_env_value(t_data *data, char *key);
+
+#endif

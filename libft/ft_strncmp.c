@@ -1,29 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_env.c                                           :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/06 18:53:17 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/10 15:27:03 by sokim            ###   ########.fr       */
+/*   Created: 2022/04/10 12:27:14 by sokim             #+#    #+#             */
+/*   Updated: 2022/04/10 12:27:23 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	ft_env(t_data *data)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	t_env	*curr;
+	size_t			i;
+	unsigned char	*str1;
+	unsigned char	*str2;
 
-	curr = data->env_list;
-	while (curr)
+	str1 = (unsigned char *)s1;
+	str2 = (unsigned char *)s2;
+	i = 0;
+	while (n--)
 	{
-		if (!ft_strncmp(curr->key, "?", 1))
-			;
-		else if (curr->value)
-			printf("%s=%s\n", curr->key, curr->value);
-		curr = curr->next;
+		if (str1[i] != str2[i] || !str1[i] || !str2[i])
+			return (str1[i] - str2[i]);
+		++i;
 	}
-	return (EXIT_SUCCESS);
+	return (0);
 }

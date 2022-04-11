@@ -11,6 +11,7 @@
 # include "struct.h"
 # include "parsing.h"
 # include "builtin.h"
+# include "env.h"
 
 # define TRUE		1
 # define FALSE		0

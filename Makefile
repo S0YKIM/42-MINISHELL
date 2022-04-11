@@ -6,13 +6,17 @@ CFLAGS = -Wall -Wextra -Werror
 SRCDIR = srcs/
 D_BUILTIN = builtins/
 D_PARSING = parsing/
+D_ENV = env/
 SRC_LIST = main.c \
 			init.c \
 			$(D_BUILTIN)ft_env.c \
 			$(D_BUILTIN)ft_pwd.c \
 			$(D_BUILTIN)ft_export.c \
+			$(D_BUILTIN)ft_cd.c \
 			$(D_PARSING)env.c \
-			$(D_PARSING)token.c
+			$(D_ENV)get.c \
+			$(D_ENV)update.c \
+			#$(D_PARSING)token.c
 SRCS = $(addprefix $(SRCDIR), $(SRC_LIST))
 OBJS = $(SRCS:.c=.o)
 
