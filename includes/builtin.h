@@ -17,6 +17,5 @@ int		ft_unset(char **cmds, t_data *data);
  * Util Functions
 */
 int		is_valid_key_name(char *key);
-int		print_error_msg(char **cmds);
 
 #endif
