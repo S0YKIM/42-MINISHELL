@@ -6,19 +6,27 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 21:40:15 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/11 21:51:13 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/12 23:09:03 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	trim_quote(t_token *curr, char *start, char *end, int *len)
+static char	*find_quote(char *str, int *len)
+{
+	while (*str && *str != '\"' && *str != '\'')
+	{
+		str++;
+		(*len)++;
+	}
+	return (str);
+}
+
+static int	remove_quote(t_token *curr, char *start, char *end, int *len)
 {
 	char	*head;
 	char	*new_token;
 
-	if (*start == '\'')
-		curr->no_expand = TRUE;
 	*start = '\0';
 	*end = '\0';
 	*len += ft_strlen(start + 1);
@@ -34,40 +42,40 @@ static int	trim_quote(t_token *curr, char *start, char *end, int *len)
 	return (TRUE);
 }
 
-static char	*find_quote(char *str, int *len)
+static int	trim_quote(t_token *curr)
 {
-	while (*str && *str != '\"' && *str != '\'')
+	char	*start;
+	char	*end;
+	int		len;
+
+	len = 0;
+	start = curr->data;
+	while (*start)
 	{
-		str++;
-		(*len)++;
+		start = find_quote(start, &len);
+		if (!*start)
+			break ;
+		end = ft_strchr(start + 1, *start);
+		if (!end)
+			break ;
+		if (!remove_quote(curr, start, end, &len))
+			return (FALSE);
+		start = curr->data + len;
 	}
-	return (str);
+	return (TRUE);
 }
 
 int	trim_token(t_data *data)
 {
 	t_token	*curr;
-	char	*start;
-	char	*end;
-	int		len;
 
 	curr = data->token_list;
 	while (curr)
 	{
-		len = 0;
-		start = curr->data;
-		while (*start)
-		{
-			start = find_quote(start, &len);
-			if (!*start)
-				break ;
-			end = ft_strchr(start + 1, *start);
-			if (!end)
-				break ;
-			if (!trim_quote(curr, start, end, &len))
-				return (FALSE);
-			start = curr->data + len;
-		}
+		if (!expand_env(data, curr))
+			return (FALSE);
+		if (!trim_quote(curr))
+			return (FALSE);
 		curr = curr->next;
 	}
 	return (TRUE);

@@ -11,7 +11,7 @@ typedef struct s_env
 typedef struct s_token
 {
 	char			*data;
-	int				no_expand;
+	int				is_word;
 	struct s_token	*next;
 }	t_token;
 
