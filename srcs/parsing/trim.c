@@ -6,13 +6,23 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 21:40:15 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/12 17:45:07 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/12 23:09:03 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	trim_quote(t_token *curr, char *start, char *end, int *len)
+static char	*find_quote(char *str, int *len)
+{
+	while (*str && *str != '\"' && *str != '\'')
+	{
+		str++;
+		(*len)++;
+	}
+	return (str);
+}
+
+static int	remove_quote(t_token *curr, char *start, char *end, int *len)
 {
 	char	*head;
 	char	*new_token;
@@ -32,17 +42,7 @@ static int	trim_quote(t_token *curr, char *start, char *end, int *len)
 	return (TRUE);
 }
 
-char	*find_quote(char *str, int *len)
-{
-	while (*str && *str != '\"' && *str != '\'')
-	{
-		str++;
-		(*len)++;
-	}
-	return (str);
-}
-
-static int	sub_trim_token(t_data *data, t_token *curr)
+static int	trim_quote(t_token *curr)
 {
 	char	*start;
 	char	*end;
@@ -58,13 +58,7 @@ static int	sub_trim_token(t_data *data, t_token *curr)
 		end = ft_strchr(start + 1, *start);
 		if (!end)
 			break ;
-		if (*start != '\'' && ft_strchr(start + 1, '$'))
-		{
-			len = expand_env(data, curr, &start, &end);
-			if (len == ERROR)
-				return (FALSE);
-		}
-		if (!trim_quote(curr, start, end, &len))
+		if (!remove_quote(curr, start, end, &len))
 			return (FALSE);
 		start = curr->data + len;
 	}
@@ -78,7 +72,9 @@ int	trim_token(t_data *data)
 	curr = data->token_list;
 	while (curr)
 	{
-		if (!sub_trim_token(data, curr))
+		if (!expand_env(data, curr))
+			return (FALSE);
+		if (!trim_quote(curr))
 			return (FALSE);
 		curr = curr->next;
 	}
