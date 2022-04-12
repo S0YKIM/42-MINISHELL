@@ -6,7 +6,7 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 18:11:19 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/12 22:19:25 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/13 00:00:47 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,32 +71,31 @@ static char	*get_value(char *str)
 	return (NULL);
 }
 
-static int	is_valid_key_name(char *key)
-{
-	if (!key || !key[0])
-		return (FALSE);
-	if (ft_isdigit(key[0]))
-		return (FALSE);
-	if (ft_strchr(key, '?'))
-		return (FALSE);
-	return (TRUE);
-}
-
 int	ft_export(char **cmds, t_data *data)
 {
 	char	*key;
 	char	*value;
+	int		i;
+	int		ret;
 
 	if (!cmds[1])
 		return (export_only(data->env_list));
-	key = get_key_name(cmds[1]);
-	if (!is_valid_key_name(key))
+	i = 0;
+	while (cmds[++i])
 	{
+		key = get_key_name(cmds[i]);
+		if (!is_valid_key_name(key))
+		{
+			printf("export: `%s': not a valid identifier\n", cmds[1]);
+			ret = FAILURE;
+		}
+		else
+		{
+			value = get_value(cmds[1]);
+			update_env(data, key, value);
+			ret = SUCCESS;
+		}
 		free(key);
-		printf("export: `%s`: not a valid identifier\n", cmds[1]);
-		return (FAILURE);
 	}
-	value = get_value(cmds[1]);
-	update_env(data, key, value);
-	return (SUCCESS);
+	return (ret);
 }
