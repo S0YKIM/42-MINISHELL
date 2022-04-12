@@ -6,7 +6,7 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 19:11:57 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/11 22:40:11 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/12 17:50:40 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 // 	curr = data->token_list;
 // 	while (curr)
 // 	{
-// 		printf("token: %s\n", curr->data);
+// 		printf("token: %s | %d\n", curr->data, curr->is_word);
 // 		curr = curr->next;
 // 	}
 // }
@@ -50,6 +50,8 @@ static int	add_token_node(t_data *data, char *token)
 	if (!new)
 		return (FALSE);
 	new->data = token;
+	if (!ft_strchr("<>|", *token))
+		new->is_word = TRUE;
 	if (!data->token_list)
 		data->token_list = new;
 	else
