@@ -1,30 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.h                                              :+:      :+:    :+:   */
+/*   remove.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/10 13:34:53 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/13 02:12:27 by sokim            ###   ########.fr       */
+/*   Created: 2022/04/13 02:00:18 by sokim             #+#    #+#             */
+/*   Updated: 2022/04/13 02:10:16 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ENV_H
-# define ENV_H
+#include "minishell.h"
 
-#include "struct.h"
-
-/*
- * Change envrionment variables
-*/
-int		update_env(t_data *data, char *key, char *value);
-int		remove_node(t_env *node);
-
-/*
- * Search environment variables list
-*/
-t_env	*get_node_with_key(t_data *data, char *key);
-char	*get_env_value_with_key(t_data *data, char *key);
-
-#endif
+int	remove_node(t_env *node)
+{
+	if (node->prev)
+		node->prev->next = node->next;
+	if (node->next)
+		node->next->prev = node->prev;
+	free(node->key);
+	free(node->value);
+	free(node);
+}
