@@ -6,7 +6,7 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 13:42:35 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/12 22:23:31 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/12 22:55:30 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,5 @@ char	*get_env_value_with_key(t_data *data, char *key)
 			return (ft_strdup(curr->value));
 		curr = curr->next;
 	}
-	return (NULL);
+	return (ft_strdup(""));
 }
