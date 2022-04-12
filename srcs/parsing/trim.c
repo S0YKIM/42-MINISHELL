@@ -6,7 +6,7 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 21:40:15 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/11 21:51:13 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/12 17:45:07 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ static int	trim_quote(t_token *curr, char *start, char *end, int *len)
 	char	*head;
 	char	*new_token;
 
-	if (*start == '\'')
-		curr->no_expand = TRUE;
 	*start = '\0';
 	*end = '\0';
 	*len += ft_strlen(start + 1);
@@ -34,7 +32,7 @@ static int	trim_quote(t_token *curr, char *start, char *end, int *len)
 	return (TRUE);
 }
 
-static char	*find_quote(char *str, int *len)
+char	*find_quote(char *str, int *len)
 {
 	while (*str && *str != '\"' && *str != '\'')
 	{
@@ -44,30 +42,44 @@ static char	*find_quote(char *str, int *len)
 	return (str);
 }
 
-int	trim_token(t_data *data)
+static int	sub_trim_token(t_data *data, t_token *curr)
 {
-	t_token	*curr;
 	char	*start;
 	char	*end;
 	int		len;
 
+	len = 0;
+	start = curr->data;
+	while (*start)
+	{
+		start = find_quote(start, &len);
+		if (!*start)
+			break ;
+		end = ft_strchr(start + 1, *start);
+		if (!end)
+			break ;
+		if (*start != '\'' && ft_strchr(start + 1, '$'))
+		{
+			len = expand_env(data, curr, &start, &end);
+			if (len == ERROR)
+				return (FALSE);
+		}
+		if (!trim_quote(curr, start, end, &len))
+			return (FALSE);
+		start = curr->data + len;
+	}
+	return (TRUE);
+}
+
+int	trim_token(t_data *data)
+{
+	t_token	*curr;
+
 	curr = data->token_list;
 	while (curr)
 	{
-		len = 0;
-		start = curr->data;
-		while (*start)
-		{
-			start = find_quote(start, &len);
-			if (!*start)
-				break ;
-			end = ft_strchr(start + 1, *start);
-			if (!end)
-				break ;
-			if (!trim_quote(curr, start, end, &len))
-				return (FALSE);
-			start = curr->data + len;
-		}
+		if (!sub_trim_token(data, curr))
+			return (FALSE);
 		curr = curr->next;
 	}
 	return (TRUE);
