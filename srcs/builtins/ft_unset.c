@@ -6,7 +6,7 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 23:27:30 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/13 02:34:24 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/13 02:44:21 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,10 @@ int	ft_unset(char **cmds, t_data *data)
 		}
 		else
 		{
-			if (node = get_node_with_key(data, cmds[i]))
-			{
+			node = get_node_with_key(data, cmds[i]);
+			if (node)
 				remove_node(node);
-				ret = SUCCESS;
-			}
-			else
-				ret = SUCCESS;
+			ret = SUCCESS;
 		}
 	}
 	return (ret);
