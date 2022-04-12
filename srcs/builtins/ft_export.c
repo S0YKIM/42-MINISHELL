@@ -6,7 +6,7 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 18:11:19 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/12 21:54:04 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/12 22:19:25 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,25 @@ static char	*get_key_name(char *str)
 	return (key);
 }
 
+static char	*get_value(char *str)
+{
+	char	*value;
+	int		i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '=')
+		{
+			i++;
+			value = ft_strdup(str);
+			return (value);
+		}
+		i++;
+	}
+	return (NULL);
+}
+
 static int	is_valid_key_name(char *key)
 {
 	if (!key || !key[0])
@@ -66,6 +85,7 @@ static int	is_valid_key_name(char *key)
 int	ft_export(char **cmds, t_data *data)
 {
 	char	*key;
+	char	*value;
 
 	if (!cmds[1])
 		return (export_only(data->env_list));
@@ -76,7 +96,7 @@ int	ft_export(char **cmds, t_data *data)
 		printf("export: `%s`: not a valid identifier\n", cmds[1]);
 		return (FAILURE);
 	}
-	free(key);
-	add_env_node(data, cmds[1]);
+	value = get_value(cmds[1]);
+	update_env(data, key, value);
 	return (SUCCESS);
 }
