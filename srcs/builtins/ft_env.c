@@ -6,7 +6,7 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 18:53:17 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/10 15:27:03 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/12 21:42:26 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,13 @@ int	ft_env(t_data *data)
 	while (curr)
 	{
 		if (!ft_strncmp(curr->key, "?", 1))
-			;
+		{
+			curr = curr->next;
+			continue ;
+		}
 		else if (curr->value)
 			printf("%s=%s\n", curr->key, curr->value);
 		curr = curr->next;
 	}
-	return (EXIT_SUCCESS);
+	return (SUCCESS);
 }
