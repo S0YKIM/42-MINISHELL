@@ -6,13 +6,13 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 13:08:27 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/10 13:54:55 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/12 22:19:17 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static t_env	*add_new_env_node(char *key, char *value)
+t_env	*add_new_env_node(char *key, char *value)
 {
 	t_env	*new;
 
@@ -22,6 +22,8 @@ static t_env	*add_new_env_node(char *key, char *value)
 	new->key = ft_strdup(key);
 	new->value = ft_strdup(value);
 	new->next = NULL;
+	free(key);
+	free(value);
 	return (new);
 }
 
@@ -38,8 +40,6 @@ int	update_env(t_data *data, char *key, char *value)
 			tmp = curr->value;
 			curr->value = ft_strdup(value);
 			free(tmp);
-			if (!curr->value)
-				return (EXIT_FAILURE);
 			break ;
 		}
 		curr = curr->next;
@@ -48,7 +48,7 @@ int	update_env(t_data *data, char *key, char *value)
 	{
 		curr = add_new_env_node(key, value);
 		if (!curr)
-			return (EXIT_FAILURE);
+			return (FAILURE);
 	}
-	return (EXIT_SUCCESS);
+	return (SUCCESS);
 }
