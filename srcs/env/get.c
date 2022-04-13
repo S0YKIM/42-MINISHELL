@@ -6,7 +6,7 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 13:42:35 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/13 00:13:45 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/13 17:00:24 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_env	*get_node_with_key(t_data *data, char *key)
 	return (NULL);
 }
 
-char	*get_env_value_with_key(t_data *data, char *key)
+char	*get_env_value(t_data *data, char *key)
 {
 	t_env	*curr;
 
