@@ -6,7 +6,7 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 13:34:53 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/13 16:57:33 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/13 17:10:45 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,6 @@ void	remove_node(t_env *node);
  * Search environment variables list
 */
 t_env	*get_node_with_key(t_data *data, char *key);
-char	*get_env_value_with_key(t_data *data, char *key);
+char	*get_env_value(t_data *data, char *key);
 
 #endif
