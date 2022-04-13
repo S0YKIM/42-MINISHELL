@@ -35,7 +35,7 @@ ifeq ($(MODE), EVAL)
 else ifeq ($(MODE), HEEHKIM)
 	READLINE_DIR = /opt/homebrew/opt/readline
 else ifeq ($(MODE), SOKIM)
- 	READLINE_DIR = /opt/homebrew/Cellar/readline/8.1.2
+	READLINE_DIR = /opt/homebrew/Cellar/readline/8.1.2
 endif
 
 INC_FLAGS = -I includes -I libft
@@ -66,7 +66,8 @@ re: fclean all
 
 .PHONY: debug
 debug:
-	$(CC) $(CFLAGS) -g -o $(NAME) $(SRCS) $(INC_FLAGS)
+	@make -s -C $(LIBDIR)
+	$(CC) $(CFLAGS) -g -o $(NAME) $(SRCS) $(INC_FLAGS) $(LIB_FLAGS) $(LINK_FLAGS)
 
 .PHONY: leak
 leak:
