@@ -7,4 +7,9 @@
 # define SUCCESS	0
 # define FAILURE	1
 
+# define T_CMD	0
+# define T_RDR	1
+# define T_PL	2
+# define T_PIPE	3
+
 #endif
