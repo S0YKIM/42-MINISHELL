@@ -6,7 +6,7 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 12:19:46 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/12 23:01:24 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/13 17:16:48 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ static int	change_directory(char *path, t_data *data)
 	int		ret;
 
 	if (!ft_strncmp(path, "~", 1))
-		dir = (get_env_value_with_key(data, "HOME"));
+		dir = (get_env_value(data, "HOME"));
 	else if (!ft_strncmp(path, "-", 1))
-		dir = (get_env_value_with_key(data, "OLDPWD"));
+		dir = (get_env_value(data, "OLDPWD"));
 	else
 		dir = ft_strdup(path);
 	if (!dir)
@@ -43,7 +43,7 @@ int	ft_cd(char **cmds, t_data *data)
 	else
 	{
 		getcwd(pwd, 1024);
-		if (update_env(data, "OLDPWD", get_env_value_with_key(data, "PWD")) == EXIT_FAILURE)
+		if (update_env(data, "OLDPWD", get_env_value(data, "PWD")) == EXIT_FAILURE)
 			return (FAILURE);
 		if (update_env(data, "PWD", pwd) == FAILURE)
 			return (FAILURE);
