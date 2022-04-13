@@ -6,7 +6,7 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 23:38:55 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/13 02:49:58 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/13 19:04:03 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int	is_valid_key_name(char *key)
 	if (ft_isdigit(key[0]))
 		return (FALSE);
 	if (ft_strchr(key, '?'))
+		return (FALSE);
+	if (key[0] == '_')
 		return (FALSE);
 	return (TRUE);
 }
