@@ -6,7 +6,7 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 18:11:19 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/13 00:00:47 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/13 17:10:14 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static char	*get_key_name(char *str)
 	return (key);
 }
 
-static char	*get_value(char *str)
+static char	*get_value_in_arg(char *str)
 {
 	char	*value;
 	int		i;
@@ -91,7 +91,7 @@ int	ft_export(char **cmds, t_data *data)
 		}
 		else
 		{
-			value = get_value(cmds[1]);
+			value = get_value_in_arg(cmds[1]);
 			update_env(data, key, value);
 			ret = SUCCESS;
 		}
