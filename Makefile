@@ -17,6 +17,7 @@ SRC_LIST = main.c \
 			$(D_BUILTIN)utils.c \
 			$(D_ENV)get.c \
 			$(D_ENV)update.c \
+			$(D_ENV)remove.c \
 			$(D_PARSING)env.c \
 			$(D_PARSING)token.c \
 			$(D_PARSING)trim.c \
