@@ -19,8 +19,11 @@ int	main(int argc, char **argv, char **envp)
 		add_history(line);
 		if (!tokenize(&data, line))
 			exit(EXIT_FAILURE);
+		if (!create_astree(&data))
+			exit(EXIT_FAILURE);
 		free(line);
 		free_token_list(&data);
+		free_astree(&data, data.astree);
 	}
 	return (0);
 }
