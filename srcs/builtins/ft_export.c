@@ -6,7 +6,7 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 18:11:19 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/13 18:52:16 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/13 19:21:37 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int	ft_export(char **cmds, t_data *data)
 			printf("export: `%s': not a valid identifier\n", cmds[1]);
 			ret = FAILURE;
 		}
-		else
+		else if (*key != '_')
 		{
 			value = get_value_in_arg(cmds[1]);
 			if (!update_env(data, key, value))
