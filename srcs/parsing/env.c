@@ -6,7 +6,7 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 18:51:17 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/11 22:31:28 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/13 16:55:40 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,39 +67,22 @@ static int	set_key_value(char *env, char **key, char **value)
 	return (TRUE);
 }
 
-int	add_env_node(t_data *data, char *env)
-{
-	t_env	*new;
-	t_env	*curr;
-
-	new = (t_env *)malloc(sizeof(t_env));
-	if (!new)
-		return (FALSE);
-	set_key_value(env, &new->key, &new->value);
-	new->next = NULL;
-	if (!data->env_list)
-		data->env_list = new;
-	else
-	{
-		curr = data->env_list;
-		while (curr->next)
-			curr = curr->next;
-		curr->next = new;
-	}
-	return (TRUE);
-}
-
 int	parse_env(char **envp, t_data *data)
 {
 	int		i;
+	char	*key;
+	char	*value;
 
 	i = 0;
 	while (envp && envp[i])
 	{
-		if (!add_env_node(data, envp[i]))
+		if (set_key_value(envp[i], &key, &value))
 		{
-			free_env_list(data);
-			return (FALSE);
+			if (!update_env(data, key, value))
+			{
+				free_env_list(data);
+				return (FALSE);
+			}
 		}
 		i++;
 	}
