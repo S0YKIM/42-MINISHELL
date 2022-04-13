@@ -6,7 +6,7 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 12:19:46 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/13 17:16:48 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/13 18:44:38 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	change_directory(char *path, t_data *data)
 	else
 		dir = ft_strdup(path);
 	if (!dir)
-		return (FAILURE);
+		return (FALSE);
 	ret = chdir(dir);
 	free(dir);
 	return (ret);
@@ -39,14 +39,14 @@ int	ft_cd(char **cmds, t_data *data)
 		return (change_directory("~", data));
 	ret = change_directory(cmds[1], data);
 	if (ret == FAILURE)
-		printf("cd: %s: No such file or directory\n", cmds[1]);
-	else
 	{
-		getcwd(pwd, 1024);
-		if (update_env(data, "OLDPWD", get_env_value(data, "PWD")) == EXIT_FAILURE)
-			return (FAILURE);
-		if (update_env(data, "PWD", pwd) == FAILURE)
-			return (FAILURE);
+		printf("cd: %s: No such file or directory\n", cmds[1]);
+		return (FAILURE);
 	}
-	return (ret);
+	getcwd(pwd, 1024);
+	if (!(update_env(data, "OLDPWD", get_env_value(data, "PWD"))))
+		return (FAILURE);
+	if (!(update_env(data, "PWD", pwd)))
+		return (FAILURE);
+	return (SUCCESS);
 }
