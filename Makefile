@@ -21,7 +21,8 @@ SRC_LIST = main.c \
 			$(D_PARSING)env.c \
 			$(D_PARSING)token.c \
 			$(D_PARSING)trim.c \
-			$(D_PARSING)expand.c
+			$(D_PARSING)expand.c \
+			$(D_PARSING)ast.c
 SRCS = $(addprefix $(SRCDIR), $(SRC_LIST))
 OBJS = $(SRCS:.c=.o)
 
