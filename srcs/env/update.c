@@ -6,7 +6,7 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 13:08:27 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/13 17:31:07 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/13 18:24:35 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,13 @@ static int	change_value(t_env **curr, char *key, char *value)
 			tmp = (*curr)->value;
 			(*curr)->value = ft_strdup(value);
 			free(tmp);
-			return (SUCCESS);
+			return (TRUE);
 		}
 		if (!(*curr)->next)
 			break ;
 		*curr = (*curr)->next;
 	}
-	return (FAILURE);
+	return (FALSE);
 }
 
 int	update_env(t_data *data, char *key, char *value)
@@ -55,15 +55,15 @@ int	update_env(t_data *data, char *key, char *value)
 	{
 		data->env_list = create_new_env_node(key, value, NULL);
 		if (!data->env_list)
-			return (FAILURE);
+			return (FALSE);
 	}
-	else if (change_value(&curr, key, value) == SUCCESS)
-		return (SUCCESS);
+	else if (change_value(&curr, key, value) == TRUE)
+		return (TRUE);
 	else
 	{
 		curr->next = create_new_env_node(key, value, curr);
 		if (!curr->next)
-			return (FAILURE);
+			return (FALSE);
 	}
-	return (SUCCESS);
+	return (TRUE);
 }
