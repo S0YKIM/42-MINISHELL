@@ -6,28 +6,28 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 22:36:12 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/12 23:15:54 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/13 19:34:05 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	*expand_value(t_data *data, char **ks, char **ke)
+static char	*expand_value(t_data *data, char **key_start, char **key_end)
 {
 	char	*key;
 	char	*value;
 
-	(*ks)++;
-	*ke = *ks;
-	while (**ke)
+	(*key_start)++;
+	*key_end = *key_start;
+	while (**key_end)
 	{
-		if (!*(*ke + 1) || ft_strchr("$\'\"", *(*ke + 1)))
+		if (!*(*key_end + 1) || ft_strchr("$\'\"", *(*key_end + 1)))
 			break ;
-		(*ke)++;
+		(*key_end)++;
 	}
-	if (*ke == *ks)
+	if (*key_end == *key_start)
 		return (ft_strdup("$"));
-	key = ft_substr(*ks, 0, *ke - *ks + 1);
+	key = ft_substr(*key_start, 0, *key_end - *key_start + 1);
 	if (!key)
 		return (NULL);
 	value = get_env_value(data, key);
