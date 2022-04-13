@@ -6,7 +6,7 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 18:11:19 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/13 17:10:14 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/13 18:52:16 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ int	ft_export(char **cmds, t_data *data)
 	if (!cmds[1])
 		return (export_only(data->env_list));
 	i = 0;
+	ret = SUCCESS;
 	while (cmds[++i])
 	{
 		key = get_key_name(cmds[i]);
@@ -92,10 +93,11 @@ int	ft_export(char **cmds, t_data *data)
 		else
 		{
 			value = get_value_in_arg(cmds[1]);
-			update_env(data, key, value);
-			ret = SUCCESS;
+			if (!update_env(data, key, value))
+				ret = FAILURE;
 		}
 		free(key);
+		free(value);
 	}
 	return (ret);
 }
