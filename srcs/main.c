@@ -23,7 +23,8 @@ int	main(int argc, char **argv, char **envp)
 			exit(EXIT_FAILURE);
 		free(line);
 		free_token_list(&data);
-		free_astree(&data, data.astree);
+		free_astree(data.astree);
+		data.astree = NULL;
 	}
 	return (0);
 }
