@@ -6,7 +6,7 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 21:23:07 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/14 21:27:00 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/14 21:57:49 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	free_astree(t_ast *ast)
 	free_astree(ast->left);
 	free_astree(ast->right);
 	i = 0;
-	while ((ast->argv)[i])
+	while (i < ast->argc)
 		free((ast->argv)[i++]);
 	free(ast->argv);
 	free(ast);
