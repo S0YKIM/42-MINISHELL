@@ -19,6 +19,7 @@ typedef struct s_token
 typedef struct s_ast
 {
 	char			*token;
+	int				argc;
 	char			**argv;
 	int				type;
 	struct s_ast	*left;
