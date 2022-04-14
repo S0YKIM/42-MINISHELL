@@ -24,6 +24,7 @@ SRC_LIST = main.c \
 			$(D_PARSING)expand.c \
 			$(D_PARSING)ast.c \
 			$(D_PARSING)ast_add.c \
+			$(D_PARSING)ast_simplify.c \
 			$(D_UTIL)init.c \
 			$(D_UTIL)free.c
 SRCS = $(addprefix $(SRCDIR), $(SRC_LIST))
