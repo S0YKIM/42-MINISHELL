@@ -9,11 +9,10 @@
 # include <readline/history.h>
 # include "libft.h"
 # include "struct.h"
-# include "parsing.h"
+# include "macro.h"
 # include "builtin.h"
 # include "env.h"
-# include "macro.h"
-
-void	init_data(t_data *data);
+# include "parsing.h"
+# include "util.h"
 
 #endif
