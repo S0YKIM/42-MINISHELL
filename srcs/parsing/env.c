@@ -6,7 +6,7 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 18:51:17 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/13 17:04:04 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/14 21:26:13 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,23 +24,6 @@
 // 		curr = curr->next;
 // 	}
 // }
-
-void	free_env_list(t_data *data)
-{
-	t_env	*curr;
-	t_env	*next;
-
-	curr = data->env_list;
-	while (curr)
-	{
-		next = curr->next;
-		free(curr->key);
-		free(curr->value);
-		free(curr);
-		curr = next;
-	}
-	data->env_list = NULL;
-}
 
 static int	set_key_value(char *env, char **key, char **value)
 {
