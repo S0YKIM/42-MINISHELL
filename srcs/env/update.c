@@ -6,64 +6,60 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 13:08:27 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/15 16:05:00 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/15 16:59:02 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static t_env	*create_new_env_node(char *key, char *value, t_env *prev)
+static int	add_new_env_node(t_data *data, char *key, char *value)
 {
 	t_env	*new;
+	t_env	*curr;
 
-	new = (t_env *)malloc(sizeof(t_env));
+	new = (t_env *)ft_calloc(1, sizeof(t_env));
 	if (!new)
-		return (NULL);
+		return (FALSE);
 	new->key = ft_strdup(key);
 	new->value = ft_strdup(value);
-	new->prev = prev;
-	new->next = NULL;
-	return (new);
+	if (!data->env_list)
+		data->env_list = new;
+	else
+	{
+		curr = data->env_list;
+		while (curr->next)
+			curr = curr->next;
+		new->prev = curr;
+		curr->next = new;
+	}
+	return (TRUE);
 }
 
-static int	change_value(t_env **curr, char *key, char *value)
+static int	change_value(t_data *data, char *key, char *value)
 {
+	t_env	*curr;
 	char	*tmp;
 
-	while (*curr)
+	curr = data->env_list;
+	while (curr)
 	{
-		if (!ft_strcmp((*curr)->key, key))
+		if (!ft_strcmp(curr->key, key))
 		{
-			tmp = (*curr)->value;
-			(*curr)->value = ft_strdup(value);
+			tmp = curr->value;
+			curr->value = ft_strdup(value);
 			free(tmp);
 			return (TRUE);
 		}
-		if (!(*curr)->next)
-			break ;
-		*curr = (*curr)->next;
+		curr = curr->next;
 	}
 	return (FALSE);
 }
 
 int	update_env(t_data *data, char *key, char *value)
 {
-	t_env	*curr;
-
-	curr = data->env_list;
-	if (!curr)
-	{
-		data->env_list = create_new_env_node(key, value, NULL);
-		if (!data->env_list)
-			return (FALSE);
-	}
-	else if (change_value(&curr, key, value) == TRUE)
+	if (change_value(data, key, value) == TRUE)
 		return (TRUE);
-	else
-	{
-		curr->next = create_new_env_node(key, value, curr);
-		if (!curr->next)
-			return (FALSE);
-	}
+	if (add_new_env_node(data, key, value) == FALSE)
+		return (FALSE);
 	return (TRUE);
 }
