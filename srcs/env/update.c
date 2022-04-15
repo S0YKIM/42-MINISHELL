@@ -6,7 +6,7 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 13:08:27 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/13 18:24:35 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/15 16:05:00 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	change_value(t_env **curr, char *key, char *value)
 
 	while (*curr)
 	{
-		if (!ft_strncmp((*curr)->key, key, ft_strlen(key)))
+		if (!ft_strcmp((*curr)->key, key))
 		{
 			tmp = (*curr)->value;
 			(*curr)->value = ft_strdup(value);
