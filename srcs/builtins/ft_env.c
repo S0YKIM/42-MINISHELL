@@ -6,7 +6,7 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 18:53:17 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/13 02:39:00 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/15 15:54:13 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	ft_env(char **cmds, t_data *data)
 	curr = data->env_list;
 	while (curr)
 	{
-		if (!ft_strncmp(curr->key, "?", 1))
+		if (*(curr->key) == '?')
 		{
 			curr = curr->next;
 			continue ;
