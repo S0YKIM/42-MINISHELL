@@ -6,48 +6,56 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 22:36:12 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/15 15:14:52 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/15 21:27:42 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	*expand_value(t_data *data, char **key_start, char **key_end)
+static char	*find_env_key(t_data *data, char *i, char **key_end)
 {
+	char	*key_start;
 	char	*key;
 	char	*value;
+	char	*tmp;
 
-	(*key_start)++;
-	*key_end = *key_start;
+	key_start = i + 1;
+	*key_end = key_start;
 	if (!(**key_end))
 		return (ft_strdup("$"));
+	if (ft_strchr("$\'\"", **key_end))
+	{
+		tmp = ft_strchr(*key_end, '\"');
+		if (tmp)
+			*key_end = tmp - 1;
+		return (ft_substr(i, 0, *key_end - i + 1));
+	}
 	while (**key_end)
 	{
 		if (!*(*key_end + 1) || ft_strchr("$\'\"", *(*key_end + 1)))
 			break ;
 		(*key_end)++;
 	}
-	key = ft_substr(*key_start, 0, *key_end - *key_start + 1);
-	if (!key)
-		return (NULL);
-	value = get_env_value(data, key);
-	free(key);
-	return (value);
+	key = ft_substr(key_start, 0, *key_end - key_start + 1);
+	return (key);
 }
 
 static char	*expand_new_token(t_data *data, t_token *curr, char *i, int *len)
 {
+	char	*key;
 	char	*value;
-	char	*key_start;
 	char	*key_end;
 	char	*head;
 	char	*new_token;
 
-	key_start = i;
-	value = expand_value(data, &key_start, &key_end);
+	key = find_env_key(data, i, &key_end);
+	if (!key)
+		return (NULL);
+	value = get_env_value(data, key);
+	free(key);
 	if (!value)
 		return (NULL);
-	*(key_start - 1) = '\0';
+	*i = '\0';
 	head = ft_strjoin(curr->data, value);
 	free(value);
 	if (!head)
