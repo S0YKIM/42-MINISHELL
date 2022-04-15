@@ -6,7 +6,7 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 18:11:19 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/13 19:21:37 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/15 15:56:17 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	export_only(t_env *env_list)
 	curr = env_list;
 	while (curr)
 	{
-		if (!ft_strncmp(curr->key, "?", 1))
+		if (*(curr->key) == '?')
 		{
 			curr = curr->next;
 			continue ;
