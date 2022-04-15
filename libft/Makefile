@@ -13,7 +13,8 @@ SRCS = ft_strdup.c \
 		ft_substr.c \
 		ft_isspace.c \
 		ft_strcmp.c \
-		ft_strjoin.c
+		ft_strjoin.c \
+		ft_atol.c
 OBJS = $(SRCS:.c=.o)
 
 .PHONY: all
