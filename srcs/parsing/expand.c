@@ -6,7 +6,7 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 22:36:12 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/13 19:34:05 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/15 15:14:52 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@ static char	*expand_value(t_data *data, char **key_start, char **key_end)
 
 	(*key_start)++;
 	*key_end = *key_start;
+	if (!(**key_end))
+		return (ft_strdup("$"));
 	while (**key_end)
 	{
 		if (!*(*key_end + 1) || ft_strchr("$\'\"", *(*key_end + 1)))
 			break ;
 		(*key_end)++;
 	}
-	if (*key_end == *key_start)
-		return (ft_strdup("$"));
 	key = ft_substr(*key_start, 0, *key_end - *key_start + 1);
 	if (!key)
 		return (NULL);
