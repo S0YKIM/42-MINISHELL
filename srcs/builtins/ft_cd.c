@@ -6,7 +6,7 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 12:19:46 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/13 18:44:38 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/15 16:02:50 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ static int	change_directory(char *path, t_data *data)
 	char	*dir;
 	int		ret;
 
-	if (!ft_strncmp(path, "~", 1))
+	if (*path == '~')
 		dir = (get_env_value(data, "HOME"));
-	else if (!ft_strncmp(path, "-", 1))
+	else if (*path == '-')
 		dir = (get_env_value(data, "OLDPWD"));
 	else
 		dir = ft_strdup(path);
