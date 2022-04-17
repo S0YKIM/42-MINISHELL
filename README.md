@@ -58,4 +58,14 @@ C project to mimic the bash shell
   - 🍀 빌트인 unset, exit 구현
   - 🌙 토큰화 구현 완성, AST 구현
 
+### 4월 17일(일)
+
+코드 리뷰 및 차후 역할 분담
+
+- 중간 점검
+  - 🍀 빌트인 unset, echo, exit 구현
+  - 🌙 토큰화 구현 완성, AST 구현
+- 할일
+  - 🍀 시그널 및 명령어 실행 구현
+  - 🌙 실행을 위한 리다이렉션 처리 구현
 
