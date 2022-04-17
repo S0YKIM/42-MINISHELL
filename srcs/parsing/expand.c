@@ -6,7 +6,7 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 22:36:12 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/17 14:38:02 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/17 15:09:09 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static char	*expand_env_value(t_data *data, char *i, char **key_end)
 	return (value);
 }
 
-static int	expand_new_token(t_data *data, t_token *curr, char *i)
+static int	expand_and_replace(t_data *data, t_token *curr, char *i)
 {
 	char	*value;
 	char	*key_end;
@@ -88,7 +88,7 @@ static int	expand_env_quote(t_data *data, t_token *curr, char **i)
 		dollar = ft_strchr(*i + 1, '$');
 		if (dollar && dollar < end)
 		{
-			len = expand_new_token(data, curr, dollar);
+			len = expand_and_replace(data, curr, dollar);
 			if (len == ERROR)
 				return (FALSE);
 			*i = curr->data + len + 1;
@@ -112,7 +112,7 @@ int	expand_env(t_data *data, t_token *curr)
 	{
 		if (*i == '$')
 		{
-			len = expand_new_token(data, curr, i);
+			len = expand_and_replace(data, curr, i);
 			if (len == ERROR)
 				return (FALSE);
 			i = curr->data + len;
