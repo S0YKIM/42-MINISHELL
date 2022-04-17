@@ -15,6 +15,7 @@ SRC_LIST = main.c \
 			$(D_BUILTIN)ft_cd.c \
 			$(D_BUILTIN)ft_unset.c \
 			$(D_BUILTIN)ft_exit.c \
+			$(D_BUILTIN)ft_echo.c \
 			$(D_BUILTIN)utils.c \
 			$(D_ENV)get.c \
 			$(D_ENV)update.c \
