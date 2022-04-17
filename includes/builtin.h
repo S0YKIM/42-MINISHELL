@@ -12,6 +12,7 @@ int		ft_export(char **cmds, t_data *data);
 int		ft_cd(char **cmds, t_data *data);
 int		ft_unset(char **cmds, t_data *data);
 void	ft_exit(t_ast *ast, t_data *data);
+int		ft_echo(t_ast *ast);
 
 
 /*
