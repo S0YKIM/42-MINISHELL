@@ -6,7 +6,7 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 22:36:12 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/17 14:33:44 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/17 14:38:02 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,19 +73,6 @@ static int	expand_new_token(t_data *data, t_token *curr, char *i)
 	curr->data = new_token;
 	return (len);
 }
-
-// static int	expand_and_replace(t_data *data, t_token *curr, char *i)
-// {
-// 	int		len;
-// 	char	*new_token;
-
-// 	new_token = expand_new_token(data, curr, i, &len);
-// 	if (!new_token)
-// 		return (ERROR);
-// 	free(curr->data);
-// 	curr->data = new_token;
-// 	return (len);
-// }
 
 static int	expand_env_quote(t_data *data, t_token *curr, char **i)
 {
