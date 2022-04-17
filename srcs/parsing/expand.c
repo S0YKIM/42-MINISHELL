@@ -6,7 +6,7 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 22:36:12 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/17 15:09:09 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/17 16:20:31 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ static char	*expand_env_value_exception(char *i, char **key_end)
 	tmp = ft_strchr(*key_end, '\"');
 	if (tmp)
 		*key_end = tmp - 1;
+	else
+		(*key_end)--;
 	return (ft_substr(i, 0, *key_end - i + 1));
 }
 
