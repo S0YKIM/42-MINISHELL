@@ -6,7 +6,7 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 17:27:32 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/18 20:39:51 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/18 20:58:47 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ void	display_astree(t_ast *ast)
 			printf("|%s|\t", (ast->argv)[i++]);
 		printf("\n");
 	}
+	if (ast->fd)
+		printf("fd: %d\n", ast->fd);
 	if (!ast->left && !ast->right)
 		printf("-----------------\n");
 	display_astree(ast->left);
