@@ -6,7 +6,7 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 14:45:20 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/18 17:17:20 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/18 20:46:26 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,6 @@ void	free_astree(t_ast *ast);
 
 int		open_infile(char *path, int flag);
 int		open_outfile(char *path, int flag, mode_t mode);
-int		unlink_file(const char *path);
+int		unlink_file(char *path);
 
 #endif

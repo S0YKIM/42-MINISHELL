@@ -6,7 +6,7 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 17:11:16 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/18 17:18:16 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/18 20:46:12 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	open_outfile(char *path, int flag, mode_t mode)
 	return (fd);
 }
 
-int	unlink_file(const char *path)
+int	unlink_file(char *path)
 {
 	int	result;
 
