@@ -6,35 +6,35 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 17:27:32 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/18 15:53:00 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/18 20:39:51 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 // 나중에 삭제
-// void	display_astree(t_ast *ast)
-// {
-// 	int	i;
+void	display_astree(t_ast *ast)
+{
+	int	i;
 
-// 	if (!ast)
-// 		return ;
-// 	printf("=== %s ===\n", ast->token ? ast->token : "PL");
-// 	printf("(L) %s | ", ast->left ? (ast->left->token ? ast->left->token : "PL") : "NULL");
-// 	printf("(R) %s\n", ast->right ? (ast->right->token ? ast->right->token : "PL") : "NULL");
-// 	if (ast->argc)
-// 	{
-// 		i = 0;
-// 		printf("argv: ");
-// 		while ((ast->argv)[i])
-// 			printf("|%s|\t", (ast->argv)[i++]);
-// 		printf("\n");
-// 	}
-// 	if (!ast->left && !ast->right)
-// 		printf("-----------------\n");
-// 	display_astree(ast->left);
-// 	display_astree(ast->right);
-// }
+	if (!ast)
+		return ;
+	printf("=== %s ===\n", ast->token ? ast->token : "PL");
+	printf("(L) %s | ", ast->left ? (ast->left->token ? ast->left->token : "PL") : "NULL");
+	printf("(R) %s\n", ast->right ? (ast->right->token ? ast->right->token : "PL") : "NULL");
+	if (ast->argc)
+	{
+		i = 0;
+		printf("argv: ");
+		while ((ast->argv)[i])
+			printf("|%s|\t", (ast->argv)[i++]);
+		printf("\n");
+	}
+	if (!ast->left && !ast->right)
+		printf("-----------------\n");
+	display_astree(ast->left);
+	display_astree(ast->right);
+}
 
 static void	set_token_type(t_ast *node, int is_word)
 {

@@ -6,24 +6,24 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 19:11:57 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/14 21:26:33 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/18 20:41:20 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 // 나중에 삭제!
-// static void	display_token_list(t_data *data)
-// {
-// 	t_token	*curr;
+void	display_token_list(t_data *data)
+{
+	t_token	*curr;
 
-// 	curr = data->token_list;
-// 	while (curr)
-// 	{
-// 		printf("token: %s | %d\n", curr->data, curr->is_word);
-// 		curr = curr->next;
-// 	}
-// }
+	curr = data->token_list;
+	while (curr)
+	{
+		printf("token: %s | %d\n", curr->data, curr->is_word);
+		curr = curr->next;
+	}
+}
 
 static int	add_token_node(t_data *data, char *token)
 {

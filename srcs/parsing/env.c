@@ -6,24 +6,24 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 18:51:17 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/14 21:26:13 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/18 20:41:01 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 // 나중에 삭제!
-// static void	display_list(t_data *data)
-// {
-// 	t_env	*curr;
+void	display_env_list(t_data *data)
+{
+	t_env	*curr;
 
-// 	curr = data->env_list;
-// 	while (curr)
-// 	{
-// 		printf("key: %s | value: %s\n", curr->key, curr->value);
-// 		curr = curr->next;
-// 	}
-// }
+	curr = data->env_list;
+	while (curr)
+	{
+		printf("key: %s | value: %s\n", curr->key, curr->value);
+		curr = curr->next;
+	}
+}
 
 static int	set_key_value(char *env, char **key, char **value)
 {
