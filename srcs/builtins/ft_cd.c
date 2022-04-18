@@ -6,7 +6,7 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 12:19:46 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/15 16:02:50 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/18 14:18:26 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	ft_cd(char **cmds, t_data *data)
 	ret = change_directory(cmds[1], data);
 	if (ret == FAILURE)
 	{
-		printf("cd: %s: No such file or directory\n", cmds[1]);
+		printf("microshell: cd: %s: No such file or directory\n", cmds[1]);
 		return (FAILURE);
 	}
 	getcwd(pwd, 1024);

@@ -6,7 +6,7 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 18:11:19 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/15 15:56:17 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/18 15:11:32 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,33 +71,32 @@ static char	*get_value_in_arg(char *str)
 	return (NULL);
 }
 
-int	ft_export(char **cmds, t_data *data)
+int	ft_export(t_ast *ast, t_data *data)
 {
 	char	*key;
 	char	*value;
 	int		i;
 	int		ret;
 
-	if (!cmds[1])
+	if (ast->argc == 1)
 		return (export_only(data->env_list));
 	i = 0;
 	ret = SUCCESS;
-	while (cmds[++i])
+	while (++i < ast->argc)
 	{
-		key = get_key_name(cmds[i]);
+		key = get_key_name(ast->argv[i]);
 		if (!is_valid_key_name(key))
 		{
-			printf("export: `%s': not a valid identifier\n", cmds[1]);
+			printf("microshell: export: `%s': \
+			not a valid identifier\n", ast->argv[i]);
 			ret = FAILURE;
 		}
 		else if (*key != '_')
 		{
-			value = get_value_in_arg(cmds[1]);
+			value = get_value_in_arg(ast->argv[i]);
 			if (!update_env(data, key, value))
 				ret = FAILURE;
 		}
-		free(key);
-		free(value);
 	}
 	return (ret);
 }
