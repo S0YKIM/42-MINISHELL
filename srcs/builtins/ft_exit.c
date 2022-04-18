@@ -6,7 +6,7 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 19:52:52 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/15 21:27:24 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/18 13:44:39 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,22 +19,54 @@ static void	exit_code_reserved(t_data *data, char *code, char *argv)
 	num = ft_atol(code);
 	printf("exit\n");
 	if (num == 1)
-		printf("exit: too many arguments\n");
+		printf("microshell: exit: too many arguments\n");
 	else if (num == 255)
-		printf("exit: %s: numeric argument required\n", argv);
+		printf("microshell: exit: %s: numeric argument required\n", argv);
 	update_env(data, "?", code);
 	exit (num);
 }
 
+static int	change_num_into_range(long long raw)
+{
+	long long	num;
+	int			ret;
+
+	if (raw >= 0)
+	{
+		while (raw > 255)
+		{
+			num = raw % 256;
+			raw = raw / 256;
+		}
+	}
+	else
+	{
+		while (raw < -256)
+		{
+			num = raw % 256;
+			raw = raw / 256;
+		}
+	}
+	ret = (int)num;
+	return (ret);
+}
+
 static void	exit_code_custom(t_data *data, char *code)
 {
+	long long	raw;
+	int			num;
+
 	printf("exit\n");
 	update_env(data, "?", code);
-	exit (ft_atol(code));
+	raw = ft_atol(code);
+	num = change_num_into_range(raw);
+	update_env(data, "?", ft_itoa(num));
+	exit (num);
 }
 
 void	ft_exit(t_ast *ast, t_data *data)
 {
+	ast = ast->right;
 	if (ast->argc == 1)
 		exit_code_reserved(data, "0", NULL);
 	else if (ast->argc == 2)
