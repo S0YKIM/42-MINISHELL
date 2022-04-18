@@ -6,7 +6,7 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 16:02:56 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/18 22:16:45 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/18 22:26:28 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,21 @@
 // 	printf("\n");
 // }
 
-void	read_heredoc(t_ast *ast, int fd)
+static char	*make_heredoc_path(void)
+{
+	static int	num;
+	char		*num_str;
+	char		*path;
+
+	num_str = ft_itoa(num++);
+	if (!num_str)
+		return (NULL);
+	path = ft_strjoin(HEREDOC_PATH, num_str);
+	free(num_str);
+	return (path);
+}
+
+static void	read_heredoc(t_ast *ast, int fd)
 {
 	char		*line;
 
@@ -48,21 +62,7 @@ void	read_heredoc(t_ast *ast, int fd)
 	}
 }
 
-char	*make_heredoc_path(void)
-{
-	static int	num;
-	char		*num_str;
-	char		*path;
-
-	num_str = ft_itoa(num++);
-	if (!num_str)
-		return (NULL);
-	path = ft_strjoin(HEREDOC_PATH, num_str);
-	free(num_str);
-	return (path);
-}
-
-int	set_heredoc_fd(t_ast *ast)
+static int	set_heredoc_fd(t_ast *ast)
 {
 	int			fd;
 	char		*path;
