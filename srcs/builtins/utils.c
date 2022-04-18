@@ -6,7 +6,7 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 23:38:55 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/15 21:27:43 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/18 13:48:05 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,8 @@ static int	is_space(int c)
 
 int	is_str_long_long(char *str)
 {
-	long long	num;
-	long long	tmp;
-	int			sign;
+	unsigned long long	num;
+	int					sign;
 
 	num = 0;
 	sign = 1;
@@ -53,9 +52,11 @@ int	is_str_long_long(char *str)
 	}
 	while (ft_isdigit(*str))
 	{
-		tmp = num;
+
 		num = num * 10 + (*str - '0');
-		if (num < tmp)
+		if (sign == 1 && num > LONG_MAX)
+			return (FALSE);
+		else if (sign == -1 && num - 1 > LONG_MAX)
 			return (FALSE);
 		str++;
 	}
