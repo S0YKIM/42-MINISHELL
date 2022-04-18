@@ -6,7 +6,7 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 14:44:29 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/18 15:58:47 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/18 16:47:45 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <sys/errno.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <fcntl.h>
 # include "libft.h"
 # include "struct.h"
 # include "macro.h"
