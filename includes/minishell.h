@@ -6,14 +6,13 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 14:44:29 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/18 16:47:45 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/18 20:47:40 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include <unistd.h>
 # include <stdio.h>
 # include <string.h>
 # include <limits.h>
