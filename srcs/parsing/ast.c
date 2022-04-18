@@ -6,7 +6,7 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 17:27:32 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/14 22:07:02 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/18 15:53:00 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ t_ast	*create_ast_node(t_token *curr)
 	{
 		new->token = curr->data;
 		set_token_type(new, curr->is_word);
+		if (new->type == T_RDR)
+			new->fd = -1;
 	}
 	return (new);
 }
