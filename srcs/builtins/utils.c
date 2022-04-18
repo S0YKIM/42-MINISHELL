@@ -6,7 +6,7 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 23:38:55 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/18 13:48:05 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/18 14:47:18 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ int	is_str_long_long(char *str)
 	}
 	while (ft_isdigit(*str))
 	{
-
 		num = num * 10 + (*str - '0');
 		if (sign == 1 && num > LONG_MAX)
 			return (FALSE);

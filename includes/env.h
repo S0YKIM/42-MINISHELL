@@ -6,14 +6,14 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 13:34:53 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/13 17:10:45 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/18 14:42:46 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ENV_H
 # define ENV_H
 
-#include "struct.h"
+# include "struct.h"
 
 /*
  * Change envrionment variables
