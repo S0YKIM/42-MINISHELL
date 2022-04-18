@@ -6,7 +6,7 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 23:27:30 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/13 18:58:47 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/18 14:13:51 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	ft_unset(char **cmds, t_data *data)
 	{
 		if (!is_valid_key_name(cmds[i]))
 		{
-			printf("unset: `%s': not a valid identifier\n", cmds[i]);
+			printf("microshell: unset: `%s': not a valid identifier\n", cmds[i]);
 			ret = FAILURE;
 		}
 		else
