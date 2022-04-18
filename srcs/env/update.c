@@ -6,7 +6,7 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 13:08:27 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/15 16:59:02 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/18 16:21:46 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ static int	add_new_env_node(t_data *data, char *key, char *value)
 	new = (t_env *)ft_calloc(1, sizeof(t_env));
 	if (!new)
 		return (FALSE);
-	new->key = ft_strdup(key);
-	new->value = ft_strdup(value);
+	new->key = key;
+	new->value = value;
 	if (!data->env_list)
 		data->env_list = new;
 	else
@@ -46,7 +46,7 @@ static int	change_value(t_data *data, char *key, char *value)
 		if (!ft_strcmp(curr->key, key))
 		{
 			tmp = curr->value;
-			curr->value = ft_strdup(value);
+			curr->value = value;
 			free(tmp);
 			return (TRUE);
 		}
