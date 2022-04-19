@@ -6,7 +6,7 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 16:02:56 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/19 16:47:57 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/19 17:02:13 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 
 static void	read_heredoc(t_ast *ast, int fd)
 {
-	char		*line;
+	char	*line;
 
 	while (TRUE)
 	{
@@ -51,7 +51,7 @@ static void	read_heredoc(t_ast *ast, int fd)
 
 int	traverse_heredoc(t_ast *ast)
 {
-	int			fd;
+	int	fd;
 
 	if (!ast || ast->type == T_CMD)
 		return (TRUE);
