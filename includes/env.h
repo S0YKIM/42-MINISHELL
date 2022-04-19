@@ -6,7 +6,7 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 13:34:53 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/19 14:56:39 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/19 15:11:18 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
  * Change envrionment variables
 */
 int		update_env(char *key, char *value);
-void	remove_node(t_env *node);
+void	remove_node(t_env **node);
 
 /*
  * Search environment variables list
