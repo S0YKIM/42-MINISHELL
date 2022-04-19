@@ -6,7 +6,7 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 12:19:46 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/18 14:18:26 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/18 17:04:29 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,23 +30,61 @@ static int	change_directory(char *path, t_data *data)
 	return (ret);
 }
 
-int	ft_cd(char **cmds, t_data *data)
+static int	set_old_pwd(t_data *data)
+{
+	char	*oldpwd;
+	int		ret;
+
+	oldpwd = ft_strdup("OLDPWD");
+	if (!oldpwd)
+		return (FALSE);
+	ret = update_env(data, oldpwd, get_env_value(data, "OLDPWD"));
+	free(oldpwd);
+	if (!ret)
+		return (FALSE);
+	return (TRUE);
+}
+
+static int	set_pwd(t_data *data, char *path)
+{
+	char	*pwd;
+	char	*tmp;
+	int		ret;
+
+	pwd = ft_strdup("PWD");
+	if (!pwd)
+		return (FALSE);
+	tmp = ft_strdup(path);
+	if (!tmp)
+	{
+		free(pwd);
+		return (FALSE);
+	}
+	ret = update_env(data, pwd, path);
+	free(pwd);
+	free(tmp);
+	if (!ret)
+		return (FALSE);
+	return (TRUE);
+}
+
+int	ft_cd(t_ast *ast, t_data *data)
 {
 	int		ret;
-	char	pwd[1024];
+	char	path[1024];
 
-	if (!cmds[1])
+	if (ast->argc == 1)
 		return (change_directory("~", data));
-	ret = change_directory(cmds[1], data);
+	ret = change_directory(ast->argv[1], data);
 	if (ret == FAILURE)
 	{
-		printf("microshell: cd: %s: No such file or directory\n", cmds[1]);
+		printf("microshell: cd: %s: No such file or directory\n", ast->argv[1]);
 		return (FAILURE);
 	}
-	getcwd(pwd, 1024);
-	if (!(update_env(data, "OLDPWD", get_env_value(data, "PWD"))))
+	getcwd(path, 1024);
+	if (!set_old_pwd(data))
 		return (FAILURE);
-	if (!(update_env(data, "PWD", pwd)))
+	if (!set_pwd(data, path))
 		return (FAILURE);
 	return (SUCCESS);
 }

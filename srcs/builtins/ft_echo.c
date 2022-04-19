@@ -6,7 +6,7 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 14:15:50 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/18 14:21:31 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/18 15:47:26 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ int	ft_echo(t_ast *ast)
 	int	i;
 	int	flag;
 
-	ast = ast->right;
 	flag = check_n_option(ast->argv, &i);
 	while (ast->argv[i])
 	{

@@ -6,7 +6,7 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 18:11:19 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/18 15:11:32 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/19 13:15:36 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,19 +36,24 @@ static int	export_only(t_env *env_list)
 static char	*get_key_name(char *str)
 {
 	char	*key;
+	char	*tmp;
 	int		i;
 
+	tmp = ft_strdup(str);
+	if (!tmp)
+		return (NULL);
 	i = 0;
-	while (str[i])
+	while (tmp[i])
 	{
-		if (str[i] == '=')
+		if (tmp[i] == '=')
 		{
-			str[i] = '\0';
+			tmp[i] = '\0';
 			break ;
 		}
 		i++;
 	}
-	key = ft_strdup(str);
+	key = ft_strdup(tmp);
+	free(tmp);
 	return (key);
 }
 
@@ -63,7 +68,7 @@ static char	*get_value_in_arg(char *str)
 		if (str[i] == '=')
 		{
 			i++;
-			value = ft_strdup(str);
+			value = ft_strdup(str + i);
 			return (value);
 		}
 		i++;
