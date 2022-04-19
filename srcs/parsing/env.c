@@ -6,18 +6,18 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 18:51:17 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/18 20:41:01 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/19 14:38:26 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 // 나중에 삭제!
-void	display_env_list(t_data *data)
+void	display_env_list(void)
 {
 	t_env	*curr;
 
-	curr = data->env_list;
+	curr = g_env_list;
 	while (curr)
 	{
 		printf("key: %s | value: %s\n", curr->key, curr->value);
@@ -50,7 +50,7 @@ static int	set_key_value(char *env, char **key, char **value)
 	return (TRUE);
 }
 
-static int	add_prev_exit_env(t_data *data)
+static int	add_prev_exit_env(void)
 {
 	char	*key;
 	char	*value;
@@ -64,15 +64,15 @@ static int	add_prev_exit_env(t_data *data)
 		free(key);
 		return (FALSE);
 	}
-	if (!update_env(data, key, value))
+	if (!update_env(key, value))
 	{
-		free_env_list(data);
+		free_env_list();
 		return (FALSE);
 	}
 	return (TRUE);
 }
 
-int	parse_env(char **envp, t_data *data)
+int	parse_env(char **envp)
 {
 	int		i;
 	char	*key;
@@ -83,15 +83,15 @@ int	parse_env(char **envp, t_data *data)
 	{
 		if (set_key_value(envp[i], &key, &value))
 		{
-			if (!update_env(data, key, value))
+			if (!update_env(key, value))
 			{
-				free_env_list(data);
+				free_env_list();
 				return (FALSE);
 			}
 		}
 		i++;
 	}
-	if (!add_prev_exit_env(data))
+	if (!add_prev_exit_env())
 		return (FALSE);
 	// display_list(data);
 	return (TRUE);

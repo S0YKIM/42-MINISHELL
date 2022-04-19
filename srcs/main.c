@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 16:41:06 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/19 13:26:50 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/19 14:37:36 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ int	main(int argc, char **argv, char **envp)
 	if (argc != 1)
 		return (FAILURE);
 	init_data(&data);
-	if (!parse_env(envp, &data))
+	g_env_list = NULL;
+	if (!parse_env(envp))
 		exit(EXIT_FAILURE);
 	while (TRUE)
 	{

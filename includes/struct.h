@@ -6,7 +6,7 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 14:44:51 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/18 15:59:00 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/19 14:36:20 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,10 @@ typedef struct s_ast
 
 typedef struct s_data
 {
-	t_env	*env_list;
 	t_token	*token_list;
 	t_ast	*astree;
 }	t_data;
+
+t_env	*g_env_list;
 
 #endif
