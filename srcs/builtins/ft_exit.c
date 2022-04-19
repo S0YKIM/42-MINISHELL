@@ -6,7 +6,7 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 19:52:52 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/18 14:17:41 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/18 15:47:45 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ static void	exit_code_custom(t_data *data, char *code)
 
 void	ft_exit(t_ast *ast, t_data *data)
 {
-	ast = ast->right;
 	if (ast->argc == 1)
 		exit_code_reserved(data, "0", NULL);
 	else if (ast->argc == 2)

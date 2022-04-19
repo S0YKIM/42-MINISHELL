@@ -6,7 +6,7 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 14:43:13 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/18 15:05:51 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/18 15:33:28 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@
 /*
  * Builtin Functions
 */
-int		ft_env(char **cmds, t_data *data);
+int		ft_env(t_ast *ast, t_data *data);
 int		ft_pwd(void);
 int		ft_export(t_ast *ast, t_data *data);
-int		ft_cd(char **cmds, t_data *data);
-int		ft_unset(char **cmds, t_data *data);
+int		ft_cd(t_ast *ast, t_data *data);
+int		ft_unset(t_ast *ast, t_data *data);
 void	ft_exit(t_ast *ast, t_data *data);
 int		ft_echo(t_ast *ast);
 

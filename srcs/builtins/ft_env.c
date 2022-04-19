@@ -6,19 +6,19 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 18:53:17 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/15 15:54:13 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/18 15:31:55 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_env(char **cmds, t_data *data)
+int	ft_env(t_ast *ast, t_data *data)
 {
 	t_env	*curr;
 
-	if (cmds[1])
+	if (ast->argc > 1)
 	{
-		printf("env: %s: No such file or directory\n", cmds[1]);
+		printf("env: %s: No such file or directory\n", ast->argv[1]);
 		return (127);
 	}
 	curr = data->env_list;
