@@ -6,7 +6,7 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 22:36:12 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/17 16:20:31 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/19 15:57:04 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static char	*expand_env_value_exception(char *i, char **key_end)
 	return (ft_substr(i, 0, *key_end - i + 1));
 }
 
-static char	*expand_env_value(t_data *data, char *i, char **key_end)
+static char	*expand_env_value(char *i, char **key_end)
 {
 	char	*key_start;
 	char	*key;
@@ -45,12 +45,12 @@ static char	*expand_env_value(t_data *data, char *i, char **key_end)
 	key = ft_substr(key_start, 0, *key_end - key_start + 1);
 	if (!key)
 		return (NULL);
-	value = get_env_value(data, key);
+	value = get_env_value(key);
 	free(key);
 	return (value);
 }
 
-static int	expand_and_replace(t_data *data, t_token *curr, char *i)
+static int	expand_and_replace(t_token *curr, char *i)
 {
 	char	*value;
 	char	*key_end;
@@ -58,7 +58,7 @@ static int	expand_and_replace(t_data *data, t_token *curr, char *i)
 	int		len;
 	char	*new_token;
 
-	value = expand_env_value(data, i, &key_end);
+	value = expand_env_value(i, &key_end);
 	if (!value)
 		return (ERROR);
 	*i = '\0';
@@ -76,7 +76,7 @@ static int	expand_and_replace(t_data *data, t_token *curr, char *i)
 	return (len);
 }
 
-static int	expand_env_quote(t_data *data, t_token *curr, char **i)
+static int	expand_env_quote(t_token *curr, char **i)
 {
 	char	*end;
 	char	*dollar;
@@ -90,7 +90,7 @@ static int	expand_env_quote(t_data *data, t_token *curr, char **i)
 		dollar = ft_strchr(*i + 1, '$');
 		if (dollar && dollar < end)
 		{
-			len = expand_and_replace(data, curr, dollar);
+			len = expand_and_replace(curr, dollar);
 			if (len == ERROR)
 				return (FALSE);
 			*i = curr->data + len + 1;
@@ -103,7 +103,7 @@ static int	expand_env_quote(t_data *data, t_token *curr, char **i)
 	return (TRUE);
 }
 
-int	expand_env(t_data *data, t_token *curr)
+int	expand_env(t_token *curr)
 {
 	char	*i;
 	int		len;
@@ -114,14 +114,14 @@ int	expand_env(t_data *data, t_token *curr)
 	{
 		if (*i == '$')
 		{
-			len = expand_and_replace(data, curr, i);
+			len = expand_and_replace(curr, i);
 			if (len == ERROR)
 				return (FALSE);
 			i = curr->data + len;
 		}
 		else if (*i == '\"' || *i == '\'')
 		{
-			if (!expand_env_quote(data, curr, &i))
+			if (!expand_env_quote(curr, &i))
 				return (FALSE);
 		}
 		else
