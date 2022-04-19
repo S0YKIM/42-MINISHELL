@@ -21,6 +21,20 @@ int	main(int argc, char **argv, char **envp)
 			exit(EXIT_FAILURE);
 		if (!create_astree(&data))
 			exit(EXIT_FAILURE);
+		// if (!ft_strcmp(data.astree->right->argv[0], "cd"))
+		// 	ft_cd(data.astree->right, &data);
+		// else if (!ft_strcmp(data.astree->right->argv[0], "echo"))
+		// 	ft_echo(data.astree->right);
+		// else if (!ft_strcmp(data.astree->right->argv[0], "env"))
+		// 	ft_env(data.astree->right, &data);
+		// else if (!ft_strcmp(data.astree->right->argv[0], "exit"))
+		// 	ft_exit(data.astree->right, &data);
+		// else if (!ft_strcmp(data.astree->right->argv[0], "export"))
+		// 	ft_export(data.astree->right, &data);
+		// else if (!ft_strcmp(data.astree->right->argv[0], "pwd"))
+		// 	ft_pwd();
+		// else if (!ft_strcmp(data.astree->right->argv[0], "unset"))
+		// 	ft_unset(data.astree->right, &data);
 		free(line);
 		free_token_list(&data);
 		free_astree(data.astree);
