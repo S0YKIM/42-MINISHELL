@@ -6,13 +6,13 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 23:27:30 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/19 13:43:42 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/19 15:00:47 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_unset(t_ast *ast, t_data *data)
+int	ft_unset(t_ast *ast)
 {
 	t_env	*node;
 	int		ret;
@@ -30,9 +30,9 @@ int	ft_unset(t_ast *ast, t_data *data)
 		}
 		else if (*(ast->argv[i]) != '_')
 		{
-			node = get_node_with_key(data, ast->argv[i]);
+			node = get_node_with_key(ast->argv[i]);
 			if (node)
-				remove_node(node);
+				remove_node(&node);
 		}
 	}
 	return (ret);

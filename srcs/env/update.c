@@ -6,13 +6,13 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 13:08:27 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/18 16:21:46 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/19 14:51:46 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	add_new_env_node(t_data *data, char *key, char *value)
+static int	add_new_env_node(char *key, char *value)
 {
 	t_env	*new;
 	t_env	*curr;
@@ -22,11 +22,11 @@ static int	add_new_env_node(t_data *data, char *key, char *value)
 		return (FALSE);
 	new->key = key;
 	new->value = value;
-	if (!data->env_list)
-		data->env_list = new;
+	if (!g_env_list)
+		g_env_list = new;
 	else
 	{
-		curr = data->env_list;
+		curr = g_env_list;
 		while (curr->next)
 			curr = curr->next;
 		new->prev = curr;
@@ -35,12 +35,12 @@ static int	add_new_env_node(t_data *data, char *key, char *value)
 	return (TRUE);
 }
 
-static int	change_value(t_data *data, char *key, char *value)
+static int	change_value(char *key, char *value)
 {
 	t_env	*curr;
 	char	*tmp;
 
-	curr = data->env_list;
+	curr = g_env_list;
 	while (curr)
 	{
 		if (!ft_strcmp(curr->key, key))
@@ -55,11 +55,11 @@ static int	change_value(t_data *data, char *key, char *value)
 	return (FALSE);
 }
 
-int	update_env(t_data *data, char *key, char *value)
+int	update_env(char *key, char *value)
 {
-	if (change_value(data, key, value) == TRUE)
+	if (change_value(key, value) == TRUE)
 		return (TRUE);
-	if (add_new_env_node(data, key, value) == FALSE)
+	if (add_new_env_node(key, value) == FALSE)
 		return (FALSE);
 	return (TRUE);
 }

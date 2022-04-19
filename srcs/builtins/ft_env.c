@@ -6,13 +6,13 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 18:53:17 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/18 15:31:55 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/19 15:04:02 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_env(t_ast *ast, t_data *data)
+int	ft_env(t_ast *ast)
 {
 	t_env	*curr;
 
@@ -21,7 +21,7 @@ int	ft_env(t_ast *ast, t_data *data)
 		printf("env: %s: No such file or directory\n", ast->argv[1]);
 		return (127);
 	}
-	curr = data->env_list;
+	curr = g_env_list;
 	while (curr)
 	{
 		if (*(curr->key) == '?')
