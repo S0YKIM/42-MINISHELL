@@ -6,7 +6,7 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 14:00:53 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/19 22:24:01 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/19 22:44:07 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,10 @@ static void	handle_sigquit(pid_t pid)
 	if (pid == ERROR)
 		printf("\b\b  \b\b");
 	else
+	{
 		printf("Quit: 3\n");
+		update_env("?", ft_strdup("131"));
+	}
 }
 
 static void	handle_sigterm(pid_t pid)
