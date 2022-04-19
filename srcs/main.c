@@ -6,7 +6,7 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 16:41:06 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/19 14:37:36 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/19 18:23:50 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ int	main(int argc, char **argv, char **envp)
 		// else if (!ft_strcmp(data.astree->right->argv[0], "unset"))
 		// 	ft_unset(data.astree->right, &data);
 		if (!traverse_heredoc(data.astree))
+			exit(EXIT_FAILURE);
+		if (!fork_process(&data))
 			exit(EXIT_FAILURE);
 		free(line);
 		free_token_list(&data);

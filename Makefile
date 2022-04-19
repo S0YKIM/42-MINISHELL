@@ -6,7 +6,7 @@
 #    By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/18 16:05:23 by heehkim           #+#    #+#              #
-#    Updated: 2022/04/19 16:48:50 by heehkim          ###   ########.fr        #
+#    Updated: 2022/04/19 18:24:08 by heehkim          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,7 @@ SRC_LIST = main.c \
 			$(D_PARSING)ast_add.c \
 			$(D_PARSING)ast_simplify.c \
 			$(D_PIPE)heredoc.c \
+			$(D_PIPE)fork.c \
 			$(D_UTIL)init.c \
 			$(D_UTIL)free.c
 SRCS = $(addprefix $(SRCDIR), $(SRC_LIST))
