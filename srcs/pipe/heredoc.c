@@ -6,7 +6,7 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 16:02:56 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/18 22:26:28 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/19 17:02:13 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 // 	line = (char *)malloc(sizeof(char) + 1);
 // 	while ((n = read(fd, line, 1)) > 0)
 // 	{
+// 		printf("n: %d\n", n);
 // 		line[n] = '\0';
 // 		printf("|%s|", line);
 // 	}
@@ -28,23 +29,9 @@
 // 	printf("\n");
 // }
 
-static char	*make_heredoc_path(void)
-{
-	static int	num;
-	char		*num_str;
-	char		*path;
-
-	num_str = ft_itoa(num++);
-	if (!num_str)
-		return (NULL);
-	path = ft_strjoin(HEREDOC_PATH, num_str);
-	free(num_str);
-	return (path);
-}
-
 static void	read_heredoc(t_ast *ast, int fd)
 {
-	char		*line;
+	char	*line;
 
 	while (TRUE)
 	{
@@ -62,41 +49,26 @@ static void	read_heredoc(t_ast *ast, int fd)
 	}
 }
 
-static int	set_heredoc_fd(t_ast *ast)
-{
-	int			fd;
-	char		*path;
-
-	path = make_heredoc_path();
-	if (!path)
-		return (FALSE);
-	fd = open_outfile(path, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	if (fd == ERROR)
-		return (FALSE);
-	read_heredoc(ast, fd);
-	if (close(fd) == ERROR)
-	{
-		free(path);
-		return (FALSE);
-	}
-	fd = open_infile(path, O_RDONLY);
-	if (fd == ERROR)
-		return (FALSE);
-	if (unlink_file(path) == ERROR)
-		return (FALSE);
-	free(path);
-	ast->fd = fd;
-	return (TRUE);
-}
-
 int	traverse_heredoc(t_ast *ast)
 {
+	int	fd;
+
 	if (!ast || ast->type == T_CMD)
 		return (TRUE);
 	if (ast->type == T_RDR && ft_strlen(ast->token) == 2 && *ast->token == '<')
 	{
-		if (!set_heredoc_fd(ast))
+		fd = open(HEREDOC_PATH, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+		if (fd == ERROR)
 			return (FALSE);
+		read_heredoc(ast, fd);
+		if (close(fd) == ERROR)
+			return (FALSE);
+		fd = open(HEREDOC_PATH, O_RDONLY);
+		if (fd == ERROR)
+			return (FALSE);
+		if (unlink(HEREDOC_PATH) == ERROR)
+			return (FALSE);
+		ast->fd = fd;
 	}
 	if (!traverse_heredoc(ast->left))
 		return (FALSE);

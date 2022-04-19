@@ -6,7 +6,7 @@
 #    By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/18 16:05:23 by heehkim           #+#    #+#              #
-#    Updated: 2022/04/19 16:29:26 by sokim            ###   ########.fr        #
+#    Updated: 2022/04/19 22:51:56 by sokim            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,10 +42,12 @@ SRC_LIST = main.c \
 			$(D_PARSING)ast_add.c \
 			$(D_PARSING)ast_simplify.c \
 			$(D_PIPE)heredoc.c \
+			$(D_PIPE)fork.c \
 			$(D_UTIL)init.c \
 			$(D_UTIL)free.c \
 			$(D_UTIL)file.c \
 			$(D_SIGNAL)signal.c
+			$(D_UTIL)free.c
 SRCS = $(addprefix $(SRCDIR), $(SRC_LIST))
 OBJS = $(SRCS:.c=.o)
 
