@@ -6,13 +6,25 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 17:19:46 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/19 18:28:39 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/19 23:07:24 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	traverse_fork(t_ast *ast)
+static void	child(t_ast *ast)
+{
+	int	in_fd;
+	int	out_fd;
+
+	in_fd = STDIN_FILENO;
+	out_fd = STDOUT_FILENO;
+	if (!traverse_redirection(ast->left, &in_fd, &out_fd))
+		exit(EXIT_FAILURE);
+	printf("in_fd: %d | out_fd: %d\n", in_fd, out_fd);
+}
+
+static int	traverse_fork(t_data *data, t_ast *ast)
 {
 	int		fd[2];
 	pid_t	pid;
@@ -28,25 +40,21 @@ static int	traverse_fork(t_ast *ast)
 		if (pid == ERROR)
 			return (FALSE);
 		else if (pid == 0)
-		{
-			// 자식 프로세스
-		}
+			child(ast);
 		else
 		{
 			if (waitpid(pid, &status, 0) == ERROR)
 				return (FALSE);
 		}
 	}
-	if (!traverse_fork(ast->left))
+	if (!traverse_fork(data, ast->left))
 		return (FALSE);
-	if (!traverse_fork(ast->right))
-		return (FALSE);
-	return (TRUE);
+	return (traverse_fork(data, ast->right));
 }
 
 int	fork_process(t_data *data)
 {
-	if (!traverse_fork(data->astree))
+	if (!traverse_fork(data, data->astree))
 		return (FALSE);
 	return (TRUE);
 }
