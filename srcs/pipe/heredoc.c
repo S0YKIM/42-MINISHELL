@@ -6,28 +6,28 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 16:02:56 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/19 17:02:13 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/19 22:33:43 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 // 나중에 지우기
-// static void	read_fd(int fd)
-// {
-// 	int		n;
-// 	char	*line;
+void	read_fd(int fd)
+{
+	int		n;
+	char	*line;
 
-// 	line = (char *)malloc(sizeof(char) + 1);
-// 	while ((n = read(fd, line, 1)) > 0)
-// 	{
-// 		printf("n: %d\n", n);
-// 		line[n] = '\0';
-// 		printf("|%s|", line);
-// 	}
-// 	free(line);
-// 	printf("\n");
-// }
+	line = (char *)malloc(sizeof(char) + 1);
+	while ((n = read(fd, line, 1)) > 0)
+	{
+		printf("n: %d\n", n);
+		line[n] = '\0';
+		printf("|%s|", line);
+	}
+	free(line);
+	printf("\n");
+}
 
 static void	read_heredoc(t_ast *ast, int fd)
 {

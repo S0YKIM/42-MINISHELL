@@ -6,7 +6,7 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 14:43:51 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/18 16:36:34 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/19 20:19:51 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 # define T_RDR	1
 # define T_PL	2
 # define T_PIPE	3
+
+# define SHELL_NAME	"microshell"
 
 # define HEREDOC_PATH	".heredoc"
 
