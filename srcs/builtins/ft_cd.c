@@ -6,7 +6,7 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 12:19:46 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/19 15:03:23 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/19 15:10:54 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static int	set_pwd(char *path)
 	return (TRUE);
 }
 
-int	ft_cd(t_ast *ast, t_data *data)
+int	ft_cd(t_ast *ast)
 {
 	int		ret;
 	char	path[1024];
