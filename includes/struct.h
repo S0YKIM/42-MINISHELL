@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 14:44:51 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/18 14:44:53 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/18 15:59:00 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct s_ast
 	int				argc;
 	char			**argv;
 	int				type;
+	int				fd;
 	struct s_ast	*left;
 	struct s_ast	*right;
 }	t_ast;

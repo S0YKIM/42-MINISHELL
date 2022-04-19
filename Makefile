@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2022/04/18 16:05:23 by heehkim           #+#    #+#              #
+#    Updated: 2022/04/18 17:11:43 by heehkim          ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME = minishell
 
 CC = gcc
@@ -7,6 +19,7 @@ SRCDIR = srcs/
 D_BUILTIN = builtins/
 D_ENV = env/
 D_PARSING = parsing/
+D_PIPE = pipe/
 D_UTIL = util/
 SRC_LIST = main.c \
 			$(D_BUILTIN)ft_env.c \
@@ -27,8 +40,10 @@ SRC_LIST = main.c \
 			$(D_PARSING)ast.c \
 			$(D_PARSING)ast_add.c \
 			$(D_PARSING)ast_simplify.c \
+			$(D_PIPE)heredoc.c \
 			$(D_UTIL)init.c \
-			$(D_UTIL)free.c
+			$(D_UTIL)free.c \
+			$(D_UTIL)file.c
 SRCS = $(addprefix $(SRCDIR), $(SRC_LIST))
 OBJS = $(SRCS:.c=.o)
 

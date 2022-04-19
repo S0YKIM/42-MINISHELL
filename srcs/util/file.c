@@ -1,26 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   util.h                                             :+:      :+:    :+:   */
+/*   file.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/18 14:45:20 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/18 20:46:26 by heehkim          ###   ########.fr       */
+/*   Created: 2022/04/18 17:11:16 by heehkim           #+#    #+#             */
+/*   Updated: 2022/04/18 20:46:12 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTIL_H
-# define UTIL_H
+#include "minishell.h"
 
-void	init_data(t_data *data);
+int	open_infile(char *path, int flag)
+{
+	int	fd;
 
-void	free_env_list(t_data *data);
-void	free_token_list(t_data *data);
-void	free_astree(t_ast *ast);
+	fd = open(path, flag);
+	if (fd == -1)
+		free(path);
+	return (fd);
+}
 
-int		open_infile(char *path, int flag);
-int		open_outfile(char *path, int flag, mode_t mode);
-int		unlink_file(char *path);
+int	open_outfile(char *path, int flag, mode_t mode)
+{
+	int	fd;
 
-#endif
+	fd = open(path, flag, mode);
+	if (fd == -1)
+		free(path);
+	return (fd);
+}
+
+int	unlink_file(char *path)
+{
+	int	result;
+
+	result = unlink(path);
+	if (result == -1)
+		free(path);
+	return (result);
+}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   macro.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 14:43:51 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/18 14:44:01 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/18 16:36:34 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,7 @@
 # define T_RDR	1
 # define T_PL	2
 # define T_PIPE	3
+
+# define HEREDOC_PATH	".heredoc"
 
 #endif

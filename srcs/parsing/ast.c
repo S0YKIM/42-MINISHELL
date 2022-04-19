@@ -6,35 +6,37 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 17:27:32 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/14 22:07:02 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/18 20:58:47 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 // 나중에 삭제
-// void	display_astree(t_ast *ast)
-// {
-// 	int	i;
+void	display_astree(t_ast *ast)
+{
+	int	i;
 
-// 	if (!ast)
-// 		return ;
-// 	printf("=== %s ===\n", ast->token ? ast->token : "PL");
-// 	printf("(L) %s | ", ast->left ? (ast->left->token ? ast->left->token : "PL") : "NULL");
-// 	printf("(R) %s\n", ast->right ? (ast->right->token ? ast->right->token : "PL") : "NULL");
-// 	if (ast->argc)
-// 	{
-// 		i = 0;
-// 		printf("argv: ");
-// 		while ((ast->argv)[i])
-// 			printf("|%s|\t", (ast->argv)[i++]);
-// 		printf("\n");
-// 	}
-// 	if (!ast->left && !ast->right)
-// 		printf("-----------------\n");
-// 	display_astree(ast->left);
-// 	display_astree(ast->right);
-// }
+	if (!ast)
+		return ;
+	printf("=== %s ===\n", ast->token ? ast->token : "PL");
+	printf("(L) %s | ", ast->left ? (ast->left->token ? ast->left->token : "PL") : "NULL");
+	printf("(R) %s\n", ast->right ? (ast->right->token ? ast->right->token : "PL") : "NULL");
+	if (ast->argc)
+	{
+		i = 0;
+		printf("argv: ");
+		while ((ast->argv)[i])
+			printf("|%s|\t", (ast->argv)[i++]);
+		printf("\n");
+	}
+	if (ast->fd)
+		printf("fd: %d\n", ast->fd);
+	if (!ast->left && !ast->right)
+		printf("-----------------\n");
+	display_astree(ast->left);
+	display_astree(ast->right);
+}
 
 static void	set_token_type(t_ast *node, int is_word)
 {
@@ -62,6 +64,8 @@ t_ast	*create_ast_node(t_token *curr)
 	{
 		new->token = curr->data;
 		set_token_type(new, curr->is_word);
+		if (new->type == T_RDR)
+			new->fd = -1;
 	}
 	return (new);
 }
