@@ -6,17 +6,17 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 13:42:35 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/15 15:59:18 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/19 14:56:11 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_env	*get_node_with_key(t_data *data, char *key)
+t_env	*get_node_with_key(char *key)
 {
 	t_env	*curr;
 
-	curr = data->env_list;
+	curr = g_env_list;
 	while (curr)
 	{
 		if (!ft_strcmp(curr->key, key))
@@ -26,11 +26,11 @@ t_env	*get_node_with_key(t_data *data, char *key)
 	return (NULL);
 }
 
-char	*get_env_value(t_data *data, char *key)
+char	*get_env_value(char *key)
 {
 	t_env	*curr;
 
-	curr = data->env_list;
+	curr = g_env_list;
 	while (curr)
 	{
 		if (!ft_strcmp(curr->key, key))

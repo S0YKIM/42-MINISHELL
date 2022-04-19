@@ -6,17 +6,17 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 18:11:19 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/19 13:15:36 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/19 15:06:10 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	export_only(t_env *env_list)
+static int	export_only(void)
 {
 	t_env	*curr;
 
-	curr = env_list;
+	curr = g_env_list;
 	while (curr)
 	{
 		if (*(curr->key) == '?')
@@ -76,7 +76,7 @@ static char	*get_value_in_arg(char *str)
 	return (NULL);
 }
 
-int	ft_export(t_ast *ast, t_data *data)
+int	ft_export(t_ast *ast)
 {
 	char	*key;
 	char	*value;
@@ -84,7 +84,7 @@ int	ft_export(t_ast *ast, t_data *data)
 	int		ret;
 
 	if (ast->argc == 1)
-		return (export_only(data->env_list));
+		return (export_only());
 	i = 0;
 	ret = SUCCESS;
 	while (++i < ast->argc)
@@ -99,7 +99,7 @@ int	ft_export(t_ast *ast, t_data *data)
 		else if (*key != '_')
 		{
 			value = get_value_in_arg(ast->argv[i]);
-			if (!update_env(data, key, value))
+			if (!update_env(key, value))
 				ret = FAILURE;
 		}
 	}
