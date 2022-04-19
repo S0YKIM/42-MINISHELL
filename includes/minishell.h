@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 14:44:29 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/18 20:47:40 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/19 13:57:15 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,6 @@
 # include "parsing.h"
 # include "util.h"
 # include "pipe.h"
+# include "signal.h"
 
 #endif
