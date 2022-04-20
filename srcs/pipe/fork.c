@@ -6,7 +6,7 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 17:19:46 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/19 23:07:24 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/20 16:35:22 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	child(t_ast *ast)
 	printf("in_fd: %d | out_fd: %d\n", in_fd, out_fd);
 }
 
-static int	traverse_fork(t_data *data, t_ast *ast)
+int	traverse_fork(t_data *data, t_ast *ast)
 {
 	int		fd[2];
 	pid_t	pid;
@@ -50,11 +50,4 @@ static int	traverse_fork(t_data *data, t_ast *ast)
 	if (!traverse_fork(data, ast->left))
 		return (FALSE);
 	return (traverse_fork(data, ast->right));
-}
-
-int	fork_process(t_data *data)
-{
-	if (!traverse_fork(data, data->astree))
-		return (FALSE);
-	return (TRUE);
 }
