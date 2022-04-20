@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 16:41:06 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/20 16:31:13 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/20 16:36:01 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	main(int argc, char **argv, char **envp)
 		execute_cmd(data.astree->right);
 		if (!traverse_heredoc(data.astree))
 			exit(EXIT_FAILURE);
-		if (!fork_process(&data))
+		if (!traverse_fork(&data, data.astree))
 			exit(EXIT_FAILURE);
 		free(line);
 		free_token_list(&data);
