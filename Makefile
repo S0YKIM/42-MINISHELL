@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+         #
+#    By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/18 16:05:23 by heehkim           #+#    #+#              #
-#    Updated: 2022/04/19 23:02:40 by heehkim          ###   ########.fr        #
+#    Updated: 2022/04/20 14:02:02 by sokim            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ D_PARSING = parsing/
 D_PIPE = pipe/
 D_UTIL = util/
 D_SIGNAL = signal/
+D_EXECUTE = execute/
 SRC_LIST = main.c \
 			$(D_BUILTIN)ft_env.c \
 			$(D_BUILTIN)ft_pwd.c \
@@ -46,7 +47,8 @@ SRC_LIST = main.c \
 			$(D_PIPE)redirection.c \
 			$(D_UTIL)init.c \
 			$(D_UTIL)free.c \
-			$(D_SIGNAL)signal.c
+			$(D_SIGNAL)signal.c \
+			$(D_EXECUTE)execute.c
 SRCS = $(addprefix $(SRCDIR), $(SRC_LIST))
 OBJS = $(SRCS:.c=.o)
 
