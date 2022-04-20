@@ -6,7 +6,7 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 15:11:41 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/20 15:43:21 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/20 16:35:49 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ static char	**split(const char *s, char c, char **tab)
 
 char	**ft_split(char const *s, char c)
 {
-	char		**tab;
+	char	**tab;
 
 	if (!s)
 		return (NULL);

@@ -6,7 +6,7 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 14:00:53 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/19 22:44:07 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/20 16:38:49 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static void	handle_signal(int signum)
 		handle_sigterm(pid);
 }
 
-void	set_signal()
+void	set_signal(void)
 {
 	signal(SIGINT, handle_signal);
 	signal(SIGQUIT, handle_signal);
