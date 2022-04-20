@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 21:23:07 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/19 14:38:39 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/20 15:38:25 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,19 @@ void	free_astree(t_ast *ast)
 		free((ast->argv)[i++]);
 	free(ast->argv);
 	free(ast);
+}
+
+void	free_double_pointer(char **tab)
+{
+	size_t		i;
+
+	if (!tab)
+		return ;
+	i = 0;
+	while (tab[i])
+	{
+		free(tab[i]);
+		++i;
+	}
+	free(tab);
 }
