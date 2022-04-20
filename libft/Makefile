@@ -18,7 +18,8 @@ SRCS = ft_strdup.c \
 		ft_itoa.c \
 		ft_putchar_fd.c \
 		ft_putstr_fd.c \
-		ft_putendl_fd.c
+		ft_putendl_fd.c \
+		ft_split.c
 OBJS = $(SRCS:.c=.o)
 
 .PHONY: all
