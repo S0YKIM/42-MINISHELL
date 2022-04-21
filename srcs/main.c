@@ -6,7 +6,7 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 16:41:06 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/20 16:36:01 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/21 23:25:31 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	main(int argc, char **argv, char **envp)
 	while (TRUE)
 	{
 		line = readline("microshell> ");
-		if (!line)
+		if (!line || !*line)
 			continue ;
 		add_history(line);
 		if (!tokenize(&data, line))
@@ -43,6 +43,9 @@ int	main(int argc, char **argv, char **envp)
 		free(line);
 		free_token_list(&data);
 		free_astree(data.astree);
+		free(data.pl_list);
+		data.pl_cnt = 0;
+		data.curr_pl = 0;
 		data.astree = NULL;
 	}
 	return (SUCCESS);

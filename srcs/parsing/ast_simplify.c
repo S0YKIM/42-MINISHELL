@@ -6,7 +6,7 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 21:37:31 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/14 22:04:44 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/21 23:02:55 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static int	merge_cmd_node(t_ast *node)
 	return (TRUE);
 }
 
-int	simplify_astree(t_ast *node)
+int	simplify_astree(t_data *data, t_ast *node)
 {
 	int	result;
 
@@ -59,15 +59,16 @@ int	simplify_astree(t_ast *node)
 		return (TRUE);
 	if (node->type == T_PL)
 	{
+		(data->pl_cnt)++;
 		if (node->right)
 			result = merge_cmd_node(node->right);
 	}
 	else
 	{
-		result = simplify_astree(node->left);
+		result = simplify_astree(data, node->left);
 		if (!result)
 			return (FALSE);
-		result = simplify_astree(node->right);
+		result = simplify_astree(data, node->right);
 	}
 	return (result);
 }
