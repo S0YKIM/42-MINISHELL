@@ -6,7 +6,7 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 16:41:06 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/21 23:25:31 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/22 22:43:33 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,9 @@ int	main(int argc, char **argv, char **envp)
 			exit(EXIT_FAILURE);
 		if (!create_astree(&data))
 			exit(EXIT_FAILURE);
-		execute_cmd(data.astree->right);
 		if (!traverse_heredoc(data.astree))
 			exit(EXIT_FAILURE);
-		if (!traverse_fork(&data, data.astree))
+		if (!fork_process(&data))
 			exit(EXIT_FAILURE);
 		free(line);
 		free_token_list(&data);
