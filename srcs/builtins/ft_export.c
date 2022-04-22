@@ -6,7 +6,7 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 18:11:19 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/19 15:06:10 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/22 23:19:29 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,11 +92,10 @@ int	ft_export(t_ast *ast)
 		key = get_key_name(ast->argv[i]);
 		if (!is_valid_key_name(key))
 		{
-			printf("microshell: export: `%s': \
-			not a valid identifier\n", ast->argv[i]);
+			print_invalid_identifier("export", ast->argv[i]);
 			ret = FAILURE;
 		}
-		else if (*key != '_')
+		else if (ft_strcmp(key, "_"))
 		{
 			value = get_value_in_arg(ast->argv[i]);
 			if (!update_env(key, value))
