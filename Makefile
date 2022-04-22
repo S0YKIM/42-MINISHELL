@@ -6,7 +6,7 @@
 #    By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/18 16:05:23 by heehkim           #+#    #+#              #
-#    Updated: 2022/04/20 14:02:02 by sokim            ###   ########.fr        #
+#    Updated: 2022/04/22 19:17:46 by sokim            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,6 +47,7 @@ SRC_LIST = main.c \
 			$(D_PIPE)redirection.c \
 			$(D_UTIL)init.c \
 			$(D_UTIL)free.c \
+			$(D_UTIL)print.c \
 			$(D_SIGNAL)signal.c \
 			$(D_EXECUTE)execute.c
 SRCS = $(addprefix $(SRCDIR), $(SRC_LIST))
