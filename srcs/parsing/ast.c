@@ -6,7 +6,7 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 17:27:32 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/21 23:26:28 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/22 15:46:59 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ int	create_astree(t_data *data)
 	if (!data->pl_list)
 		return (FALSE);
 	create_pl_list(data, data->astree);
+	data->curr_pl = 0;
 	// for (int i = 0; i < data->pl_cnt; i++)
 	// 	printf("%s\n", (data->pl_list)[i]->right->token);
 	return (TRUE);
