@@ -6,11 +6,25 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 13:42:35 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/19 14:56:11 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/22 22:04:56 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	is_there_node_with_key(char *key)
+{
+	t_env	*curr;
+
+	curr = g_env_list;
+	while (curr)
+	{
+		if (!ft_strcmp(curr->key, key))
+			return (TRUE);
+		curr = curr->next;
+	}
+	return (FALSE);
+}
 
 t_env	*get_node_with_key(char *key)
 {
