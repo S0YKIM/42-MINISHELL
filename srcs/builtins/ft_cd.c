@@ -6,40 +6,67 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 12:19:46 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/19 15:10:54 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/22 23:06:54 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	change_directory(char *path)
+static char	*get_directory(char *path)
 {
 	char	*dir;
-	int		ret;
 
-	if (*path == '~')
+	if (!ft_strcmp(path, "~"))
+	{
 		dir = (get_env_value("HOME"));
-	else if (*path == '-')
+		if (!dir)
+		{
+			print_not_set("cd", "HOME");
+			return (NULL);
+		}
+	}
+	else if (!ft_strcmp(path, "-"))
+	{
 		dir = (get_env_value("OLDPWD"));
+		if (!dir)
+		{
+			print_not_set("cd", "OLDPWD");
+			return (NULL);
+		}
+	}
 	else
 		dir = ft_strdup(path);
+	return (dir);
+}
+
+static int	change_directory(char *path, t_ast *ast)
+{
+	int		ret;
+	char	*dir;
+
+	dir = get_directory(path);
 	if (!dir)
 		return (FALSE);
 	ret = chdir(dir);
-	free(dir);
-	return (ret);
+	if (ret == ERROR)
+	{
+		print_full_no_such_file("cd", ast->argv[1]);
+		return (FALSE);
+	}
+	return (TRUE);
 }
 
 static int	set_old_pwd(void)
 {
-	char	*oldpwd;
+	char	*pwd;
 	int		ret;
 
-	oldpwd = ft_strdup("OLDPWD");
-	if (!oldpwd)
-		return (FALSE);
-	ret = update_env(oldpwd, get_env_value("OLDPWD"));
-	free(oldpwd);
+	pwd = get_env_value("PWD");
+	if (!pwd)
+		return (TRUE);
+	if (!is_there_node_with_key("OLDPWD"))
+		return (TRUE);
+	ret = update_env("OLDPWD", pwd);
 	if (!ret)
 		return (FALSE);
 	return (TRUE);
@@ -47,22 +74,15 @@ static int	set_old_pwd(void)
 
 static int	set_pwd(char *path)
 {
-	char	*pwd;
 	char	*tmp;
 	int		ret;
 
-	pwd = ft_strdup("PWD");
-	if (!pwd)
-		return (FALSE);
+	if (!is_there_node_with_key("PWD"))
+		return (TRUE);
 	tmp = ft_strdup(path);
 	if (!tmp)
-	{
-		free(pwd);
 		return (FALSE);
-	}
-	ret = update_env(pwd, path);
-	free(pwd);
-	free(tmp);
+	ret = update_env("PWD", tmp);
 	if (!ret)
 		return (FALSE);
 	return (TRUE);
@@ -74,13 +94,10 @@ int	ft_cd(t_ast *ast)
 	char	path[1024];
 
 	if (ast->argc == 1)
-		return (change_directory("~"));
-	ret = change_directory(ast->argv[1]);
-	if (ret == FAILURE)
-	{
-		printf("microshell: cd: %s: No such file or directory\n", ast->argv[1]);
+		return (change_directory("~", ast));
+	ret = change_directory(ast->argv[1], ast);
+	if (!ret)
 		return (FAILURE);
-	}
 	getcwd(path, 1024);
 	if (!set_old_pwd())
 		return (FAILURE);
