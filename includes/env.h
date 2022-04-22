@@ -6,7 +6,7 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 13:34:53 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/19 15:11:18 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/22 19:54:33 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,6 @@ void	remove_node(t_env **node);
 */
 t_env	*get_node_with_key(char *key);
 char	*get_env_value(char *key);
+int		is_there_node_with_key(char *key);
 
 #endif

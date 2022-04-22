@@ -6,7 +6,7 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 14:04:14 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/20 16:10:13 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/22 23:26:16 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	is_builtin(t_ast *ast)
 	else
 		return ;
 	update_env("?", ft_strdup(ft_itoa(ret)));
-	exit (ret);
+	exit(ret);
 }
 
 static void	exec_custom_path(t_ast *ast)
@@ -44,7 +44,7 @@ static void	exec_custom_path(t_ast *ast)
 	return ;
 }
 
-static void	exec_reserved_path(t_ast *ast, char *path)
+static int	exec_reserved_path(t_ast *ast, char *path)
 {
 	char	*cmd;
 	char	*tmp;
@@ -54,38 +54,32 @@ static void	exec_reserved_path(t_ast *ast, char *path)
 	i = 0;
 	paths = ft_split(path, ':');
 	if (!paths)
-		return ;
+		return (ERROR);
 	while (paths[i])
 	{
 		tmp = ft_strjoin(paths[i], "/");
 		if (!tmp)
-		{
-			free_double_pointer(paths);
-			return ;
-		}
+			return (free_double_pointer(paths));
 		cmd = ft_strjoin(tmp, ast->argv[0]);
 		free(tmp);
 		if (!cmd)
-			return ;
+			return (free_double_pointer(paths));
 		execve(cmd, ast->argv, NULL);
+		free(cmd);
 		i++;
 	}
-	return ;
+	return (FALSE);
 }
 
 void	execute_cmd(t_ast *ast)
 {
 	char	*path;
 
-	if (ft_strchr(ast->argv[0], '/'))
-		exec_custom_path(ast);
-	else
-	{
-		is_builtin(ast);
-		path = get_env_value("PATH");
-		if (path)
-			exec_reserved_path(ast, path);
-	}
+	is_builtin(ast);
+	path = get_env_value("PATH");
+	if (path)
+		exec_reserved_path(ast, path);
+	exec_custom_path(ast);
 	printf("microshell: %s: No such file or directory\n", ast->argv[0]);
 	update_env("?", ft_strdup("127"));
 	exit (127);

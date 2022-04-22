@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+         #
+#    By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/18 16:05:23 by heehkim           #+#    #+#              #
-#    Updated: 2022/04/22 22:36:08 by heehkim          ###   ########.fr        #
+#    Updated: 2022/04/22 23:29:04 by sokim            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,6 +48,7 @@ SRC_LIST = main.c \
 			$(D_PIPE)util.c \
 			$(D_UTIL)init.c \
 			$(D_UTIL)free.c \
+			$(D_UTIL)print.c \
 			$(D_SIGNAL)signal.c \
 			$(D_EXECUTE)execute.c
 SRCS = $(addprefix $(SRCDIR), $(SRC_LIST))

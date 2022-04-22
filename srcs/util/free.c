@@ -6,7 +6,7 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 21:23:07 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/20 16:36:55 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/22 18:19:57 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,12 @@ void	free_astree(t_ast *ast)
 	free(ast);
 }
 
-void	free_double_pointer(char **tab)
+int	free_double_pointer(char **tab)
 {
 	size_t	i;
 
 	if (!tab)
-		return ;
+		return (ERROR);
 	i = 0;
 	while (tab[i])
 	{
@@ -73,4 +73,5 @@ void	free_double_pointer(char **tab)
 		++i;
 	}
 	free(tab);
+	return (ERROR);
 }

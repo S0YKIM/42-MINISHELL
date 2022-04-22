@@ -6,7 +6,7 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 23:27:30 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/19 15:00:47 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/22 22:57:51 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,7 @@ int	ft_unset(t_ast *ast)
 	{
 		if (!is_valid_key_name(ast->argv[i]))
 		{
-			printf("microshell: unset: `%s': \
-			not a valid identifier\n", ast->argv[i]);
+			print_invalid_identifier("unset", ast->argv[i]);
 			ret = FAILURE;
 		}
 		else if (*(ast->argv[i]) != '_')
