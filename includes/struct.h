@@ -6,7 +6,7 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 14:44:51 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/21 23:20:15 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/22 18:33:37 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct s_ast
 	char			**argv;
 	int				type;
 	int				fd;
+	int				pipe_fd[2];
 	struct s_ast	*left;
 	struct s_ast	*right;
 }	t_ast;
