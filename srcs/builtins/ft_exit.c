@@ -6,7 +6,7 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 19:52:52 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/19 15:11:58 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/23 19:42:49 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,39 +23,18 @@ static void	exit_code_reserved(char *code, char *argv)
 	else if (num == 255)
 		printf("microshell: exit: %s: numeric argument required\n", argv);
 	update_env("?", ft_itoa(num));
-	exit (num);
-}
-
-static int	change_num_into_range(long long raw)
-{
-	long long	num;
-	int			ret;
-
-	if (raw >= 0)
-	{
-		num = raw % 256;
-		raw = raw / 256;
-	}
-	else
-	{
-		num = raw % 256;
-		raw = raw / 256;
-	}
-	ret = (int)num;
-	return (ret);
+	exit(num);
 }
 
 static void	exit_code_custom(char *code)
 {
-	long long	raw;
-	int			num;
+	long long	num;
 
 	printf("exit\n");
 	update_env("?", code);
-	raw = ft_atol(code);
-	num = change_num_into_range(raw);
+	num = ft_atol(code);
 	update_env("?", ft_itoa(num));
-	exit (num);
+	exit(num);
 }
 
 void	ft_exit(t_ast *ast)

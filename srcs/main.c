@@ -6,7 +6,7 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 16:41:06 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/23 19:15:18 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/23 19:39:11 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	main(int argc, char **argv, char **envp)
 			exit(EXIT_FAILURE);
 		if (!traverse_heredoc(data.astree))
 			exit(EXIT_FAILURE);
-		if (data.pl_cnt == 1 && is_builtin(data.astree->right))
+		if (data.pl_cnt == 1 && exec_builtin(data.astree->right))
 			;
 		else if (!fork_process(&data))
 			exit(EXIT_FAILURE);
