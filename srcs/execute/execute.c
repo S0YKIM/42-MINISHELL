@@ -6,13 +6,13 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 14:04:14 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/22 23:26:16 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/23 19:13:40 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	is_builtin(t_ast *ast)
+int	is_builtin(t_ast *ast)
 {
 	int	ret;
 
@@ -32,9 +32,9 @@ static void	is_builtin(t_ast *ast)
 	else if (!ft_strcmp(ast->argv[0], "unset"))
 		ret = ft_unset(ast);
 	else
-		return ;
-	update_env("?", ft_strdup(ft_itoa(ret)));
-	exit(ret);
+		return (FALSE);
+	update_env("?", ft_itoa(ret));
+	return (TRUE);
 }
 
 static void	exec_custom_path(t_ast *ast)
@@ -74,13 +74,20 @@ static int	exec_reserved_path(t_ast *ast, char *path)
 void	execute_cmd(t_ast *ast)
 {
 	char	*path;
+	int		ret;
+	char	*value;
 
-	is_builtin(ast);
+	ret = is_builtin(ast);
+	if (ret)
+	{
+		value = get_env_value("?");
+		exit(ft_atol(value));
+	}
 	path = get_env_value("PATH");
 	if (path)
 		exec_reserved_path(ast, path);
 	exec_custom_path(ast);
 	printf("microshell: %s: No such file or directory\n", ast->argv[0]);
 	update_env("?", ft_strdup("127"));
-	exit (127);
+	exit(127);
 }

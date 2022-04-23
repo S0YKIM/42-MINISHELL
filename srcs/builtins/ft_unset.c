@@ -6,7 +6,7 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 23:27:30 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/22 22:57:51 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/23 17:53:44 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	ft_unset(t_ast *ast)
 			print_invalid_identifier("unset", ast->argv[i]);
 			ret = FAILURE;
 		}
-		else if (*(ast->argv[i]) != '_')
+		else if (ft_strcmp(ast->argv[i], "_"))
 		{
 			node = get_node_with_key(ast->argv[i]);
 			if (node)
