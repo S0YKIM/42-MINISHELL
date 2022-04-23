@@ -6,13 +6,13 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 14:04:14 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/23 19:13:40 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/23 19:37:20 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	is_builtin(t_ast *ast)
+int	exec_builtin(t_ast *ast)
 {
 	int	ret;
 
@@ -77,7 +77,7 @@ void	execute_cmd(t_ast *ast)
 	int		ret;
 	char	*value;
 
-	ret = is_builtin(ast);
+	ret = exec_builtin(ast);
 	if (ret)
 	{
 		value = get_env_value("?");
