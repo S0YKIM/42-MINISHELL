@@ -6,7 +6,7 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 15:50:33 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/22 22:46:03 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/23 19:52:02 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,9 @@
 # define PIPE_H
 
 int		traverse_heredoc(t_ast *ast);
-
-int		fork_process(t_data *data);
-
 void	traverse_redirection(t_ast *ast, int *in_fd, int *out_fd);
+
+int		execute(t_data *data);
 
 int		open_infile(char *path);
 int		open_outfile(char *path, int flag);
