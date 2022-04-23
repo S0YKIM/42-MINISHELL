@@ -6,7 +6,7 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 17:19:46 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/23 19:56:38 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/23 22:36:49 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static void	child(t_data *data, int i)
 	else if (i != 0)
 		dup_fd(curr->pipe_fd[WRITE], STDOUT_FILENO);
 	close_child_fds(in_fd, out_fd, curr, prev);
-	execute_cmd(curr->right);
+	execute_cmd(curr->right, data);
 }
 
 static int	parent(int pid)
@@ -88,7 +88,7 @@ static int	fork_process(t_data *data)
 
 int	execute(t_data *data)
 {
-	if (data->pl_cnt == 1 && exec_builtin(data->pl_list[0]->right))
+	if (data->pl_cnt == 1 && exec_builtin(data->pl_list[0]->right, data))
 		return (TRUE);
 	return (fork_process(data));
 }
