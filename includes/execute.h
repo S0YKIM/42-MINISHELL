@@ -6,14 +6,14 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 14:02:20 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/23 18:09:29 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/23 19:36:57 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXECUTE_H
 # define EXECUTE_H
 
-int		is_builtin(t_ast *ast);
+int		exec_builtin(t_ast *ast);
 void	execute_cmd(t_ast *ast);
 
 #endif
