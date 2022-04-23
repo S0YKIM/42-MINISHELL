@@ -6,13 +6,13 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 14:04:14 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/23 19:37:20 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/23 20:06:01 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	exec_builtin(t_ast *ast)
+int	exec_builtin(t_ast *ast, t_data *data)
 {
 	int	ret;
 
@@ -24,7 +24,7 @@ int	exec_builtin(t_ast *ast)
 	else if (!ft_strcmp(ast->argv[0], "env"))
 		ret = ft_env(ast);
 	else if (!ft_strcmp(ast->argv[0], "exit"))
-		ft_exit(ast);
+		ft_exit(ast, data);
 	else if (!ft_strcmp(ast->argv[0], "export"))
 		ret = ft_export(ast);
 	else if (!ft_strcmp(ast->argv[0], "pwd"))
@@ -71,13 +71,13 @@ static int	exec_reserved_path(t_ast *ast, char *path)
 	return (FALSE);
 }
 
-void	execute_cmd(t_ast *ast)
+void	execute_cmd(t_ast *ast, t_data *data)
 {
 	char	*path;
 	int		ret;
 	char	*value;
 
-	ret = exec_builtin(ast);
+	ret = exec_builtin(ast, data);
 	if (ret)
 	{
 		value = get_env_value("?");
