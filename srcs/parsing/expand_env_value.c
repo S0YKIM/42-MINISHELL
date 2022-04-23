@@ -6,7 +6,7 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 17:52:23 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/23 17:59:29 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/23 18:08:31 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	is_valid_key_char(char c)
 {
-	if (!ft_isalpha(c) && c != '_')
+	if (!ft_isdigit(c) && !ft_isalpha(c) && c != '_')
 		return (FALSE);
 	return (TRUE);
 }
@@ -61,7 +61,7 @@ char	*expand_env_value(char *i, char **key_end, int is_dquote)
 
 	key_start = i + 1;
 	*key_end = key_start;
-	if (**key_end != '?' && !is_valid_key_char(**key_end))
+	if (**key_end != '?' && !ft_isalpha(**key_end) && **key_end != '_')
 		return (expand_env_value_exception(i, key_end));
 	while (**key_end)
 	{
