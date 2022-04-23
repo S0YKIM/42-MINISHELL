@@ -6,7 +6,7 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 17:19:46 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/23 15:07:31 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/23 19:56:38 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static void	child(t_data *data, int i)
 	execute_cmd(curr->right);
 }
 
-static int	parent(t_data *data, int pid)
+static int	parent(int pid)
 {
 	int	status;
 
@@ -61,13 +61,10 @@ static int	parent(t_data *data, int pid)
 	if (WIFEXITED(status))
 		status = WEXITSTATUS(status);
 	update_env("?", ft_itoa(status));
-	if (data->pl_cnt == 1 \
-		&& !ft_strcmp(data->pl_list[0]->right->token, "exit"))
-		exit(status);
 	return (TRUE);
 }
 
-int	fork_process(t_data *data)
+static int	fork_process(t_data *data)
 {
 	pid_t	pid;
 	int		i;
@@ -86,5 +83,12 @@ int	fork_process(t_data *data)
 			return (FALSE);
 		child(data, i);
 	}
-	return (parent(data, pid));
+	return (parent(pid));
+}
+
+int	execute(t_data *data)
+{
+	if (data->pl_cnt == 1 && exec_builtin(data->pl_list[0]->right))
+		return (TRUE);
+	return (fork_process(data));
 }
