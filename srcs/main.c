@@ -6,46 +6,60 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 16:41:06 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/23 19:53:13 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/24 14:23:47 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int argc, char **argv, char **envp)
+static int	parse_line(t_data *data, char *line)
 {
-	t_data	data;
+	if (!tokenize(data, line))
+		return (FALSE);
+	if (!create_astree(data))
+		return (FALSE);
+	return (TRUE);
+}
+
+static void	reset_loop(t_data *data, char *line)
+{
+	free(line);
+	free_token_list(data);
+	free_astree(data->astree);
+	data->astree = NULL;
+	free(data->pl_list);
+	data->pl_list = NULL;
+	data->pl_cnt = 0;
+	data->curr_pl = 0;
+}
+
+static void	loop(t_data *data)
+{
 	char	*line;
 
-	(void)argv;
-	if (argc != 1)
-		return (FAILURE);
-	init_data(&data);
-	g_env_list = NULL;
-	set_signal();
-	if (!parse_env(envp))
-		exit(EXIT_FAILURE);
 	while (TRUE)
 	{
 		line = readline("microshell> ");
 		if (!line || !*line)
 			continue ;
 		add_history(line);
-		if (!tokenize(&data, line))
+		if (!parse_line(data, line))
 			exit(EXIT_FAILURE);
-		if (!create_astree(&data))
+		if (!execute(data))
 			exit(EXIT_FAILURE);
-		if (!traverse_heredoc(data.astree))
-			exit(EXIT_FAILURE);
-		if (!execute(&data))
-			exit(EXIT_FAILURE);
-		free(line);
-		free_token_list(&data);
-		free_astree(data.astree);
-		free(data.pl_list);
-		data.pl_cnt = 0;
-		data.curr_pl = 0;
-		data.astree = NULL;
+		reset_loop(data, line);
 	}
+}
+
+int	main(int argc, char **argv, char **envp)
+{
+	t_data	data;
+
+	(void)argv;
+	if (argc != 1)
+		return (FAILURE);
+	if (!init(&data, envp))
+		exit(EXIT_FAILURE);
+	loop(&data);
 	return (SUCCESS);
 }

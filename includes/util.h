@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   util.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 14:45:20 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/22 22:56:50 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/24 14:25:34 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 /*
  * Initialize data
 */
-void	init_data(t_data *data);
+int		init(t_data *data, char **envp);
 
 /*
  * Free memory allocated
