@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 16:02:56 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/19 22:33:43 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/24 22:57:07 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,29 +29,58 @@ void	read_fd(int fd)
 	printf("\n");
 }
 
-static void	read_heredoc(t_ast *ast, int fd)
+static void	handle_sigint(int signum)
+{
+	if (signum == SIGINT)
+	{
+		printf("\b\b  \b\b");
+		update_env("?", ft_strdup("1"));
+		exit(1);
+	}
+}
+
+static int	read_heredoc(t_ast *ast, int fd)
 {
 	char	*line;
+	pid_t	pid;
+	int		status;
 
-	while (TRUE)
+	pid = fork();
+	if (pid == 0)
 	{
-		line = readline("> ");
-		if (!line)
-			continue ;
-		if (ft_strcmp(line, ast->left->token))
-			ft_putendl_fd(line, fd);
-		else
+		while (TRUE)
 		{
+			signal(SIGINT, handle_sigint);
+			line = readline("> ");
+			if (!line)
+				continue ;
+			if (ft_strcmp(line, ast->left->token))
+				ft_putendl_fd(line, fd);
+			else
+			{
+				free(line);
+				return (TRUE);
+			}
 			free(line);
-			break ;
 		}
-		free(line);
+	}
+	else
+	{
+		if (waitpid(pid, &status, 0) == ERROR)
+			return (FALSE);
+		if (WIFEXITED(status))
+			status = WEXITSTATUS(status);
+		update_env("?", ft_itoa(status));
+		if (status == 1)
+			return (FALSE);
+		return (TRUE);
 	}
 }
 
 int	traverse_heredoc(t_ast *ast)
 {
 	int	fd;
+	int	ret;
 
 	if (!ast || ast->type == T_CMD)
 		return (TRUE);
@@ -60,7 +89,9 @@ int	traverse_heredoc(t_ast *ast)
 		fd = open(HEREDOC_PATH, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 		if (fd == ERROR)
 			return (FALSE);
-		read_heredoc(ast, fd);
+		ret = read_heredoc(ast, fd);
+		if (!ret)
+			return (FALSE);
 		if (close(fd) == ERROR)
 			return (FALSE);
 		fd = open(HEREDOC_PATH, O_RDONLY);
