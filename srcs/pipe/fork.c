@@ -6,7 +6,7 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 17:19:46 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/24 14:18:33 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/24 15:11:01 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static int	parent(int pid)
 	return (TRUE);
 }
 
-static int	fork_process(t_data *data)
+int	fork_process(t_data *data)
 {
 	pid_t	pid;
 	int		i;
@@ -84,13 +84,4 @@ static int	fork_process(t_data *data)
 		child(data, i);
 	}
 	return (parent(pid));
-}
-
-int	execute(t_data *data)
-{
-	if (!traverse_heredoc(data->astree))
-		return (FALSE);
-	if (data->pl_cnt == 1 && exec_builtin(data->pl_list[0]->right, data))
-		return (TRUE);
-	return (fork_process(data));
 }
