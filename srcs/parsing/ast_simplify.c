@@ -6,7 +6,7 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 21:37:31 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/21 23:02:55 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/24 15:30:33 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	simplify_astree(t_data *data, t_ast *node)
 	int	result;
 
 	result = TRUE;
-	if (node->type < T_PL)
+	if (!node || node->type < T_PL)
 		return (TRUE);
 	if (node->type == T_PL)
 	{
