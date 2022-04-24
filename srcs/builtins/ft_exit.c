@@ -6,7 +6,7 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 19:52:52 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/24 21:32:15 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/24 21:44:39 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	print_numeric_arg_required(char *argv)
 	ft_putstr_fd(SHELL_NAME, STDERR_FILENO);
 	ft_putstr_fd(": exit: ", STDERR_FILENO);
 	ft_putstr_fd(argv, STDERR_FILENO);
-	ft_putendl_fd("numeric argument required", STDERR_FILENO);
+	ft_putendl_fd(": numeric argument required", STDERR_FILENO);
 }
 
 static void	exit_code_reserved(char *code, char *argv, int cnt)
