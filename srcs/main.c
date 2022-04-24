@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 16:41:06 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/24 16:19:38 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/24 22:51:26 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ static void	loop(t_data *data)
 		if (!check_syntax_error(data))
 			continue ;
 		if (!execute(data))
-			exit(EXIT_FAILURE);
+			;
+			//exit(EXIT_FAILURE);
 	}
 }
 
