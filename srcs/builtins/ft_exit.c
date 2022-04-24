@@ -6,11 +6,25 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 19:52:52 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/23 20:11:21 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/24 21:32:15 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static void	print_too_many_arg(void)
+{
+	ft_putstr_fd(SHELL_NAME, STDERR_FILENO);
+	ft_putendl_fd(": exit: too many arguments", STDERR_FILENO);
+}
+
+static void	print_numeric_arg_required(char *argv)
+{
+	ft_putstr_fd(SHELL_NAME, STDERR_FILENO);
+	ft_putstr_fd(": exit: ", STDERR_FILENO);
+	ft_putstr_fd(argv, STDERR_FILENO);
+	ft_putendl_fd("numeric argument required", STDERR_FILENO);
+}
 
 static void	exit_code_reserved(char *code, char *argv, int cnt)
 {
@@ -20,9 +34,9 @@ static void	exit_code_reserved(char *code, char *argv, int cnt)
 	if (cnt == 1)
 		printf("exit\n");
 	if (num == 1)
-		printf("microshell: exit: too many arguments\n");
+		print_too_many_arg();
 	else if (num == 255)
-		printf("microshell: exit: %s: numeric argument required\n", argv);
+		print_numeric_arg_required(argv);
 	exit(num);
 }
 
