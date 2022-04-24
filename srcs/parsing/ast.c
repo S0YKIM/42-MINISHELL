@@ -6,7 +6,7 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 17:27:32 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/22 15:46:59 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/24 15:11:48 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,19 +70,6 @@ t_ast	*create_ast_node(t_token *curr)
 	return (new);
 }
 
-static void	create_pl_list(t_data *data, t_ast *ast)
-{
-	if (!ast || ast->type < T_PL)
-		return ;
-	create_pl_list(data, ast->right);
-	create_pl_list(data, ast->left);
-	if (ast->type == T_PL)
-	{
-		(data->pl_list)[data->curr_pl] = ast;
-		(data->curr_pl)++;
-	}
-}
-
 int	create_astree(t_data *data)
 {
 	t_token	*curr;
@@ -104,12 +91,5 @@ int	create_astree(t_data *data)
 	}
 	if (!simplify_astree(data, data->astree))
 		return (FALSE);
-	data->pl_list = (t_ast **)ft_calloc(data->pl_cnt, sizeof(t_ast *));
-	if (!data->pl_list)
-		return (FALSE);
-	create_pl_list(data, data->astree);
-	data->curr_pl = 0;
-	// for (int i = 0; i < data->pl_cnt; i++)
-	// 	printf("%s\n", (data->pl_list)[i]->right->token);
 	return (TRUE);
 }
