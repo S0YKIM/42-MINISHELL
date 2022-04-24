@@ -6,7 +6,7 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 17:19:46 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/23 22:36:49 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/24 14:18:33 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,8 @@ static int	fork_process(t_data *data)
 
 int	execute(t_data *data)
 {
+	if (!traverse_heredoc(data->astree))
+		return (FALSE);
 	if (data->pl_cnt == 1 && exec_builtin(data->pl_list[0]->right, data))
 		return (TRUE);
 	return (fork_process(data));
