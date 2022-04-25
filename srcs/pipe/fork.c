@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fork.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 17:19:46 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/24 15:11:01 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/25 17:39:28 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ static void	child(t_data *data, int i)
 	else if (i != 0)
 		dup_fd(curr->pipe_fd[WRITE], STDOUT_FILENO);
 	close_child_fds(in_fd, out_fd, curr, prev);
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
 	execute_cmd(curr->right, data);
 }
 
@@ -69,6 +71,8 @@ int	fork_process(t_data *data)
 	pid_t	pid;
 	int		i;
 
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
 	if (data->curr_pl >= data->pl_cnt)
 		return (TRUE);
 	i = (data->curr_pl)++;
