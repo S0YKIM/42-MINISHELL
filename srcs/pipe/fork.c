@@ -6,7 +6,7 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 17:19:46 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/25 17:39:28 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/25 18:36:20 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,7 @@ static void	child(t_data *data, int i)
 	else if (i != 0)
 		dup_fd(curr->pipe_fd[WRITE], STDOUT_FILENO);
 	close_child_fds(in_fd, out_fd, curr, prev);
-	signal(SIGINT, SIG_DFL);
-	signal(SIGQUIT, SIG_DFL);
+	set_signal();
 	execute_cmd(curr->right, data);
 }
 
@@ -58,6 +57,7 @@ static int	parent(int pid)
 {
 	int	status;
 
+	set_signal();
 	if (waitpid(pid, &status, 0) == ERROR)
 		return (FALSE);
 	if (WIFEXITED(status))
