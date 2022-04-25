@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 16:41:06 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/25 17:40:04 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/26 01:03:26 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ static void	reset_loop(t_data *data, char *line)
 	data->pl_list = NULL;
 	data->pl_cnt = 0;
 	data->curr_pl = 0;
+	free(data->pids);
+	data->pids = NULL;
 }
 
 static int	parse_line(t_data *data, char *line)

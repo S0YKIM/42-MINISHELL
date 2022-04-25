@@ -6,7 +6,7 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 14:44:51 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/22 18:33:37 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/25 23:27:23 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct s_data
 	t_ast	**pl_list;
 	int		pl_cnt;
 	int		curr_pl;
+	int		*pids;
 }	t_data;
 
 t_env	*g_env_list;
