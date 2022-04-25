@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 16:02:56 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/25 16:49:27 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/25 18:23:54 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void	read_heredoc_child(t_ast *ast, int fd)
 	{
 		line = readline("> ");
 		if (!line)
-			continue ;
+			exit(EXIT_SUCCESS);
 		if (ft_strcmp(line, ast->left->token))
 			ft_putendl_fd(line, fd);
 		else

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 16:41:06 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/25 16:40:17 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/25 17:40:04 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,12 @@ static void	loop(t_data *data)
 	{
 		reset_loop(data, line);
 		line = readline("microshell> ");
-		if (!line || !*line)
+		if (!line)
+		{
+			printf("exit\n");
+			exit(EXIT_SUCCESS);
+		}
+		else if (!*line)
 			continue ;
 		add_history(line);
 		if (!parse_line(data, line))

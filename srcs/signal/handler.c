@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handler.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 14:57:46 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/25 16:57:35 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/25 18:29:25 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,16 +40,6 @@ static void	handle_sigquit(pid_t pid)
 	}
 }
 
-static void	handle_sigterm(pid_t pid)
-{
-	if (pid == ERROR)
-	{
-		printf("exit\n");
-		update_env("?", ft_strdup("0"));
-		exit (EXIT_SUCCESS);
-	}
-}
-
 void	handle_signal(int signum)
 {
 	pid_t	pid;
@@ -60,8 +50,6 @@ void	handle_signal(int signum)
 		handle_sigint(pid);
 	else if (signum == SIGQUIT)
 		handle_sigquit(pid);
-	else
-		handle_sigterm(pid);
 }
 
 void	handle_signal_heredoc(int signum)
@@ -69,7 +57,6 @@ void	handle_signal_heredoc(int signum)
 	if (signum == SIGINT)
 	{
 		printf("\b\b  \b\b");
-		update_env("?", ft_strdup("1"));
 		exit(EXIT_FAILURE);
 	}
 }
