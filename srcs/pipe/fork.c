@@ -6,7 +6,7 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 17:19:46 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/25 19:05:02 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/25 20:20:13 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,18 @@ static void	child(t_data *data, int i)
 	else if (i != 0)
 		dup_fd(curr->pipe_fd[WRITE], STDOUT_FILENO);
 	close_child_fds(in_fd, out_fd, curr, prev);
-	set_signal();
 	execute_cmd(curr->right, data);
 }
 
-static int	parent(int pid)
+static int	parent(int pid, char *cmd)
 {
 	int	status;
 
+	if (!ft_strcmp("./minishell", cmd))
+	{
+		signal(SIGINT, SIG_IGN);
+		signal(SIGQUIT, SIG_IGN);
+	}
 	if (waitpid(pid, &status, 0) == ERROR)
 		return (FALSE);
 	if (WIFEXITED(status))
@@ -71,8 +75,6 @@ int	fork_process(t_data *data)
 	pid_t	pid;
 	int		i;
 
-	signal(SIGINT, SIG_IGN);
-	signal(SIGQUIT, SIG_IGN);
 	if (data->curr_pl >= data->pl_cnt)
 		return (TRUE);
 	i = (data->curr_pl)++;
@@ -87,5 +89,5 @@ int	fork_process(t_data *data)
 			return (FALSE);
 		child(data, i);
 	}
-	return (parent(pid));
+	return (parent(pid, data->token_list->data));
 }
