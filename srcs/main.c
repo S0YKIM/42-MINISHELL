@@ -6,7 +6,7 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 16:41:06 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/26 01:03:26 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/26 01:06:06 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,20 @@ static void	reset_loop(t_data *data, char *line)
 	data->pids = NULL;
 }
 
-static int	parse_line(t_data *data, char *line)
+static int	parse_and_execute(t_data *data, char *line)
 {
+	int	result;
+
 	if (!tokenize(data, line))
 		return (FALSE);
 	if (!create_astree(data))
+		return (FALSE);
+	if (!check_syntax_error(data))
+		return (ERROR);
+	result = execute(data);
+	if (result == ERROR)
+		return (ERROR);
+	else if (!result)
 		return (FALSE);
 	return (TRUE);
 }
@@ -53,11 +62,7 @@ static void	loop(t_data *data)
 		else if (!*line)
 			continue ;
 		add_history(line);
-		if (!parse_line(data, line))
-			exit(EXIT_FAILURE);
-		if (!check_syntax_error(data))
-			continue ;
-		result = execute(data);
+		result = parse_and_execute(data, line);
 		if (result == ERROR)
 			continue ;
 		else if (!result)
