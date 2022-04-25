@@ -6,20 +6,11 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 16:41:06 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/24 16:19:38 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/25 16:40:17 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static int	parse_line(t_data *data, char *line)
-{
-	if (!tokenize(data, line))
-		return (FALSE);
-	if (!create_astree(data))
-		return (FALSE);
-	return (TRUE);
-}
 
 static void	reset_loop(t_data *data, char *line)
 {
@@ -33,9 +24,19 @@ static void	reset_loop(t_data *data, char *line)
 	data->curr_pl = 0;
 }
 
+static int	parse_line(t_data *data, char *line)
+{
+	if (!tokenize(data, line))
+		return (FALSE);
+	if (!create_astree(data))
+		return (FALSE);
+	return (TRUE);
+}
+
 static void	loop(t_data *data)
 {
 	char	*line;
+	int		result;
 
 	line = NULL;
 	while (TRUE)
@@ -49,7 +50,10 @@ static void	loop(t_data *data)
 			exit(EXIT_FAILURE);
 		if (!check_syntax_error(data))
 			continue ;
-		if (!execute(data))
+		result = execute(data);
+		if (result == ERROR)
+			continue ;
+		else if (!result)
 			exit(EXIT_FAILURE);
 	}
 }
