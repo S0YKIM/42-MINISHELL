@@ -6,7 +6,7 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 17:19:46 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/25 18:36:20 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/25 19:05:02 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,12 @@ static int	parent(int pid)
 {
 	int	status;
 
-	set_signal();
 	if (waitpid(pid, &status, 0) == ERROR)
 		return (FALSE);
 	if (WIFEXITED(status))
 		status = WEXITSTATUS(status);
 	update_env("?", ft_itoa(status));
+	set_signal();
 	return (TRUE);
 }
 
