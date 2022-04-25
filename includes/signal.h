@@ -6,7 +6,7 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 13:57:17 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/25 16:56:29 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/25 16:57:37 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,5 +16,6 @@
 void	set_signal(void);
 
 void	handle_signal(int signum);
+void	handle_signal_heredoc(int signum);
 
 #endif

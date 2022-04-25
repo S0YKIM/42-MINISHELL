@@ -6,7 +6,7 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 14:57:46 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/25 16:56:35 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/25 16:57:35 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,14 @@ void	handle_signal(int signum)
 		handle_sigquit(pid);
 	else
 		handle_sigterm(pid);
+}
+
+void	handle_signal_heredoc(int signum)
+{
+	if (signum == SIGINT)
+	{
+		printf("\b\b  \b\b");
+		update_env("?", ft_strdup("1"));
+		exit(EXIT_FAILURE);
+	}
 }
