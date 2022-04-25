@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fork.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 17:19:46 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/25 20:20:13 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/26 00:50:11 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ static void	close_child_fds(int in_fd, int out_fd, t_ast *curr, t_ast *prev)
 		close_fd(in_fd);
 	if (out_fd != STDOUT_FILENO)
 		close_fd(out_fd);
+	close_fd(curr->pipe_fd[READ]);
 	close_fd(curr->pipe_fd[WRITE]);
 	if (prev)
 	{
@@ -35,59 +36,85 @@ static void	child(t_data *data, int i)
 
 	curr = data->pl_list[i];
 	prev = NULL;
-	if (i != data->pl_cnt - 1)
-		prev = data->pl_list[i + 1];
+	if (i != 0)
+		prev = data->pl_list[i - 1];
 	in_fd = STDIN_FILENO;
 	out_fd = STDOUT_FILENO;
 	traverse_redirection(curr->left, &in_fd, &out_fd);
 	if (in_fd != STDIN_FILENO)
 		dup_fd(in_fd, STDIN_FILENO);
-	else if (i != data->pl_cnt - 1)
+	else if (i != 0)
 		dup_fd(prev->pipe_fd[READ], STDIN_FILENO);
 	if (out_fd != STDOUT_FILENO)
 		dup_fd(out_fd, STDOUT_FILENO);
-	else if (i != 0)
+	else if (i != data->pl_cnt - 1)
 		dup_fd(curr->pipe_fd[WRITE], STDOUT_FILENO);
 	close_child_fds(in_fd, out_fd, curr, prev);
 	execute_cmd(curr->right, data);
 }
 
-static int	parent(int pid, char *cmd)
+static int	parent(t_data *data, int i)
 {
-	int	status;
-
-	if (!ft_strcmp("./minishell", cmd))
+	if (i != 0)
+	{
+		if (close(data->pl_list[i - 1]->pipe_fd[READ]) == ERROR)
+			return (FALSE);
+		if (close(data->pl_list[i - 1]->pipe_fd[WRITE]) == ERROR)
+			return (FALSE);
+	}
+	if (i != 0 && i == data->pl_cnt - 1)
+	{
+		if (close(data->pl_list[i]->pipe_fd[READ]) == ERROR)
+			return (FALSE);
+	}
+	if (!ft_strcmp("./minishell", data->token_list->data))
 	{
 		signal(SIGINT, SIG_IGN);
 		signal(SIGQUIT, SIG_IGN);
 	}
-	if (waitpid(pid, &status, 0) == ERROR)
-		return (FALSE);
-	if (WIFEXITED(status))
-		status = WEXITSTATUS(status);
-	update_env("?", ft_itoa(status));
 	set_signal();
+	return (TRUE);
+}
+
+static int	wait_pids(t_data *data)
+{
+	int	i;
+	int	status;
+
+	i = 0;
+	while (i < data->pl_cnt)
+	{
+		if (waitpid(data->pids[i], &status, 0) == ERROR)
+			return (FALSE);
+		if (WIFEXITED(status))
+			status = WEXITSTATUS(status);
+		i++;
+	}
+	if (!update_env("?", ft_itoa(status)))
+		return (FALSE);
 	return (TRUE);
 }
 
 int	fork_process(t_data *data)
 {
-	pid_t	pid;
-	int		i;
+	int	i;
 
-	if (data->curr_pl >= data->pl_cnt)
-		return (TRUE);
-	i = (data->curr_pl)++;
-	if (pipe(data->pl_list[i]->pipe_fd) == ERROR)
-		return (FALSE);
-	pid = fork();
-	if (pid == ERROR)
-		return (FALSE);
-	else if (pid == 0)
+	i = 0;
+	while (i < data->pl_cnt)
 	{
-		if (!fork_process(data))
+		if (pipe(data->pl_list[i]->pipe_fd) == ERROR)
 			return (FALSE);
-		child(data, i);
+		data->pids[i] = fork();
+		if (data->pids[i] == ERROR)
+			return (FALSE);
+		else if (data->pids[i] == 0)
+			child(data, i);
+		else
+		{
+			if (!parent(data, i))
+				return (FALSE);
+		}
+		i++;
 	}
-	return (parent(pid, data->token_list->data));
+	return (wait_pids(data));
 }
