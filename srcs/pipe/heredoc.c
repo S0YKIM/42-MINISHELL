@@ -3,31 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 16:02:56 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/25 18:23:54 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/26 01:01:44 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// 나중에 지우기
-void	read_fd(int fd)
-{
-	int		n;
-	char	*line;
-
-	line = (char *)malloc(sizeof(char) + 1);
-	while ((n = read(fd, line, 1)) > 0)
-	{
-		printf("n: %d\n", n);
-		line[n] = '\0';
-		printf("|%s|", line);
-	}
-	free(line);
-	printf("\n");
-}
 
 static void	read_heredoc_child(t_ast *ast, int fd)
 {
