@@ -6,24 +6,11 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 22:22:22 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/22 22:44:38 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/27 01:25:48 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static void	exit_print_error(char *path)
-{
-	ft_putstr_fd(SHELL_NAME, STDERR_FILENO);
-	ft_putstr_fd(": ", STDERR_FILENO);
-	if (path)
-	{
-		ft_putstr_fd(path, STDERR_FILENO);
-		ft_putstr_fd(": ", STDERR_FILENO);
-	}
-	ft_putendl_fd(strerror(errno), STDERR_FILENO);
-	exit(EXIT_FAILURE);
-}
 
 int	open_infile(char *path)
 {
@@ -31,7 +18,7 @@ int	open_infile(char *path)
 
 	fd = open(path, O_RDONLY);
 	if (fd == ERROR)
-		exit_print_error(path);
+		print_file_error(path);
 	return (fd);
 }
 
@@ -41,18 +28,26 @@ int	open_outfile(char *path, int flag)
 
 	fd = open(path, flag, 0644);
 	if (fd == ERROR)
-		exit_print_error(path);
+		print_file_error(path);
 	return (fd);
 }
 
-void	close_fd(int fd)
+int	close_fd(int fd)
 {
-	if (close(fd) == ERROR)
-		exit_print_error(NULL);
+	int	result;
+
+	result = close(fd);
+	if (result == ERROR)
+		print_file_error(NULL);
+	return (result);
 }
 
-void	dup_fd(int fd1, int fd2)
+int	dup_fd(int fd1, int fd2)
 {
-	if (dup2(fd1, fd2) == ERROR)
-		exit_print_error(NULL);
+	int	result;
+
+	result = dup2(fd1, fd2);
+	if (result == ERROR)
+		print_file_error(NULL);
+	return (result);
 }
