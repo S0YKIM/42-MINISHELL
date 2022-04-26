@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 14:04:14 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/23 20:06:01 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/26 17:41:20 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,14 @@ int	exec_builtin(t_ast *ast, t_data *data)
 	return (TRUE);
 }
 
-static void	exec_custom_path(t_ast *ast)
+static void	exec_custom_path(t_ast *ast, t_data *data)
 {
 	update_env("?", ft_strdup("0"));
-	execve(ast->argv[0], ast->argv, NULL);
+	execve(ast->argv[0], ast->argv, data->envp);
 	return ;
 }
 
-static int	exec_reserved_path(t_ast *ast, char *path)
+static int	exec_reserved_path(t_ast *ast, char *path, t_data *data)
 {
 	char	*cmd;
 	char	*tmp;
@@ -64,7 +64,7 @@ static int	exec_reserved_path(t_ast *ast, char *path)
 		free(tmp);
 		if (!cmd)
 			return (free_double_pointer(paths));
-		execve(cmd, ast->argv, NULL);
+		execve(cmd, ast->argv, data->envp);
 		free(cmd);
 		i++;
 	}
@@ -85,8 +85,8 @@ void	execute_cmd(t_ast *ast, t_data *data)
 	}
 	path = get_env_value("PATH");
 	if (path)
-		exec_reserved_path(ast, path);
-	exec_custom_path(ast);
+		exec_reserved_path(ast, path, data);
+	exec_custom_path(ast, data);
 	printf("microshell: %s: No such file or directory\n", ast->argv[0]);
 	update_env("?", ft_strdup("127"));
 	exit(127);

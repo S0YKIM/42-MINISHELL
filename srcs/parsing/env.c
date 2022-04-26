@@ -6,7 +6,7 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 18:51:17 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/19 14:38:26 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/26 18:02:51 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,14 @@ static int	set_key_value(char *env, char **key, char **value)
 			env[i] = '\0';
 			*key = ft_strdup(env);
 			if (!*key)
+			{
+				free(env);
 				return (FALSE);
+			}
 			*value = ft_strdup(env + i + 1);
 			if (!*value)
 			{
+				free(env);
 				free(*key);
 				return (FALSE);
 			}
@@ -75,14 +79,19 @@ static int	add_prev_exit_env(void)
 int	parse_env(char **envp)
 {
 	int		i;
+	char	*tmp;
 	char	*key;
 	char	*value;
 
 	i = 0;
 	while (envp && envp[i])
 	{
-		if (set_key_value(envp[i], &key, &value))
+		tmp = ft_strdup(envp[i]);
+		if (!tmp)
+			return (FALSE);
+		if (set_key_value(tmp, &key, &value))
 		{
+			free(tmp);
 			if (!update_env(key, value))
 			{
 				free_env_list();
@@ -93,6 +102,5 @@ int	parse_env(char **envp)
 	}
 	if (!add_prev_exit_env())
 		return (FALSE);
-	// display_list(data);
 	return (TRUE);
 }
