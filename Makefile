@@ -6,7 +6,7 @@
 #    By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/18 16:05:23 by heehkim           #+#    #+#              #
-#    Updated: 2022/04/25 14:59:02 by heehkim          ###   ########.fr        #
+#    Updated: 2022/04/26 21:55:42 by heehkim          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ SRC_LIST = main.c \
 			$(D_ENV)get.c \
 			$(D_ENV)update.c \
 			$(D_ENV)remove.c \
+			$(D_ENV)envp.c \
 			$(D_PARSING)env.c \
 			$(D_PARSING)token.c \
 			$(D_PARSING)trim.c \
