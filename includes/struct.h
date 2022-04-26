@@ -6,7 +6,7 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 14:44:51 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/25 23:27:23 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/26 17:28:34 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct s_ast
 
 typedef struct s_data
 {
+	char	**envp;
 	t_token	*token_list;
 	t_ast	*astree;
 	t_ast	**pl_list;
