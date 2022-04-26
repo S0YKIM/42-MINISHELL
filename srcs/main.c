@@ -6,7 +6,7 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 16:41:06 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/26 01:06:06 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/26 18:42:30 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,10 @@ static int	parse_and_execute(t_data *data, char *line)
 {
 	int	result;
 
-	if (!tokenize(data, line))
+	result = tokenize(data, line);
+	if (result == ERROR)
+		return (ERROR);
+	else if (!result)
 		return (FALSE);
 	if (!create_astree(data))
 		return (FALSE);
