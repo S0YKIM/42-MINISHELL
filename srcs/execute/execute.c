@@ -6,7 +6,7 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 14:04:14 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/28 01:01:33 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/28 01:40:23 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ static int	exec_custom_path(t_ast *ast)
 	envp = make_envp();
 	if (!envp)
 		return (FALSE);
-	update_env("?", ft_strdup("0"));
 	execve(ast->argv[0], ast->argv, envp);
-	return (TRUE);
+	print_no_such_file(SHELL_NAME, ast->token, FALSE);
+	exit(127);
 }
 
 static char	*join_path_token(char *path, char *token)
@@ -48,41 +48,43 @@ static int	exec_reserved_path(t_ast *ast, char *path)
 	paths = ft_split(path, ':');
 	if (!paths)
 		return (ERROR);
+	envp = make_envp();
+	if (!envp)
+		return (free_double_pointer(paths));
 	while (paths[i])
 	{
 		cmd = join_path_token(paths[i], ast->token);
 		if (!cmd)
 			return (free_double_pointer(paths));
-		envp = make_envp();
-		if (!envp)
-		{
-			free(cmd);
-			return (free_double_pointer(paths));
-		}
 		execve(cmd, ast->argv, envp);
 		free(cmd);
 		i++;
 	}
-	return (FALSE);
+	print_command_not_found(ast->token);
+	exit(127);
 }
 
 void	execute_cmd(t_ast *ast, t_data *data)
 {
 	char	*path;
-	int		ret;
 	char	*value;
 
-	ret = exec_builtin(ast, data);
-	if (ret)
+	if (ft_strchr(ast->argv[0], '/'))
+	{
+		if (!exec_custom_path(ast))
+			exit(EXIT_FAILURE);
+	}
+	if (exec_builtin(ast, data))
 	{
 		value = get_env_value("?");
 		exit(ft_atol(value));
 	}
 	path = get_env_value("PATH");
 	if (path)
-		exec_reserved_path(ast, path);
-	exec_custom_path(ast);
-	print_no_such_file(SHELL_NAME, ast->token);
-	update_env("?", ft_strdup("127"));
-	exit(127);
+	{
+		if (exec_reserved_path(ast, path) == ERROR)
+			exit(EXIT_FAILURE);
+	}
+	if (!exec_custom_path(ast))
+		exit(EXIT_FAILURE);
 }

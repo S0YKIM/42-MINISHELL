@@ -6,7 +6,7 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 14:45:20 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/28 00:58:46 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/28 01:43:47 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ int		free_double_pointer(char **tab);
 /*
  * Print error messages
 */
-void	print_invalid_identifier(char *cmd, char *argv);
-void	print_full_no_such_file(char *cmd, char *argv);
-void	print_no_such_file(char *cmd, char *argv);
-void	print_not_set(char *cmd, char *argv);
+void	print_invalid_identifier(char *cmd, char *arg);
+void	print_no_such_file(char *cmd, char *arg, int shellname);
+void	print_not_set(char *cmd, char *arg);
+void	print_command_not_found(char *cmd);
 void	print_file_error(char *path);
 
 /*
