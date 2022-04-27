@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 14:04:14 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/23 20:06:01 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/28 00:16:26 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,19 +37,37 @@ int	exec_builtin(t_ast *ast, t_data *data)
 	return (TRUE);
 }
 
-static void	exec_custom_path(t_ast *ast)
+static int	exec_custom_path(t_ast *ast)
 {
+	char	**envp;
+
+	envp = make_envp();
+	if (!envp)
+		return (FALSE);
 	update_env("?", ft_strdup("0"));
-	execve(ast->argv[0], ast->argv, NULL);
-	return ;
+	execve(ast->argv[0], ast->argv, envp);
+	return (TRUE);
+}
+
+static char	*join_path_token(char *path, char *token)
+{
+	char	*cmd;
+	char	*tmp;
+
+	tmp = ft_strjoin(path, "/");
+	if (!tmp)
+		return (NULL);
+	cmd = ft_strjoin(tmp, token);
+	free(tmp);
+	return (cmd);
 }
 
 static int	exec_reserved_path(t_ast *ast, char *path)
 {
 	char	*cmd;
-	char	*tmp;
 	char	**paths;
 	int		i;
+	char	**envp;
 
 	i = 0;
 	paths = ft_split(path, ':');
@@ -57,14 +75,16 @@ static int	exec_reserved_path(t_ast *ast, char *path)
 		return (ERROR);
 	while (paths[i])
 	{
-		tmp = ft_strjoin(paths[i], "/");
-		if (!tmp)
-			return (free_double_pointer(paths));
-		cmd = ft_strjoin(tmp, ast->argv[0]);
-		free(tmp);
+		cmd = join_path_token(paths[i], ast->token);
 		if (!cmd)
 			return (free_double_pointer(paths));
-		execve(cmd, ast->argv, NULL);
+		envp = make_envp();
+		if (!envp)
+		{
+			free(cmd);
+			return (free_double_pointer(paths));
+		}
+		execve(cmd, ast->argv, envp);
 		free(cmd);
 		i++;
 	}

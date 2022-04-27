@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 13:34:53 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/22 19:54:33 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/28 00:13:58 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,10 @@ void	remove_node(t_env **node);
 t_env	*get_node_with_key(char *key);
 char	*get_env_value(char *key);
 int		is_there_node_with_key(char *key);
+
+/*
+ * Make envp
+*/
+char	**make_envp(void);
 
 #endif
