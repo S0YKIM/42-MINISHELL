@@ -6,7 +6,7 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 22:36:12 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/23 17:53:02 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/27 19:26:35 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ static int	expand_and_replace(t_token *curr, char *i, int is_dquote)
 	value = expand_env_value(i, &key_end, is_dquote);
 	if (!value)
 		return (ERROR);
+	if (!is_dquote && !*value)
+		return (REMOVE);
 	*i = '\0';
 	head = ft_strjoin(curr->data, value);
 	free(value);
@@ -79,6 +81,8 @@ int	expand_env(t_token *curr)
 			len = expand_and_replace(curr, i, FALSE);
 			if (len == ERROR)
 				return (FALSE);
+			if (len == REMOVE)
+				return (REMOVE);
 			i = curr->data + len;
 		}
 		else if (*i == '\"' || *i == '\'')
