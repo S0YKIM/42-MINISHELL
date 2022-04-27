@@ -6,7 +6,7 @@
 #    By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/18 16:05:23 by heehkim           #+#    #+#              #
-#    Updated: 2022/04/27 01:37:34 by heehkim          ###   ########.fr        #
+#    Updated: 2022/04/27 16:09:56 by heehkim          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,6 +48,7 @@ SRC_LIST = main.c \
 			$(D_PIPE)fork.c \
 			$(D_PIPE)redirection.c \
 			$(D_PIPE)execute.c \
+			$(D_PIPE)util.c \
 			$(D_UTIL)init.c \
 			$(D_UTIL)free.c \
 			$(D_UTIL)print.c \
