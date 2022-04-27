@@ -6,7 +6,7 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 14:43:51 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/22 22:45:03 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/28 01:10:00 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # define ERROR		-1
 # define SUCCESS	0
 # define FAILURE	1
+
+# define REMOVE		-2
 
 # define T_CMD	0
 # define T_RDR	1
