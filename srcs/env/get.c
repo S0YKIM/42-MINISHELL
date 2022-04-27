@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 13:42:35 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/22 22:04:56 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/27 18:10:20 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,11 @@ char	*get_env_value(char *key)
 	while (curr)
 	{
 		if (!ft_strcmp(curr->key, key))
+		{
+			if (!curr->value)
+				return (ft_strdup(""));
 			return (ft_strdup(curr->value));
+		}
 		curr = curr->next;
 	}
 	return (ft_strdup(""));
