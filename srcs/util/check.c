@@ -6,7 +6,7 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 16:14:22 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/24 16:23:46 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/28 00:59:01 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,19 @@ int	check_syntax_error(t_data *data)
 	if (!traverse_syntax_error(node->right))
 		return (print_syntax_error());
 	return (TRUE);
+}
+
+int	is_builtin(t_ast *node)
+{
+	char	*token;
+
+	if (!node || !node->right)
+		return (FALSE);
+	token = node->right->token;
+	if (!ft_strcmp(token, "cd") || !ft_strcmp(token, "echo") \
+		|| !ft_strcmp(token, "env") || !ft_strcmp(token, "exit") \
+		|| !ft_strcmp(token, "export") || !ft_strcmp(token, "pwd") \
+		|| !ft_strcmp(token, "unset"))
+		return (TRUE);
+	return (FALSE);
 }
