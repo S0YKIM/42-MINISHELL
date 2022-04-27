@@ -6,7 +6,7 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 14:45:20 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/27 01:37:40 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/27 17:15:54 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,10 @@ void	print_not_set(char *cmd, char *argv);
 void	print_file_error(char *path);
 
 /*
- * Check error
+ * Check utils
  */
 int		check_syntax_error(t_data *data);
+int		is_builtin(t_ast *node);
 
 /*
  * File utils

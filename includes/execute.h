@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 14:02:20 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/23 20:09:07 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/27 17:27:46 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,6 @@
 
 int		exec_builtin(t_ast *ast, t_data *data);
 void	execute_cmd(t_ast *ast, t_data *data);
+int		execute_one_builtin(t_data *data);
 
 #endif

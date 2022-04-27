@@ -6,7 +6,7 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 15:10:41 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/27 16:31:43 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/27 17:30:54 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,8 @@ int	execute(t_data *data)
 	result = traverse_heredoc(data->astree);
 	if (!result || result == ERROR)
 		return (result);
-	if (data->pl_cnt == 1 && data->pl_list[0]->right \
-		&& exec_builtin(data->pl_list[0]->right, data))
-		return (TRUE);
+	if (data->pl_cnt == 1 && is_builtin(data->pl_list[0]))
+		return (execute_one_builtin(data));
 	data->pids = (int *)ft_calloc(data->pl_cnt, sizeof(int));
 	if (!data->pids)
 		return (FALSE);
