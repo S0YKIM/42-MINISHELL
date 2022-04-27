@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 17:31:28 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/27 17:34:09 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/28 00:09:25 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ int	exec_builtin(t_ast *ast, t_data *data)
 		ret = ft_unset(ast);
 	else
 		return (FALSE);
+	if (ret == FAILURE)
+		print_no_such_file(SHELL_NAME, ast->token, FALSE);
 	update_env("?", ft_itoa(ret));
 	return (TRUE);
 }
