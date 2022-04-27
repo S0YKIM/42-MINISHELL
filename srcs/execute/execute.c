@@ -6,36 +6,11 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 14:04:14 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/28 00:16:26 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/28 01:01:33 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	exec_builtin(t_ast *ast, t_data *data)
-{
-	int	ret;
-
-	ret = SUCCESS;
-	if (!ft_strcmp(ast->argv[0], "cd"))
-		ret = ft_cd(ast);
-	else if (!ft_strcmp(ast->argv[0], "echo"))
-		ret = ft_echo(ast);
-	else if (!ft_strcmp(ast->argv[0], "env"))
-		ret = ft_env(ast);
-	else if (!ft_strcmp(ast->argv[0], "exit"))
-		ft_exit(ast, data);
-	else if (!ft_strcmp(ast->argv[0], "export"))
-		ret = ft_export(ast);
-	else if (!ft_strcmp(ast->argv[0], "pwd"))
-		ret = ft_pwd();
-	else if (!ft_strcmp(ast->argv[0], "unset"))
-		ret = ft_unset(ast);
-	else
-		return (FALSE);
-	update_env("?", ft_itoa(ret));
-	return (TRUE);
-}
 
 static int	exec_custom_path(t_ast *ast)
 {
@@ -107,7 +82,7 @@ void	execute_cmd(t_ast *ast, t_data *data)
 	if (path)
 		exec_reserved_path(ast, path);
 	exec_custom_path(ast);
-	printf("microshell: %s: No such file or directory\n", ast->argv[0]);
+	print_no_such_file(SHELL_NAME, ast->token);
 	update_env("?", ft_strdup("127"));
 	exit(127);
 }
