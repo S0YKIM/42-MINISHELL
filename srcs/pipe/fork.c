@@ -6,26 +6,11 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 17:19:46 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/28 00:00:12 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/28 00:54:17 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static void	close_child_fds(int in_fd, int out_fd, t_ast *curr, t_ast *prev)
-{
-	if (in_fd != STDIN_FILENO)
-		close_fd(in_fd);
-	if (out_fd != STDOUT_FILENO)
-		close_fd(out_fd);
-	close_fd(curr->pipe_fd[READ]);
-	close_fd(curr->pipe_fd[WRITE]);
-	if (prev)
-	{
-		close_fd(prev->pipe_fd[READ]);
-		close_fd(prev->pipe_fd[WRITE]);
-	}
-}
 
 static void	child(t_data *data, int i)
 {
@@ -40,7 +25,8 @@ static void	child(t_data *data, int i)
 		prev = data->pl_list[i - 1];
 	in_fd = STDIN_FILENO;
 	out_fd = STDOUT_FILENO;
-	traverse_redirection(curr->left, &in_fd, &out_fd);
+	if (!traverse_redirection(curr->left, &in_fd, &out_fd))
+		exit(EXIT_FAILURE);
 	if (in_fd != STDIN_FILENO)
 		dup_fd(in_fd, STDIN_FILENO);
 	else if (i != 0)
@@ -55,18 +41,7 @@ static void	child(t_data *data, int i)
 
 static int	parent(t_data *data, int i)
 {
-	if (i != 0)
-	{
-		if (close(data->pl_list[i - 1]->pipe_fd[READ]) == ERROR)
-			return (FALSE);
-		if (close(data->pl_list[i - 1]->pipe_fd[WRITE]) == ERROR)
-			return (FALSE);
-	}
-	if (i != 0 && i == data->pl_cnt - 1)
-	{
-		if (close(data->pl_list[i]->pipe_fd[READ]) == ERROR)
-			return (FALSE);
-	}
+	close_parent_fds(data, i);
 	if (!ft_strcmp("./minishell", data->token_list->data))
 	{
 		signal(SIGINT, SIG_IGN);
@@ -115,6 +90,7 @@ int	fork_process(t_data *data)
 		}
 		i++;
 	}
+	close_parent_fds(data, i);
 	if (!wait_pids(data))
 		return (FALSE);
 	set_signal();
