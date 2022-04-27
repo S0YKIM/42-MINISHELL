@@ -6,7 +6,7 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 14:04:14 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/28 00:11:45 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/28 00:30:24 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ static int	exec_custom_path(t_ast *ast)
 	envp = make_envp();
 	if (!envp)
 		return (FALSE);
-	update_env("?", ft_strdup("0"));
 	execve(ast->argv[0], ast->argv, envp);
 	print_no_such_file(SHELL_NAME, ast->token, FALSE);
 	exit(127);
