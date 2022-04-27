@@ -6,7 +6,7 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 14:44:51 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/26 22:04:15 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/27 19:10:28 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef struct s_token
 {
 	char			*data;
 	int				is_word;
+	struct s_token	*prev;
 	struct s_token	*next;
 }	t_token;
 
