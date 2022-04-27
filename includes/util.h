@@ -6,7 +6,7 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 14:45:20 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/24 16:20:12 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/28 00:23:34 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,19 @@ void	print_invalid_identifier(char *cmd, char *argv);
 void	print_full_no_such_file(char *cmd, char *argv);
 void	print_no_such_file(char *cmd, char *argv);
 void	print_not_set(char *cmd, char *argv);
+void	print_file_error(char *path);
 
 /*
  * Check error
  */
 int		check_syntax_error(t_data *data);
+
+/*
+ * File utils
+ */
+int		open_infile(char *path);
+int		open_outfile(char *path, int flag);
+int		close_fd(int fd);
+int		dup_fd(int fd1, int fd2);
 
 #endif
