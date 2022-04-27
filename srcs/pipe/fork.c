@@ -6,7 +6,7 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 17:19:46 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/27 16:15:41 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/27 16:41:01 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ static void	child(t_data *data, int i)
 	else if (i != data->pl_cnt - 1)
 		dup_fd(curr->pipe_fd[WRITE], STDOUT_FILENO);
 	close_child_fds(in_fd, out_fd, curr, prev);
+	if (!curr->right)
+		exit(EXIT_SUCCESS);
 	execute_cmd(curr->right, data);
 }
 
