@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 19:17:43 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/28 01:08:34 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/28 17:38:24 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_ast	*add_ast_node(t_ast *parent, t_ast *new);
 int		simplify_astree(t_data *data, t_ast *node);
 
 // 나중에 삭제
-void	display_env_list(void);
+// void	display_env_list(void);
 void	display_token_list(t_data *data);
 void	display_astree(t_ast *ast);
 

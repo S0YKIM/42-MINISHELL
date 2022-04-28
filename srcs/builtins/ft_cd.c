@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 12:19:46 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/28 01:35:43 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/28 19:53:02 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ static int	change_directory(char *path, t_ast *ast)
 	if (!dir)
 		return (FALSE);
 	ret = chdir(dir);
+	free(dir);
 	if (ret == ERROR)
 	{
 		print_no_such_file("cd", ast->argv[1], TRUE);
