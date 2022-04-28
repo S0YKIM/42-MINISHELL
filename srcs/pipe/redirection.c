@@ -6,7 +6,7 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 20:16:10 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/27 01:30:46 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/28 15:32:33 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,9 @@ int	traverse_redirection(t_ast *ast, int *in_fd, int *out_fd)
 			return (FALSE);
 	}
 	else
+	{
 		if (!set_out_fd(ast, out_fd))
-			return (FALSE);
+				return (FALSE);
+	}
 	return (traverse_redirection(ast->right, in_fd, out_fd));
 }

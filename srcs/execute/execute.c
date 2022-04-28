@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 14:04:14 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/28 00:30:24 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/28 15:31:50 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static int	exec_reserved_path(t_ast *ast, char *path)
 		i++;
 	}
 	print_command_not_found(ast->token);
-	exit (127);
+	exit(127);
 }
 
 void	execute_cmd(t_ast *ast, t_data *data)
@@ -71,8 +71,8 @@ void	execute_cmd(t_ast *ast, t_data *data)
 
 	if (ft_strchr(ast->argv[0], '/'))
 	{
- 		if (!exec_custom_path(ast))
-		 	exit(EXIT_FAILURE);
+		if (!exec_custom_path(ast))
+			exit(EXIT_FAILURE);
 	}
 	if (exec_builtin(ast, data))
 	{

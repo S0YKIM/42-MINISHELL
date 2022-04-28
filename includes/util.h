@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   util.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 14:45:20 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/27 23:40:22 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/28 15:33:33 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,11 @@ void	print_command_not_found(char *cmd);
 void	print_file_error(char *path);
 
 /*
+<<<<<<< HEAD
  * Check utils
+=======
+* Check utils
+>>>>>>> origin/hhtmp
  */
 int		check_syntax_error(t_data *data);
 int		is_builtin(t_ast *node);
