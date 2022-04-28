@@ -6,7 +6,7 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 16:22:06 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/28 20:42:57 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/28 21:03:47 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,21 +106,4 @@ void	display_env_list(t_env *display)
 			printf("declare -x %s\n", curr->key);
 		curr = curr->next;
 	}
-}
-
-void	free_display_env_list(t_env **display)
-{
-	t_env	*curr;
-	t_env	*tmp;
-
-	curr = *display;
-	while (curr)
-	{
-		tmp = curr;
-		curr = curr->next;
-		free(tmp->key);
-		free(tmp->value);
-		free(tmp);
-	}
-	*display = NULL;
 }
