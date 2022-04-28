@@ -6,13 +6,13 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 23:27:30 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/13 18:58:47 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/23 17:53:44 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_unset(char **cmds, t_data *data)
+int	ft_unset(t_ast *ast)
 {
 	t_env	*node;
 	int		ret;
@@ -20,18 +20,18 @@ int	ft_unset(char **cmds, t_data *data)
 
 	i = 0;
 	ret = SUCCESS;
-	while (cmds[++i])
+	while (ast->argv[++i])
 	{
-		if (!is_valid_key_name(cmds[i]))
+		if (!is_valid_key_name(ast->argv[i]))
 		{
-			printf("unset: `%s': not a valid identifier\n", cmds[i]);
+			print_invalid_identifier("unset", ast->argv[i]);
 			ret = FAILURE;
 		}
-		else
+		else if (ft_strcmp(ast->argv[i], "_"))
 		{
-			node = get_node_with_key(data, cmds[i]);
+			node = get_node_with_key(ast->argv[i]);
 			if (node)
-				remove_node(node);
+				remove_node(&node);
 		}
 	}
 	return (ret);

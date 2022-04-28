@@ -6,24 +6,24 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 19:11:57 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/14 21:26:33 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/27 20:11:31 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 // 나중에 삭제!
-// static void	display_token_list(t_data *data)
-// {
-// 	t_token	*curr;
+void	display_token_list(t_data *data)
+{
+	t_token	*curr;
 
-// 	curr = data->token_list;
-// 	while (curr)
-// 	{
-// 		printf("token: %s | %d\n", curr->data, curr->is_word);
-// 		curr = curr->next;
-// 	}
-// }
+	curr = data->token_list;
+	while (curr)
+	{
+		printf("token: %s | %d\n", curr->data, curr->is_word);
+		curr = curr->next;
+	}
+}
 
 static int	add_token_node(t_data *data, char *token)
 {
@@ -43,9 +43,23 @@ static int	add_token_node(t_data *data, char *token)
 		curr = data->token_list;
 		while (curr->next)
 			curr = curr->next;
+		new->prev = curr;
 		curr->next = new;
 	}
 	return (TRUE);
+}
+
+void	delete_token_node(t_data *data, t_token **node)
+{
+	if ((*node)->prev)
+		(*node)->prev->next = (*node)->next;
+	if ((*node)->next)
+		(*node)->next->prev = (*node)->prev;
+	free((*node)->data);
+	if (data->token_list == *node)
+		data->token_list = NULL;
+	free(*node);
+	*node = NULL;
 }
 
 static char	*find_end(char *start)
@@ -96,11 +110,10 @@ int	tokenize(t_data *data, char *line)
 				free_token_list(data);
 				return (FALSE);
 			}
-			start = end + 1;
 		}
+		start = end + 1;
 	}
 	if (!trim_token(data))
 		return (FALSE);
-	// display_token_list(data);
 	return (TRUE);
 }

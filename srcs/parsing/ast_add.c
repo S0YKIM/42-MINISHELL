@@ -6,7 +6,7 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 23:04:49 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/14 00:42:39 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/17 17:28:48 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,7 @@
 
 static t_ast	*add_ast_node_greater(t_ast *parent, t_ast *new)
 {
-	if (!new->left)
-		new->left = parent;
-	else
-		new->right = parent;
+	new->left = parent;
 	return (new);
 }
 

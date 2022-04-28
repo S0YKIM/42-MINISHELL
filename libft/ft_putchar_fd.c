@@ -1,21 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pwd.c                                           :+:      :+:    :+:   */
+/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/06 20:56:14 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/18 14:13:29 by sokim            ###   ########.fr       */
+/*   Created: 2021/05/10 17:00:13 by heehkim           #+#    #+#             */
+/*   Updated: 2021/05/10 17:04:43 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	ft_pwd(void)
+void	ft_putchar_fd(char c, int fd)
 {
-	char	buf[1024];
-
-	printf("%s\n", getcwd(buf, 1024));
-	return (SUCCESS);
+	write(fd, &c, 1);
 }

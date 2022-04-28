@@ -6,17 +6,17 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 18:11:19 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/15 15:56:17 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/22 23:19:29 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	export_only(t_env *env_list)
+static int	export_only(void)
 {
 	t_env	*curr;
 
-	curr = env_list;
+	curr = g_env_list;
 	while (curr)
 	{
 		if (*(curr->key) == '?')
@@ -36,19 +36,24 @@ static int	export_only(t_env *env_list)
 static char	*get_key_name(char *str)
 {
 	char	*key;
+	char	*tmp;
 	int		i;
 
+	tmp = ft_strdup(str);
+	if (!tmp)
+		return (NULL);
 	i = 0;
-	while (str[i])
+	while (tmp[i])
 	{
-		if (str[i] == '=')
+		if (tmp[i] == '=')
 		{
-			str[i] = '\0';
+			tmp[i] = '\0';
 			break ;
 		}
 		i++;
 	}
-	key = ft_strdup(str);
+	key = ft_strdup(tmp);
+	free(tmp);
 	return (key);
 }
 
@@ -63,7 +68,7 @@ static char	*get_value_in_arg(char *str)
 		if (str[i] == '=')
 		{
 			i++;
-			value = ft_strdup(str);
+			value = ft_strdup(str + i);
 			return (value);
 		}
 		i++;
@@ -71,33 +76,31 @@ static char	*get_value_in_arg(char *str)
 	return (NULL);
 }
 
-int	ft_export(char **cmds, t_data *data)
+int	ft_export(t_ast *ast)
 {
 	char	*key;
 	char	*value;
 	int		i;
 	int		ret;
 
-	if (!cmds[1])
-		return (export_only(data->env_list));
+	if (ast->argc == 1)
+		return (export_only());
 	i = 0;
 	ret = SUCCESS;
-	while (cmds[++i])
+	while (++i < ast->argc)
 	{
-		key = get_key_name(cmds[i]);
+		key = get_key_name(ast->argv[i]);
 		if (!is_valid_key_name(key))
 		{
-			printf("export: `%s': not a valid identifier\n", cmds[1]);
+			print_invalid_identifier("export", ast->argv[i]);
 			ret = FAILURE;
 		}
-		else if (*key != '_')
+		else if (ft_strcmp(key, "_"))
 		{
-			value = get_value_in_arg(cmds[1]);
-			if (!update_env(data, key, value))
+			value = get_value_in_arg(ast->argv[i]);
+			if (!update_env(key, value))
 				ret = FAILURE;
 		}
-		free(key);
-		free(value);
 	}
 	return (ret);
 }

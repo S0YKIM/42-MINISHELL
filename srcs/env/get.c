@@ -3,20 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   get.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 13:42:35 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/15 15:59:18 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/27 18:10:20 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_env	*get_node_with_key(t_data *data, char *key)
+int	is_there_node_with_key(char *key)
 {
 	t_env	*curr;
 
-	curr = data->env_list;
+	curr = g_env_list;
+	while (curr)
+	{
+		if (!ft_strcmp(curr->key, key))
+			return (TRUE);
+		curr = curr->next;
+	}
+	return (FALSE);
+}
+
+t_env	*get_node_with_key(char *key)
+{
+	t_env	*curr;
+
+	curr = g_env_list;
 	while (curr)
 	{
 		if (!ft_strcmp(curr->key, key))
@@ -26,15 +40,19 @@ t_env	*get_node_with_key(t_data *data, char *key)
 	return (NULL);
 }
 
-char	*get_env_value(t_data *data, char *key)
+char	*get_env_value(char *key)
 {
 	t_env	*curr;
 
-	curr = data->env_list;
+	curr = g_env_list;
 	while (curr)
 	{
 		if (!ft_strcmp(curr->key, key))
+		{
+			if (!curr->value)
+				return (ft_strdup(""));
 			return (ft_strdup(curr->value));
+		}
 		curr = curr->next;
 	}
 	return (ft_strdup(""));

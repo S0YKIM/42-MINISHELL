@@ -6,47 +6,102 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 12:19:46 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/15 16:02:50 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/27 23:27:40 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	change_directory(char *path, t_data *data)
+static char	*get_directory(char *path)
 {
 	char	*dir;
-	int		ret;
 
-	if (*path == '~')
-		dir = (get_env_value(data, "HOME"));
-	else if (*path == '-')
-		dir = (get_env_value(data, "OLDPWD"));
+	if (!ft_strcmp(path, "~"))
+	{
+		dir = get_env_value("HOME");
+		if (!ft_strcmp(dir, ""))
+		{
+			print_not_set("cd", "HOME");
+			return (NULL);
+		}
+	}
+	else if (!ft_strcmp(path, "-"))
+	{
+		dir = get_env_value("OLDPWD");
+		if (!ft_strcmp(dir, ""))
+		{
+			print_not_set("cd", "OLDPWD");
+			return (NULL);
+		}
+	}
 	else
 		dir = ft_strdup(path);
+	return (dir);
+}
+
+static int	change_directory(char *path, t_ast *ast)
+{
+	int		ret;
+	char	*dir;
+
+	dir = get_directory(path);
 	if (!dir)
 		return (FALSE);
 	ret = chdir(dir);
-	free(dir);
-	return (ret);
+	if (ret == ERROR)
+	{
+		print_no_such_file("cd", ast->argv[1], TRUE);
+		return (FALSE);
+	}
+	return (TRUE);
 }
 
-int	ft_cd(char **cmds, t_data *data)
+static int	set_old_pwd(void)
+{
+	char	*pwd;
+	int		ret;
+
+	pwd = get_env_value("PWD");
+	if (!pwd)
+		return (TRUE);
+	if (!is_there_node_with_key("OLDPWD"))
+		return (TRUE);
+	ret = update_env("OLDPWD", pwd);
+	if (!ret)
+		return (FALSE);
+	return (TRUE);
+}
+
+static int	set_pwd(char *path)
+{
+	char	*tmp;
+	int		ret;
+
+	if (!is_there_node_with_key("PWD"))
+		return (TRUE);
+	tmp = ft_strdup(path);
+	if (!tmp)
+		return (FALSE);
+	ret = update_env("PWD", tmp);
+	if (!ret)
+		return (FALSE);
+	return (TRUE);
+}
+
+int	ft_cd(t_ast *ast)
 {
 	int		ret;
-	char	pwd[1024];
+	char	path[1024];
 
-	if (!cmds[1])
-		return (change_directory("~", data));
-	ret = change_directory(cmds[1], data);
-	if (ret == FAILURE)
-	{
-		printf("cd: %s: No such file or directory\n", cmds[1]);
+	if (ast->argc == 1)
+		return (change_directory("~", ast));
+	ret = change_directory(ast->argv[1], ast);
+	if (!ret)
 		return (FAILURE);
-	}
-	getcwd(pwd, 1024);
-	if (!(update_env(data, "OLDPWD", get_env_value(data, "PWD"))))
+	getcwd(path, 1024);
+	if (!set_old_pwd())
 		return (FAILURE);
-	if (!(update_env(data, "PWD", pwd)))
+	if (!set_pwd(path))
 		return (FAILURE);
 	return (SUCCESS);
 }

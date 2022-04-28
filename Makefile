@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2022/04/18 16:05:23 by heehkim           #+#    #+#              #
+#    Updated: 2022/04/27 17:34:53 by heehkim          ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME = minishell
 
 CC = gcc
@@ -7,26 +19,45 @@ SRCDIR = srcs/
 D_BUILTIN = builtins/
 D_ENV = env/
 D_PARSING = parsing/
+D_PIPE = pipe/
 D_UTIL = util/
+D_SIGNAL = signal/
+D_EXECUTE = execute/
 SRC_LIST = main.c \
 			$(D_BUILTIN)ft_env.c \
 			$(D_BUILTIN)ft_pwd.c \
 			$(D_BUILTIN)ft_export.c \
 			$(D_BUILTIN)ft_cd.c \
 			$(D_BUILTIN)ft_unset.c \
+			$(D_BUILTIN)ft_exit.c \
+			$(D_BUILTIN)ft_echo.c \
 			$(D_BUILTIN)utils.c \
 			$(D_ENV)get.c \
 			$(D_ENV)update.c \
 			$(D_ENV)remove.c \
+			$(D_ENV)envp.c \
 			$(D_PARSING)env.c \
 			$(D_PARSING)token.c \
 			$(D_PARSING)trim.c \
 			$(D_PARSING)expand.c \
+			$(D_PARSING)expand_env_value.c \
 			$(D_PARSING)ast.c \
 			$(D_PARSING)ast_add.c \
 			$(D_PARSING)ast_simplify.c \
+			$(D_PIPE)heredoc.c \
+			$(D_PIPE)fork.c \
+			$(D_PIPE)redirection.c \
+			$(D_PIPE)execute.c \
+			$(D_PIPE)util.c \
 			$(D_UTIL)init.c \
-			$(D_UTIL)free.c
+			$(D_UTIL)free.c \
+			$(D_UTIL)print.c \
+			$(D_UTIL)check.c \
+			$(D_UTIL)file.c \
+			$(D_SIGNAL)signal.c \
+			$(D_SIGNAL)handler.c \
+			$(D_EXECUTE)execute.c \
+			$(D_EXECUTE)builtin.c
 SRCS = $(addprefix $(SRCDIR), $(SRC_LIST))
 OBJS = $(SRCS:.c=.o)
 
@@ -42,7 +73,7 @@ else ifeq ($(MODE), SOKIM)
 	READLINE_DIR = /opt/homebrew/Cellar/readline/8.1.2
 endif
 
-INC_FLAGS = -I includes -I libft
+INC_FLAGS = -I includes -I libft -I $(READLINE_DIR)/include
 LINK_FLAGS = -L${READLINE_DIR}/lib -lreadline
 
 %.o: %.c

@@ -6,13 +6,13 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 13:08:27 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/28 15:35:52 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/28 15:39:34 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	add_new_env_node(t_data *data, char *key, char *value)
+static int	add_new_env_node(char *key, char *value)
 {
 	t_env	*new;
 	t_env	*curr;
@@ -22,11 +22,11 @@ static int	add_new_env_node(t_data *data, char *key, char *value)
 		return (FALSE);
 	new->key = key;
 	new->value = value;
-	if (!data->env_list)
-		data->env_list = new;
+	if (!g_env_list)
+		g_env_list = new;
 	else
 	{
-		curr = data->env_list;
+		curr = g_env_list;
 		while (curr->next)
 			curr = curr->next;
 		new->prev = curr;
@@ -68,7 +68,7 @@ int	update_env(t_data *data, char *key, char *value)
 {
 	t_env	*curr;
 
-	curr = data->env_list;
+	curr = g_env_list;
 	while (curr)
 	{
 		if (!ft_strcmp(key, curr->key))

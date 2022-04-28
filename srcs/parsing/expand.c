@@ -6,64 +6,33 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 22:36:12 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/15 15:14:52 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/27 19:26:35 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	*expand_value(t_data *data, char **key_start, char **key_end)
-{
-	char	*key;
-	char	*value;
-
-	(*key_start)++;
-	*key_end = *key_start;
-	if (!(**key_end))
-		return (ft_strdup("$"));
-	while (**key_end)
-	{
-		if (!*(*key_end + 1) || ft_strchr("$\'\"", *(*key_end + 1)))
-			break ;
-		(*key_end)++;
-	}
-	key = ft_substr(*key_start, 0, *key_end - *key_start + 1);
-	if (!key)
-		return (NULL);
-	value = get_env_value(data, key);
-	free(key);
-	return (value);
-}
-
-static char	*expand_new_token(t_data *data, t_token *curr, char *i, int *len)
+static int	expand_and_replace(t_token *curr, char *i, int is_dquote)
 {
 	char	*value;
-	char	*key_start;
 	char	*key_end;
 	char	*head;
-	char	*new_token;
-
-	key_start = i;
-	value = expand_value(data, &key_start, &key_end);
-	if (!value)
-		return (NULL);
-	*(key_start - 1) = '\0';
-	head = ft_strjoin(curr->data, value);
-	free(value);
-	if (!head)
-		return (NULL);
-	*len = ft_strlen(head);
-	new_token = ft_strjoin(head, key_end + 1);
-	free(head);
-	return (new_token);
-}
-
-static int	expand_and_replace(t_data *data, t_token *curr, char *i)
-{
 	int		len;
 	char	*new_token;
 
-	new_token = expand_new_token(data, curr, i, &len);
+	value = expand_env_value(i, &key_end, is_dquote);
+	if (!value)
+		return (ERROR);
+	if (!is_dquote && !*value)
+		return (REMOVE);
+	*i = '\0';
+	head = ft_strjoin(curr->data, value);
+	free(value);
+	if (!head)
+		return (ERROR);
+	len = ft_strlen(head);
+	new_token = ft_strjoin(head, key_end + 1);
+	free(head);
 	if (!new_token)
 		return (ERROR);
 	free(curr->data);
@@ -71,7 +40,7 @@ static int	expand_and_replace(t_data *data, t_token *curr, char *i)
 	return (len);
 }
 
-static int	expand_env_quote(t_data *data, t_token *curr, char **i)
+static int	expand_env_quote(t_token *curr, char **i)
 {
 	char	*end;
 	char	*dollar;
@@ -85,7 +54,7 @@ static int	expand_env_quote(t_data *data, t_token *curr, char **i)
 		dollar = ft_strchr(*i + 1, '$');
 		if (dollar && dollar < end)
 		{
-			len = expand_and_replace(data, curr, dollar);
+			len = expand_and_replace(curr, dollar, TRUE);
 			if (len == ERROR)
 				return (FALSE);
 			*i = curr->data + len + 1;
@@ -98,7 +67,7 @@ static int	expand_env_quote(t_data *data, t_token *curr, char **i)
 	return (TRUE);
 }
 
-int	expand_env(t_data *data, t_token *curr)
+int	expand_env(t_token *curr)
 {
 	char	*i;
 	int		len;
@@ -109,14 +78,16 @@ int	expand_env(t_data *data, t_token *curr)
 	{
 		if (*i == '$')
 		{
-			len = expand_and_replace(data, curr, i);
+			len = expand_and_replace(curr, i, FALSE);
 			if (len == ERROR)
 				return (FALSE);
+			if (len == REMOVE)
+				return (REMOVE);
 			i = curr->data + len;
 		}
 		else if (*i == '\"' || *i == '\'')
 		{
-			if (!expand_env_quote(data, curr, &i))
+			if (!expand_env_quote(curr, &i))
 				return (FALSE);
 		}
 		else

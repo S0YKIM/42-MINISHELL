@@ -1,36 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.h                                              :+:      :+:    :+:   */
+/*   pipe.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/10 13:34:53 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/26 21:44:57 by heehkim          ###   ########.fr       */
+/*   Created: 2022/04/18 15:50:33 by heehkim           #+#    #+#             */
+/*   Updated: 2022/04/27 16:12:35 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ENV_H
-# define ENV_H
+#ifndef PIPE_H
+# define PIPE_H
 
-# include "struct.h"
+int		traverse_heredoc(t_ast *ast);
+int		traverse_redirection(t_ast *ast, int *in_fd, int *out_fd);
+int		fork_process(t_data *data);
 
-/*
- * Change envrionment variables
-*/
-int		update_env(char *key, char *value);
-void	remove_node(t_env **node);
+int		execute(t_data *data);
 
-/*
- * Search environment variables list
-*/
-t_env	*get_node_with_key(char *key);
-char	*get_env_value(char *key);
-int		is_there_node_with_key(char *key);
-
-/*
- * Make envp
-*/
-char	**make_envp(void);
+void	close_parent_fds(t_data *data, int i);
+void	close_child_fds(int in_fd, int out_fd, t_ast *curr, t_ast *prev);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 21:40:15 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/12 23:09:03 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/27 20:03:16 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +68,22 @@ static int	trim_quote(t_token *curr)
 int	trim_token(t_data *data)
 {
 	t_token	*curr;
+	t_token	*tmp;
+	int		result;
 
 	curr = data->token_list;
 	while (curr)
 	{
-		if (!expand_env(data, curr))
+		result = expand_env(curr);
+		if (!result)
 			return (FALSE);
+		else if (result == REMOVE)
+		{
+			tmp = curr->next;
+			delete_token_node(data, &curr);
+			curr = tmp;
+			continue ;
+		}
 		if (!trim_quote(curr))
 			return (FALSE);
 		curr = curr->next;

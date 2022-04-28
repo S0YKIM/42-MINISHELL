@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 21:23:07 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/14 21:57:49 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/22 18:19:57 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_env_list(t_data *data)
+void	free_env_list(void)
 {
 	t_env	*curr;
 	t_env	*next;
 
-	curr = data->env_list;
+	curr = g_env_list;
 	while (curr)
 	{
 		next = curr->next;
@@ -26,7 +26,7 @@ void	free_env_list(t_data *data)
 		free(curr);
 		curr = next;
 	}
-	data->env_list = NULL;
+	g_env_list = NULL;
 }
 
 void	free_token_list(t_data *data)
@@ -58,4 +58,20 @@ void	free_astree(t_ast *ast)
 		free((ast->argv)[i++]);
 	free(ast->argv);
 	free(ast);
+}
+
+int	free_double_pointer(char **tab)
+{
+	size_t	i;
+
+	if (!tab)
+		return (ERROR);
+	i = 0;
+	while (tab[i])
+	{
+		free(tab[i]);
+		++i;
+	}
+	free(tab);
+	return (ERROR);
 }

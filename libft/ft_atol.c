@@ -1,36 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin.h                                          :+:      :+:    :+:   */
+/*   ft_atol.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/18 14:43:13 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/23 20:03:37 by sokim            ###   ########.fr       */
+/*   Created: 2022/04/15 20:55:40 by sokim             #+#    #+#             */
+/*   Updated: 2022/04/15 21:28:14 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_H
-# define BUILTIN_H
+#include "libft.h"
 
-# include "struct.h"
+static int	is_space(int c)
+{
+	if (c == ' ' || (9 <= c && c <= 13))
+		return (1);
+	return (0);
+}
 
-/*
- * Builtin Functions
-*/
-int		ft_env(t_ast *ast);
-int		ft_pwd(void);
-int		ft_export(t_ast *ast);
-int		ft_cd(t_ast *ast);
-int		ft_unset(t_ast *ast);
-void	ft_exit(t_ast *ast, t_data *data);
-int		ft_echo(t_ast *ast);
+long long	ft_atol(const char *str)
+{
+	long long	r;
+	int			sign;
 
-/*
- * Util Functions
-*/
-int		is_valid_key_name(char *key);
-int		is_str_num(char *str);
-int		is_str_long_long(char *str);
-
-#endif
+	r = 0;
+	sign = 1;
+	while (is_space(*str))
+		str++;
+	if (*str == '+' || *str == '-')
+	{
+		if (*str == '-')
+			sign = -1;
+		str++;
+	}
+	while (ft_isdigit(*str))
+	{
+		r = r * 10 + (*str - '0');
+		str++;
+	}
+	return (r * sign);
+}

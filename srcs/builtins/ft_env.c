@@ -6,22 +6,22 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 18:53:17 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/15 15:54:13 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/27 23:28:08 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_env(char **cmds, t_data *data)
+int	ft_env(t_ast *ast)
 {
 	t_env	*curr;
 
-	if (cmds[1])
+	if (ast->argc > 1)
 	{
-		printf("env: %s: No such file or directory\n", cmds[1]);
+		print_no_such_file("env", ast->argv[1], FALSE);
 		return (127);
 	}
-	curr = data->env_list;
+	curr = g_env_list;
 	while (curr)
 	{
 		if (*(curr->key) == '?')

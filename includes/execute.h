@@ -1,21 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pwd.c                                           :+:      :+:    :+:   */
+/*   execute.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/06 20:56:14 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/18 14:13:29 by sokim            ###   ########.fr       */
+/*   Created: 2022/04/20 14:02:20 by sokim             #+#    #+#             */
+/*   Updated: 2022/04/27 17:27:46 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef EXECUTE_H
+# define EXECUTE_H
 
-int	ft_pwd(void)
-{
-	char	buf[1024];
+int		exec_builtin(t_ast *ast, t_data *data);
+void	execute_cmd(t_ast *ast, t_data *data);
+int		execute_one_builtin(t_data *data);
 
-	printf("%s\n", getcwd(buf, 1024));
-	return (SUCCESS);
-}
+#endif

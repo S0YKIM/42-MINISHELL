@@ -1,36 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.h                                              :+:      :+:    :+:   */
+/*   ft_isalpha.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/10 13:34:53 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/26 21:44:57 by heehkim          ###   ########.fr       */
+/*   Created: 2021/05/07 19:46:25 by heehkim           #+#    #+#             */
+/*   Updated: 2021/12/01 19:01:48 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ENV_H
-# define ENV_H
+static int	ft_isupper(int c)
+{
+	if (c >= 'A' && c <= 'Z')
+		return (1);
+	return (0);
+}
 
-# include "struct.h"
+static int	ft_islower(int c)
+{
+	if (c >= 'a' && c <= 'z')
+		return (1);
+	return (0);
+}
 
-/*
- * Change envrionment variables
-*/
-int		update_env(char *key, char *value);
-void	remove_node(t_env **node);
-
-/*
- * Search environment variables list
-*/
-t_env	*get_node_with_key(char *key);
-char	*get_env_value(char *key);
-int		is_there_node_with_key(char *key);
-
-/*
- * Make envp
-*/
-char	**make_envp(void);
-
-#endif
+int	ft_isalpha(int c)
+{
+	if (ft_isupper(c) || ft_islower(c))
+		return (1);
+	return (0);
+}

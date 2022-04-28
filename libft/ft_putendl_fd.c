@@ -1,21 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pwd.c                                           :+:      :+:    :+:   */
+/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/06 20:56:14 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/18 14:13:29 by sokim            ###   ########.fr       */
+/*   Created: 2021/05/10 17:17:49 by heehkim           #+#    #+#             */
+/*   Updated: 2021/05/10 17:27:44 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	ft_pwd(void)
+void	ft_putendl_fd(char *s, int fd)
 {
-	char	buf[1024];
-
-	printf("%s\n", getcwd(buf, 1024));
-	return (SUCCESS);
+	ft_putstr_fd(s, fd);
+	ft_putchar_fd('\n', fd);
 }
