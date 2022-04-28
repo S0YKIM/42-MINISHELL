@@ -6,7 +6,7 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 21:23:07 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/22 18:19:57 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/28 20:44:23 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,21 @@ int	free_double_pointer(char **tab)
 	}
 	free(tab);
 	return (ERROR);
+}
+
+void	free_display_env_list(t_env **display)
+{
+	t_env	*curr;
+	t_env	*tmp;
+
+	curr = *display;
+	while (curr)
+	{
+		tmp = curr;
+		curr = curr->next;
+		free(tmp->key);
+		free(tmp->value);
+		free(tmp);
+	}
+	*display = NULL;
 }
