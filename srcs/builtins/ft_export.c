@@ -6,7 +6,7 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 18:11:19 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/22 23:19:29 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/28 18:01:29 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,16 @@
 
 static int	export_only(void)
 {
-	t_env	*curr;
+	t_env	*display;
 
-	curr = g_env_list;
-	while (curr)
+	display = create_display_env_list();
+	if (!display)
 	{
-		if (*(curr->key) == '?')
-		{
-			curr = curr->next;
-			continue ;
-		}
-		else if (curr->value)
-			printf("declare -x %s=\"%s\"\n", curr->key, curr->value);
-		else
-			printf("declare -x %s\n", curr->key);
-		curr = curr->next;
+		free_display_env_list(&display);
+		return (FAILURE);
 	}
+	display_env_list(display);
+	free_display_env_list(&display);
 	return (SUCCESS);
 }
 
