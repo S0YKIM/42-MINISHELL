@@ -6,7 +6,7 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 13:08:27 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/28 15:39:34 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/28 15:42:16 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static int	change_value(t_env *curr, char *value)
 	return (TRUE);
 }
 
-int	update_env(t_data *data, char *key, char *value)
+int	update_env(char *key, char *value)
 {
 	t_env	*curr;
 
@@ -77,5 +77,5 @@ int	update_env(t_data *data, char *key, char *value)
 			return (insert_new_env_node(curr, key, value));
 		curr = curr->next;
 	}
-	return (add_new_env_node(data, key, value));
+	return (add_new_env_node(key, value));
 }
