@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 19:17:43 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/28 17:38:24 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/28 21:16:54 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,9 @@ int		parse_env(char **envp);
 
 int		tokenize(t_data *data, char *line);
 void	delete_token_node(t_data *data, t_token **node);
+int		insert_token_node(t_token **curr, char *data);
 int		trim_token(t_data *data);
-int		expand_env(t_token *curr);
+int		expand_env(t_token **curr);
 char	*expand_env_value(char *i, char **key_end, int is_dquote);
 
 int		create_astree(t_data *data);

@@ -6,7 +6,7 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 21:40:15 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/28 01:10:51 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/28 21:38:56 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	trim_token(t_data *data)
 	curr = data->token_list;
 	while (curr)
 	{
-		result = expand_env(curr);
+		result = expand_env(&curr);
 		if (!result)
 			return (FALSE);
 		else if (result == REMOVE)

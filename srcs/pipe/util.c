@@ -6,7 +6,7 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 00:52:42 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/28 00:53:40 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/28 20:29:43 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	close_parent_fds(t_data *data, int i)
 {
 	if (i <= 0)
 		return ;
+	(void)data;
 	close_fd(data->pl_list[i - 1]->pipe_fd[READ]);
 	close_fd(data->pl_list[i - 1]->pipe_fd[WRITE]);
 }
