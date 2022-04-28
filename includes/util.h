@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   util.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 14:45:20 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/28 01:43:47 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/28 20:44:44 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	free_env_list(void);
 void	free_token_list(t_data *data);
 void	free_astree(t_ast *ast);
 int		free_double_pointer(char **tab);
+void	free_display_env_list(t_env **display);
 
 /*
  * Print error messages
