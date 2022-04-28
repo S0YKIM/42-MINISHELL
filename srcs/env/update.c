@@ -6,7 +6,7 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 13:08:27 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/19 14:51:46 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/28 16:28:44 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ static int	change_value(char *key, char *value)
 	{
 		if (!ft_strcmp(curr->key, key))
 		{
+			if (!value)
+				return (TRUE);
 			tmp = curr->value;
 			curr->value = value;
 			free(tmp);
