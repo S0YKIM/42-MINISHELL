@@ -6,7 +6,7 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 13:08:27 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/28 15:42:16 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/28 16:03:29 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ static int	insert_new_env_node(t_env *curr, char *key, char *value)
 	new->next = curr;
 	if (curr->prev)
 		curr->prev->next = new;
+	else
+		g_env_list = new;
 	curr->prev = new;
 	return (TRUE);
 }
