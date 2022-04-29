@@ -6,7 +6,7 @@
 #    By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/18 16:05:23 by heehkim           #+#    #+#              #
-#    Updated: 2022/04/29 17:08:59 by heehkim          ###   ########.fr        #
+#    Updated: 2022/04/29 17:33:37 by heehkim          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,6 +42,7 @@ SRC_LIST = main.c \
 			$(D_PARSING)trim.c \
 			$(D_PARSING)expand.c \
 			$(D_PARSING)expand_env_value.c \
+			$(D_PARSING)expand_util.c \
 			$(D_PARSING)ast.c \
 			$(D_PARSING)ast_add.c \
 			$(D_PARSING)ast_simplify.c \

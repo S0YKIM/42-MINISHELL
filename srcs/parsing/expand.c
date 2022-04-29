@@ -6,55 +6,36 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 22:36:12 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/28 21:38:03 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/29 18:05:57 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	split_value_with_space( \
-	t_token **curr, char *value, char *key_start, char *key_end)
+static int	replace_token( \
+	t_token *curr, char *value, char *key_start, char *key_end)
 {
-	char	**arr;
-	int		i;
+	char	*head;
+	int		value_len;
 	int		len;
-	char	*tmp;
+	char	*new_token;
 
-	if (*(key_end + 1))
-	{
-		if (!insert_token_node(curr, ft_strdup(key_end + 1)))
-			return (ERROR);
-	}
-	arr = ft_split(value, ' ');
-	if (!arr)
+	*key_start = '\0';
+	value_len = ft_strlen(value);
+	head = ft_strjoin(curr->data, value);
+	free(value);
+	if (!head)
 		return (ERROR);
-	// 키 앞에 내용이 있으면 curr->data substr
-	if ((*curr)->data != key_start)
-	{
-		tmp = (*curr)->data;
-		(*curr)->data = ft_substr(tmp, 0, key_start - tmp);
-		free(tmp);
-		i = 0;
-	}
+	len = ft_strlen(head);
+	if (!value_len && key_start == key_end - 1)
+		new_token = ft_strjoin(head, key_end);
 	else
-	{
-		// 키 앞에 내용이 없으면
-		free((*curr)->data);
-		(*curr)->data = ft_strdup(arr[0]);
-		i = 1;
-	}
-	if (!(*curr)->data)
+		new_token = ft_strjoin(head, key_end + 1);
+	free(head);
+	if (!new_token)
 		return (ERROR);
-	while (arr[i])
-	{
-		if (!insert_token_node(curr, ft_strdup(arr[i])))
-			return (ERROR);
-		i++;
-		*curr = (*curr)->next;
-	}
-	*curr = (*curr)->prev;
-	len = ft_strlen(arr[i - 1]);
-	free_double_pointer(arr);
+	free(curr->data);
+	curr->data = new_token;
 	return (len);
 }
 
@@ -62,30 +43,15 @@ static int	expand_and_replace(t_token **curr, char *i, int is_dquote)
 {
 	char	*value;
 	char	*key_end;
-	char	*head;
-	int		len;
-	char	*new_token;
 
 	value = expand_env_value(i, &key_end, is_dquote);
 	if (!value)
 		return (ERROR);
-	if (!is_dquote && !*value)
-		return (REMOVE);
+	if (!*value && !*(key_end + 1))
+		return (handle_invalid_env(curr, value, i));
 	if (!is_dquote && ft_strchr(value, ' '))
 		return (split_value_with_space(curr, value, i, key_end));
-	*i = '\0';
-	head = ft_strjoin((*curr)->data, value);
-	free(value);
-	if (!head)
-		return (ERROR);
-	len = ft_strlen(head);
-	new_token = ft_strjoin(head, key_end + 1);
-	free(head);
-	if (!new_token)
-		return (ERROR);
-	free((*curr)->data);
-	(*curr)->data = new_token;
-	return (len);
+	return (replace_token(*curr, value, i, key_end));
 }
 
 static int	expand_env_quote(t_token **curr, char **i)

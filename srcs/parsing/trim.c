@@ -6,7 +6,7 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 21:40:15 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/28 21:38:56 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/29 14:25:55 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int	remove_quote(t_token *curr, char *start, char *end, int *len)
 	return (TRUE);
 }
 
-static int	trim_quote(t_token *curr)
+int	trim_quote(t_token *curr)
 {
 	char	*start;
 	char	*end;

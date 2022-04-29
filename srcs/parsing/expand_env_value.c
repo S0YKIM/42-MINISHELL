@@ -6,7 +6,7 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 17:52:23 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/23 18:08:31 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/29 18:00:11 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,16 @@ static int	is_valid_key_char(char c)
 	return (TRUE);
 }
 
-static char	*expand_env_value_exception(char *i, char **key_end)
+static char	*expand_env_value_exception(char *i, char **key_end, int is_dquote)
 {
 	char	*tmp;
 
 	if (!**key_end)
 		return (ft_strdup("$"));
+	if (!is_dquote && ft_strchr("\"\'", **key_end))
+		return (ft_strdup(""));
 	tmp = ft_strchr(*key_end, '\"');
-	if (tmp)
+	if (tmp && is_dquote)
 		*key_end = tmp - 1;
 	else
 		(*key_end)--;
@@ -62,7 +64,7 @@ char	*expand_env_value(char *i, char **key_end, int is_dquote)
 	key_start = i + 1;
 	*key_end = key_start;
 	if (**key_end != '?' && !ft_isalpha(**key_end) && **key_end != '_')
-		return (expand_env_value_exception(i, key_end));
+		return (expand_env_value_exception(i, key_end, is_dquote));
 	while (**key_end)
 	{
 		if (**key_end == '?')
