@@ -6,7 +6,7 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 18:11:19 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/28 18:01:29 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/30 01:42:06 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,15 +70,13 @@ static char	*get_value_in_arg(char *str)
 	return (NULL);
 }
 
-int	ft_export(t_ast *ast)
+static int	export_multi(t_ast *ast)
 {
 	char	*key;
 	char	*value;
 	int		i;
 	int		ret;
 
-	if (ast->argc == 1)
-		return (export_only());
 	i = 0;
 	ret = SUCCESS;
 	while (++i < ast->argc)
@@ -87,6 +85,7 @@ int	ft_export(t_ast *ast)
 		if (!is_valid_key_name(key))
 		{
 			print_invalid_identifier("export", ast->argv[i]);
+			free(key);
 			ret = FAILURE;
 		}
 		else if (ft_strcmp(key, "_"))
@@ -97,4 +96,12 @@ int	ft_export(t_ast *ast)
 		}
 	}
 	return (ret);
+}
+
+int	ft_export(t_ast *ast)
+{
+	if (ast->argc == 1)
+		return (export_only());
+	else
+		return (export_multi(ast));
 }
