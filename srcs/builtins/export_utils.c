@@ -6,7 +6,7 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 16:22:06 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/28 21:03:47 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/29 19:17:12 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ static int	add_new_env_node(char *key, char *value, t_env **display)
 	return (TRUE);
 }
 
-static int	insert_new_env_node(t_env *curr, char *key, char *value, t_env **display)
+static int	insert_new_env_node(t_env *curr, char *key, \
+	char *value, t_env **display)
 {
 	t_env	*new;
 
@@ -68,7 +69,7 @@ static int	add_env_to_display(char *key, char *value, t_env **display)
 	return (add_new_env_node(key, value, display));
 }
 
-t_env	*create_display_env_list()
+t_env	*create_display_env_list(void)
 {
 	t_env	*display;
 	t_env	*curr;

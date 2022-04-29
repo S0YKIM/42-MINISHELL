@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 16:02:56 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/26 01:01:44 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/29 21:37:55 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static void	read_heredoc_child(t_ast *ast, int fd)
 	char	*line;
 
 	signal(SIGINT, handle_signal_heredoc);
+	signal(SIGQUIT, handle_signal_heredoc);
 	while (TRUE)
 	{
 		line = readline("> ");
@@ -45,10 +46,12 @@ static int	read_heredoc(t_ast *ast, int fd)
 		read_heredoc_child(ast, fd);
 	else
 	{
+		signal(SIGQUIT, handle_signal_heredoc);
 		if (waitpid(pid, &status, 0) == ERROR)
 			return (FALSE);
 		if (WIFEXITED(status))
 			status = WEXITSTATUS(status);
+		set_signal();
 		update_env("?", ft_itoa(status));
 		if (status == 1)
 			return (ERROR);

@@ -6,7 +6,7 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 14:57:46 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/25 18:29:25 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/29 21:44:55 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,6 @@ void	handle_signal_heredoc(int signum)
 		printf("\b\b  \b\b");
 		exit(EXIT_FAILURE);
 	}
+	else if (signum == SIGQUIT)
+		printf("\b\b  \b\b\b\b \b> ");
 }
