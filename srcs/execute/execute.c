@@ -6,23 +6,11 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 14:04:14 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/29 22:47:13 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/30 01:15:08 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static int	exec_custom_path(t_ast *ast)
-{
-	char	**envp;
-
-	envp = make_envp();
-	if (!envp)
-		return (FALSE);
-	execve(ast->argv[0], ast->argv, envp);
-	print_no_such_file(SHELL_NAME, ast->token, FALSE);
-	exit(127);
-}
 
 static char	*join_path_token(char *path, char *token)
 {
@@ -35,6 +23,37 @@ static char	*join_path_token(char *path, char *token)
 	cmd = ft_strjoin(tmp, token);
 	free(tmp);
 	return (cmd);
+}
+
+static int	exec_current_path(t_ast *ast)
+{
+	char	**envp;
+	char	*cmd;
+
+	envp = make_envp();
+	if (!envp)
+		return (FALSE);
+	cmd = join_path_token(".", ast->argv[0]);
+	if (!cmd)
+		return (free_double_pointer(envp));
+	execve(cmd, ast->argv, envp);
+	free_double_pointer(envp);
+	free(cmd);
+	print_no_such_file(SHELL_NAME, ast->token, FALSE);
+	exit(127);
+}
+
+static int	exec_custom_path(t_ast *ast)
+{
+	char	**envp;
+
+	envp = make_envp();
+	if (!envp)
+		return (FALSE);
+	execve(ast->argv[0], ast->argv, envp);
+	free_double_pointer(envp);
+	print_no_such_file(SHELL_NAME, ast->token, FALSE);
+	exit(127);
 }
 
 static int	exec_reserved_path(t_ast *ast, char *path)
@@ -55,11 +74,13 @@ static int	exec_reserved_path(t_ast *ast, char *path)
 	{
 		cmd = join_path_token(paths[i], ast->token);
 		if (!cmd)
-			return (free_double_pointer(paths));
+			break ;
 		execve(cmd, ast->argv, envp);
 		free(cmd);
 		i++;
 	}
+	free_double_pointer(paths);
+	free_double_pointer(envp);
 	print_command_not_found(ast->token);
 	exit(127);
 }
@@ -85,6 +106,6 @@ void	execute_cmd(t_ast *ast, t_data *data)
 		if (exec_reserved_path(ast, path) == ERROR)
 			exit(EXIT_FAILURE);
 	}
-	if (!exec_custom_path(ast))
+	if (!exec_current_path(ast))
 		exit(EXIT_FAILURE);
 }
