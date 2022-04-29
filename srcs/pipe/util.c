@@ -6,7 +6,7 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 00:52:42 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/28 20:29:43 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/29 18:10:41 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,3 @@ void	close_child_fds(int in_fd, int out_fd, t_ast *curr, t_ast *prev)
 		close_fd(prev->pipe_fd[WRITE]);
 	}
 }
-
