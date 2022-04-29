@@ -6,7 +6,7 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 13:08:27 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/28 16:28:44 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/30 01:30:44 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,33 +35,37 @@ static int	add_new_env_node(char *key, char *value)
 	return (TRUE);
 }
 
-static int	change_value(char *key, char *value)
+static void	change_value(char *key, char *value)
 {
 	t_env	*curr;
 	char	*tmp;
 
+	if (!value)
+		return ;
 	curr = g_env_list;
 	while (curr)
 	{
 		if (!ft_strcmp(curr->key, key))
 		{
-			if (!value)
-				return (TRUE);
 			tmp = curr->value;
 			curr->value = value;
 			free(tmp);
-			return (TRUE);
+			return ;
 		}
 		curr = curr->next;
 	}
-	return (FALSE);
 }
 
 int	update_env(char *key, char *value)
 {
-	if (change_value(key, value) == TRUE)
+	if (is_there_node_with_key(key))
+	{
+		change_value(key, value);
+		if (ft_strcmp(key, "?"))
+			free(key);
 		return (TRUE);
-	if (add_new_env_node(key, value) == FALSE)
+	}
+	if (!add_new_env_node(key, value))
 		return (FALSE);
 	return (TRUE);
 }
