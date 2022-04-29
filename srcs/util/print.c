@@ -3,67 +3,62 @@
 /*                                                        :::      ::::::::   */
 /*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/22 19:17:20 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/28 20:49:20 by sokim            ###   ########.fr       */
+/*   Created: 2022/04/29 17:13:47 by heehkim           #+#    #+#             */
+/*   Updated: 2022/04/29 18:12:35 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	print_invalid_identifier(char *cmd, char *arg)
-{
-	ft_putstr_fd(SHELL_NAME, STDERR_FILENO);
-	ft_putstr_fd(": ", STDERR_FILENO);
-	ft_putstr_fd(cmd, STDERR_FILENO);
-	ft_putstr_fd(": `", STDERR_FILENO);
-	ft_putstr_fd(arg, STDERR_FILENO);
-	ft_putstr_fd("': ", STDERR_FILENO);
-	ft_putendl_fd("not a valid identifier", STDERR_FILENO);
-}
+// 나중에 삭제
 
-void	print_no_such_file(char *cmd, char *arg, int shellname)
+void	print_env_list(void)
 {
-	if (shellname)
+	t_env	*curr;
+
+	curr = g_env_list;
+	while (curr)
 	{
-		ft_putstr_fd(SHELL_NAME, STDERR_FILENO);
-		ft_putstr_fd(": ", STDERR_FILENO);
+		printf("key: %s | value: %s\n", curr->key, curr->value);
+		curr = curr->next;
 	}
-	ft_putstr_fd(cmd, STDERR_FILENO);
-	ft_putstr_fd(": ", STDERR_FILENO);
-	ft_putstr_fd(arg, STDERR_FILENO);
-	ft_putstr_fd(": ", STDERR_FILENO);
-	ft_putendl_fd("No such file or directory", STDERR_FILENO);
 }
 
-void	print_not_set(char *cmd, char *arg)
+void	print_token_list(t_data *data)
 {
-	ft_putstr_fd(SHELL_NAME, STDERR_FILENO);
-	ft_putstr_fd(": ", STDERR_FILENO);
-	ft_putstr_fd(cmd, STDERR_FILENO);
-	ft_putstr_fd(": ", STDERR_FILENO);
-	ft_putstr_fd(arg, STDERR_FILENO);
-	ft_putendl_fd(" not set", STDERR_FILENO);
-}
+	t_token	*curr;
 
-void	print_command_not_found(char *cmd)
-{
-	ft_putstr_fd(SHELL_NAME, STDERR_FILENO);
-	ft_putstr_fd(": ", STDERR_FILENO);
-	ft_putstr_fd(cmd, STDERR_FILENO);
-	ft_putstr_fd(": ", STDERR_FILENO);
-	ft_putendl_fd("command not found", STDERR_FILENO);
-}
-
-void	print_file_error(char *path)
-{
-	ft_putstr_fd(SHELL_NAME, STDERR_FILENO);
-	ft_putstr_fd(": ", STDERR_FILENO);
-	if (path)
+	curr = data->token_list;
+	while (curr)
 	{
-		ft_putstr_fd(path, STDERR_FILENO);
-		ft_putstr_fd(": ", STDERR_FILENO);
+		printf("token: %s | %d\n", curr->data, curr->is_word);
+		curr = curr->next;
 	}
-	ft_putendl_fd(strerror(errno), STDERR_FILENO);
+}
+
+void	print_astree(t_ast *ast)
+{
+	int	i;
+
+	if (!ast)
+		return ;
+	printf("=== %s ===\n", ast->token ? ast->token : "PL");
+	printf("(L) %s | ", ast->left ? (ast->left->token ? ast->left->token : "PL") : "NULL");
+	printf("(R) %s\n", ast->right ? (ast->right->token ? ast->right->token : "PL") : "NULL");
+	if (ast->argc)
+	{
+		i = 0;
+		printf("argv: ");
+		while ((ast->argv)[i])
+			printf("|%s|\t", (ast->argv)[i++]);
+		printf("\n");
+	}
+	if (ast->fd)
+		printf("fd: %d\n", ast->fd);
+	if (!ast->left && !ast->right)
+		printf("-----------------\n");
+	print_astree(ast->left);
+	print_astree(ast->right);
 }

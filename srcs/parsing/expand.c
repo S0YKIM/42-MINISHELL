@@ -6,32 +6,31 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 22:36:12 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/28 01:10:32 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/29 18:05:57 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	expand_and_replace(t_token *curr, char *i, int is_dquote)
+static int	replace_token( \
+	t_token *curr, char *value, char *key_start, char *key_end)
 {
-	char	*value;
-	char	*key_end;
 	char	*head;
+	int		value_len;
 	int		len;
 	char	*new_token;
 
-	value = expand_env_value(i, &key_end, is_dquote);
-	if (!value)
-		return (ERROR);
-	if (!is_dquote && !*value)
-		return (REMOVE);
-	*i = '\0';
+	*key_start = '\0';
+	value_len = ft_strlen(value);
 	head = ft_strjoin(curr->data, value);
 	free(value);
 	if (!head)
 		return (ERROR);
 	len = ft_strlen(head);
-	new_token = ft_strjoin(head, key_end + 1);
+	if (!value_len && key_start == key_end - 1)
+		new_token = ft_strjoin(head, key_end);
+	else
+		new_token = ft_strjoin(head, key_end + 1);
 	free(head);
 	if (!new_token)
 		return (ERROR);
@@ -40,7 +39,22 @@ static int	expand_and_replace(t_token *curr, char *i, int is_dquote)
 	return (len);
 }
 
-static int	expand_env_quote(t_token *curr, char **i)
+static int	expand_and_replace(t_token **curr, char *i, int is_dquote)
+{
+	char	*value;
+	char	*key_end;
+
+	value = expand_env_value(i, &key_end, is_dquote);
+	if (!value)
+		return (ERROR);
+	if (!*value && !*(key_end + 1))
+		return (handle_invalid_env(curr, value, i));
+	if (!is_dquote && ft_strchr(value, ' '))
+		return (split_value_with_space(curr, value, i, key_end));
+	return (replace_token(*curr, value, i, key_end));
+}
+
+static int	expand_env_quote(t_token **curr, char **i)
 {
 	char	*end;
 	char	*dollar;
@@ -57,7 +71,7 @@ static int	expand_env_quote(t_token *curr, char **i)
 			len = expand_and_replace(curr, dollar, TRUE);
 			if (len == ERROR)
 				return (FALSE);
-			*i = curr->data + len + 1;
+			*i = (*curr)->data + len + 1;
 		}
 		else
 			*i = end + 1;
@@ -67,12 +81,12 @@ static int	expand_env_quote(t_token *curr, char **i)
 	return (TRUE);
 }
 
-int	expand_env(t_token *curr)
+int	expand_env(t_token **curr)
 {
 	char	*i;
 	int		len;
 
-	i = curr->data;
+	i = (*curr)->data;
 	len = 0;
 	while (*i)
 	{
@@ -83,7 +97,7 @@ int	expand_env(t_token *curr)
 				return (FALSE);
 			if (len == REMOVE)
 				return (REMOVE);
-			i = curr->data + len;
+			i = (*curr)->data + len;
 		}
 		else if (*i == '\"' || *i == '\'')
 		{

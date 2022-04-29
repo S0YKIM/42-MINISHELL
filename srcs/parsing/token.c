@@ -6,24 +6,11 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 19:11:57 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/28 01:08:43 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/29 18:09:59 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// 나중에 삭제!
-void	display_token_list(t_data *data)
-{
-	t_token	*curr;
-
-	curr = data->token_list;
-	while (curr)
-	{
-		printf("token: %s | %d\n", curr->data, curr->is_word);
-		curr = curr->next;
-	}
-}
 
 static int	add_token_node(t_data *data, char *token)
 {
@@ -57,9 +44,28 @@ void	delete_token_node(t_data *data, t_token **node)
 		(*node)->next->prev = (*node)->prev;
 	free((*node)->data);
 	if (data->token_list == *node)
-		data->token_list = NULL;
+		data->token_list = (*node)->next;
 	free(*node);
 	*node = NULL;
+}
+
+int	insert_token_node(t_token **curr, char *data)
+{
+	t_token	*new;
+
+	if (!data)
+		return (FALSE);
+	new = (t_token *)ft_calloc(1, sizeof(t_token));
+	if (!new)
+		return (FALSE);
+	new->data = data;
+	new->is_word = TRUE;
+	new->next = (*curr)->next;
+	new->prev = (*curr);
+	(*curr)->next = new;
+	if (new->next)
+		new->next->prev = new;
+	return (TRUE);
 }
 
 static char	*find_end(char *start)

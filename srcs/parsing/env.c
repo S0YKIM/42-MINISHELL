@@ -3,27 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 18:51:17 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/28 17:38:06 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/29 18:11:36 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// 나중에 삭제!
-// void	display_env_list(void)
-// {
-// 	t_env	*curr;
-
-// 	curr = g_env_list;
-// 	while (curr)
-// 	{
-// 		printf("key: %s | value: %s\n", curr->key, curr->value);
-// 		curr = curr->next;
-// 	}
-// }
 
 static int	set_key_value(char *env, char **key, char **value)
 {
@@ -93,6 +80,5 @@ int	parse_env(char **envp)
 	}
 	if (!add_prev_exit_env())
 		return (FALSE);
-	// display_list(data);
 	return (TRUE);
 }
