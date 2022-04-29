@@ -6,7 +6,7 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 18:11:19 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/30 01:40:17 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/30 01:42:06 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,25 +30,25 @@ static int	export_only(void)
 static char	*get_key_name(char *str)
 {
 	char	*key;
- 	char	*tmp;
- 	int		i;
+	char	*tmp;
+	int		i;
 
- 	tmp = ft_strdup(str);
- 	if (!tmp)
- 		return (NULL);
- 	i = 0;
- 	while (tmp[i])
- 	{
- 		if (tmp[i] == '=')
- 		{
- 			tmp[i] = '\0';
- 			break ;
-		 }
- 		i++;
- 	}
- 	key = ft_strdup(tmp);
- 	free(tmp);
- 	return (key);
+	tmp = ft_strdup(str);
+	if (!tmp)
+		return (NULL);
+	i = 0;
+	while (tmp[i])
+	{
+		if (tmp[i] == '=')
+		{
+			tmp[i] = '\0';
+			break ;
+		}
+		i++;
+	}
+	key = ft_strdup(tmp);
+	free(tmp);
+	return (key);
 }
 
 static char	*get_value_in_arg(char *str)
