@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 14:04:14 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/28 01:40:23 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/29 22:47:13 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	execute_cmd(t_ast *ast, t_data *data)
 		exit(ft_atol(value));
 	}
 	path = get_env_value("PATH");
-	if (path)
+	if (path && path[0])
 	{
 		if (exec_reserved_path(ast, path) == ERROR)
 			exit(EXIT_FAILURE);
