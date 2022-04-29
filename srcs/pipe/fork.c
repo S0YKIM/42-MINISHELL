@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fork.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 17:19:46 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/28 00:55:48 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/29 21:57:12 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,24 +44,28 @@ static void	child(t_data *data, int i)
 static int	parent(t_data *data, int i)
 {
 	close_parent_fds(data, i);
-	if (!ft_strcmp("./minishell", data->token_list->data))
-	{
-		signal(SIGINT, SIG_IGN);
-		signal(SIGQUIT, SIG_IGN);
-	}
 	return (TRUE);
 }
 
 static int	wait_pids(t_data *data)
 {
-	int	i;
-	int	status;
+	int		i;
+	int		status;
+	t_token	*ptr;
 
 	i = 0;
+	ptr = data->token_list;
 	while (i < data->pl_cnt)
 	{
+		if (!ft_strcmp("./minishell", ptr->data))
+		{
+			signal(SIGINT, SIG_IGN);
+			signal(SIGQUIT, SIG_IGN);
+		}
+		ptr = ptr->next;
 		if (waitpid(data->pids[i], &status, 0) == ERROR)
-			return (FALSE);
+			return (TRUE);
+		set_signal();
 		if (WIFEXITED(status))
 			status = WEXITSTATUS(status);
 		i++;
@@ -95,6 +99,5 @@ int	fork_process(t_data *data)
 	close_parent_fds(data, i);
 	if (!wait_pids(data))
 		return (FALSE);
-	set_signal();
 	return (TRUE);
 }
