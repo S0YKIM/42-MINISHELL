@@ -6,7 +6,7 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 22:36:12 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/29 18:05:57 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/05/01 02:04:19 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,7 @@ static int	replace_token( \
 	if (!head)
 		return (ERROR);
 	len = ft_strlen(head);
-	if (!value_len && key_start == key_end - 1)
-		new_token = ft_strjoin(head, key_end);
-	else
-		new_token = ft_strjoin(head, key_end + 1);
+	new_token = ft_strjoin(head, key_end + 1);
 	free(head);
 	if (!new_token)
 		return (ERROR);
@@ -43,6 +40,8 @@ static int	expand_and_replace(t_token **curr, char *i, int is_dquote)
 {
 	char	*value;
 	char	*key_end;
+	int		len;
+	char	*dollar;
 
 	value = expand_env_value(i, &key_end, is_dquote);
 	if (!value)
@@ -51,33 +50,42 @@ static int	expand_and_replace(t_token **curr, char *i, int is_dquote)
 		return (handle_invalid_env(curr, value, i));
 	if (!is_dquote && ft_strchr(value, ' '))
 		return (split_value_with_space(curr, value, i, key_end));
-	return (replace_token(*curr, value, i, key_end));
+	len = replace_token(*curr, value, i, key_end);
+	if (is_dquote && ft_strchr((*curr)->data + len, '$'))
+	{
+		dollar = ft_strchr((*curr)->data + len, '$');
+		if (dollar < ft_strchr((*curr)->data, '\"'))
+			len = dollar - (*curr)->data;
+	}
+	return (len);
 }
 
-static int	expand_env_quote(t_token **curr, char **i)
+static int	expand_env_quote(t_token **curr, char **i, char *end)
 {
-	char	*end;
 	char	*dollar;
 	int		len;
 
-	end = ft_strchr(*i + 1, **i);
 	if (!end)
 		(*i)++;
-	else if (end && **i == '\"')
-	{
-		dollar = ft_strchr(*i + 1, '$');
-		if (dollar && dollar < end)
-		{
-			len = expand_and_replace(curr, dollar, TRUE);
-			if (len == ERROR)
-				return (FALSE);
-			*i = (*curr)->data + len + 1;
-		}
-		else
-			*i = end + 1;
-	}
-	else if (end && **i == '\'')
+	else if (**i == '\'')
 		*i = end + 1;
+	else if (**i == '\"')
+	{
+		while (end && *i != end + 1)
+		{
+			dollar = ft_strchr(*i, '$');
+			if (dollar && dollar < end)
+			{
+				len = expand_and_replace(curr, dollar, TRUE);
+				if (len == ERROR)
+					return (FALSE);
+				*i = (*curr)->data + len;
+				end = ft_strchr(*i, '\"');
+			}
+			else
+				*i = end + 1;
+		}
+	}
 	return (TRUE);
 }
 
@@ -87,7 +95,6 @@ int	expand_env(t_token **curr)
 	int		len;
 
 	i = (*curr)->data;
-	len = 0;
 	while (*i)
 	{
 		if (*i == '$')
@@ -101,7 +108,7 @@ int	expand_env(t_token **curr)
 		}
 		else if (*i == '\"' || *i == '\'')
 		{
-			if (!expand_env_quote(curr, &i))
+			if (!expand_env_quote(curr, &i, ft_strchr(i + 1, *i)))
 				return (FALSE);
 		}
 		else
