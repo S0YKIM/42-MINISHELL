@@ -6,7 +6,7 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 14:43:13 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/30 19:16:19 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/30 21:24:13 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int		ft_pwd(void);
 int		ft_export(t_ast *ast);
 int		ft_cd(t_ast *ast);
 int		ft_unset(t_ast *ast);
-void	ft_exit(t_ast *ast, t_data *data);
+int		ft_exit(t_ast *ast);
 int		ft_echo(t_ast *ast);
 
 /*
