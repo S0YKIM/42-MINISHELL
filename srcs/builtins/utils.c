@@ -6,7 +6,7 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 23:38:55 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/30 21:13:09 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/30 22:03:09 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,23 @@ int	is_str_long_long(char *str)
 
 int	is_valid_key_name(char *key)
 {
+	int	i;
+
 	if (!key || !key[0])
 		return (FALSE);
 	if (ft_isdigit(key[0]))
 		return (FALSE);
-	if (ft_strchr(key, '?'))
-		return (FALSE);
-	if (ft_strchr(key, '~'))
-		return (FALSE);
+	i = 0;
+	while (key[i])
+	{
+		if (key[i] > 'A' && key[i] < 'Z')
+			i++;
+		else if (key[i] > 'a' && key[i] < 'z')
+			i++;
+		else if (key[i] == '_')
+			i++;
+		else
+			return (FALSE);
+	}
 	return (TRUE);
 }
