@@ -6,7 +6,7 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 23:38:55 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/30 19:29:53 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/30 21:13:09 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int	is_str_num(char *str)
 	i = 0;
 	if (str[0] == '-' || str[0] == '+')
 		i++;
+	if (!str[i])
+		return (FALSE);
 	while (str[i])
 	{
 		if (str[i] < '0' || str[i] > '9')

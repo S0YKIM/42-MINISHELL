@@ -6,13 +6,13 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 01:00:46 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/28 20:00:19 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/30 21:26:33 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	exec_builtin(t_ast *ast, t_data *data)
+int	exec_builtin(t_ast *ast)
 {
 	int	ret;
 
@@ -24,7 +24,7 @@ int	exec_builtin(t_ast *ast, t_data *data)
 	else if (!ft_strcmp(ast->argv[0], "env"))
 		ret = ft_env(ast);
 	else if (!ft_strcmp(ast->argv[0], "exit"))
-		ft_exit(ast, data);
+		ret = ft_exit(ast);
 	else if (!ft_strcmp(ast->argv[0], "export"))
 		ret = ft_export(ast);
 	else if (!ft_strcmp(ast->argv[0], "pwd"))
@@ -68,7 +68,7 @@ int	execute_one_builtin(t_data *data)
 		dup_fd(out_fd, STDOUT_FILENO);
 		close_fd(out_fd);
 	}
-	exec_builtin(data->pl_list[0]->right, data);
+	exec_builtin(data->pl_list[0]->right);
 	reset_fds(stdin_fd, stdout_fd);
 	return (TRUE);
 }

@@ -6,7 +6,7 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 12:19:46 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/30 19:34:14 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/30 20:44:49 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,15 @@ static int	change_directory(char *path, t_ast *ast)
 	if (!dir)
 		return (FALSE);
 	ret = chdir(dir);
-	free(dir);
 	if (ret == ERROR)
 	{
+		free(dir);
 		print_no_such_file("cd", ast->argv[1], TRUE);
 		return (FALSE);
 	}
 	if (!ft_strcmp(path, "-"))
-		printf("%s\n", path);
+		printf("%s\n", dir);
+	free(dir);
 	return (TRUE);
 }
 
