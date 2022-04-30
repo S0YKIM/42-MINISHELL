@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fork.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 17:19:46 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/29 22:03:44 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/30 12:56:36 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,12 @@ static int	wait_pids(t_data *data)
 			return (TRUE);
 		set_signal();
 		if (WIFEXITED(status))
-			status = WEXITSTATUS(status);
+		{
+			if (!update_env("?", ft_itoa(WEXITSTATUS(status))))
+				return (FALSE);
+		}
 		i++;
 	}
-	if (!update_env("?", ft_itoa(status)))
-		return (FALSE);
 	return (TRUE);
 }
 
