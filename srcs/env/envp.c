@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   envp.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 00:13:18 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/28 00:13:37 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/30 19:52:36 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	get_env_list_len(void)
 	curr = g_env_list;
 	while (curr)
 	{
-		if (ft_strcmp(curr->key, "?") && curr->value)
+		if (ft_strcmp(curr->key, "?") && ft_strcmp(curr->key, "~"))
 			i++;
 		curr = curr->next;
 	}
@@ -33,14 +33,17 @@ static char	*join_key_value(t_env *curr)
 	char	*env;
 	char	*tmp;
 
+	if (!curr->value)
+	{
+		env = ft_strdup(curr->key);
+		return (env);
+	}
 	env = ft_strjoin(curr->key, "=");
 	if (!env)
 		return (NULL);
 	tmp = env;
 	env = ft_strjoin(env, curr->value);
 	free(tmp);
-	if (!env)
-		return (NULL);
 	return (env);
 }
 
@@ -58,7 +61,7 @@ char	**make_envp(void)
 	i = 0;
 	while (curr)
 	{
-		if (ft_strcmp(curr->key, "?") && curr->value)
+		if (ft_strcmp(curr->key, "?") && ft_strcmp(curr->key, "~"))
 		{
 			env = join_key_value(curr);
 			if (!env)
