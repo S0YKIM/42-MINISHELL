@@ -6,7 +6,7 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 16:14:22 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/30 12:41:44 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/30 12:54:11 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ int	check_syntax_error(t_data *data)
 	t_ast	*node;
 
 	node = data->astree;
-	print_astree(node);
 	if (node->type == T_PIPE)
 	{
 		if (!node->right || (!node->left->left && !node->left->right))
