@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 18:51:17 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/29 18:11:36 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/30 20:29:31 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,28 @@ static int	add_prev_exit_env(void)
 	return (TRUE);
 }
 
+static int	add_home_env(void)
+{
+	char	*key;
+	char	*value;
+
+	key = ft_strdup("~");
+	if (!key)
+		return (FALSE);
+	value = get_env_value("HOME");
+	if (!value)
+	{
+		free(key);
+		return (FALSE);
+	}
+	if (!update_env(key, value))
+	{
+		free_env_list();
+		return (FALSE);
+	}
+	return (TRUE);
+}
+
 int	parse_env(char **envp)
 {
 	int		i;
@@ -79,6 +101,8 @@ int	parse_env(char **envp)
 		i++;
 	}
 	if (!add_prev_exit_env())
+		return (FALSE);
+	if (!add_home_env())
 		return (FALSE);
 	return (TRUE);
 }
