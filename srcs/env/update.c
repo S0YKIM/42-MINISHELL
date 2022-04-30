@@ -6,7 +6,7 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 13:08:27 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/30 01:30:44 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/30 19:25:35 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ int	update_env(char *key, char *value)
 	if (is_there_node_with_key(key))
 	{
 		change_value(key, value);
-		if (ft_strcmp(key, "?"))
+		if (ft_strcmp(key, "?") && ft_strcmp(key, "PWD") \
+			&& ft_strcmp(key, "OLDPWD") && ft_strcmp(key, "~"))
 			free(key);
 		return (TRUE);
 	}
