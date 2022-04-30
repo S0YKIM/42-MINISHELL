@@ -6,7 +6,7 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 12:19:46 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/28 19:53:02 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/30 17:54:55 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,17 @@ static int	set_old_pwd(void)
 	char	*pwd;
 	int		ret;
 
-	pwd = get_env_value("PWD");
-	if (!pwd)
-		return (TRUE);
 	if (!is_there_node_with_key("OLDPWD"))
 		return (TRUE);
+	pwd = get_env_value("PWD");
+	if (!pwd)
+	{
+		pwd = ft_strdup("");
+		if (!pwd)
+			return (FALSE);
+		update_env("OLDPWD", pwd);
+		return (TRUE);
+	}
 	ret = update_env("OLDPWD", pwd);
 	if (!ret)
 		return (FALSE);
