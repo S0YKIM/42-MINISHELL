@@ -6,7 +6,7 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 12:19:46 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/30 20:44:49 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/30 23:09:53 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,12 @@ static char	*get_directory(char *path, int cnt)
 		dir = get_env_value("~");
 	else if (!ft_strcmp(path, "-"))
 	{
-		dir = get_env_value("OLDPWD");
-		if (!dir)
+		if (!is_there_env_value("OLDPWD"))
+		{
 			print_not_set("cd", "OLDPWD");
+			return (NULL);
+		}
+		dir = get_env_value("OLDPWD");
 	}
 	else if (cnt == 1)
 	{
@@ -63,8 +66,7 @@ static int	set_old_pwd(void)
 
 	if (!is_there_node_with_key("OLDPWD"))
 		return (TRUE);
-	pwd = get_env_value("PWD");
-	if (!pwd)
+	if (!is_there_env_value("PWD"))
 	{
 		pwd = ft_strdup("");
 		if (!pwd)
@@ -72,6 +74,7 @@ static int	set_old_pwd(void)
 		update_env("OLDPWD", pwd);
 		return (TRUE);
 	}
+	pwd = get_env_value("PWD");
 	ret = update_env("OLDPWD", pwd);
 	if (!ret)
 		return (FALSE);
