@@ -6,7 +6,7 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 14:43:13 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/28 20:46:25 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/30 19:16:19 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "struct.h"
 
 /*
- * Builtin Functions
+ * Builtin functions
 */
 int		ft_env(t_ast *ast);
 int		ft_pwd(void);
@@ -27,11 +27,16 @@ void	ft_exit(t_ast *ast, t_data *data);
 int		ft_echo(t_ast *ast);
 
 /*
- * Util Functions
+ * Util functions
 */
 int		is_valid_key_name(char *key);
 int		is_str_num(char *str);
 int		is_str_long_long(char *str);
+
+/*
+ * Export utils
+*/
+
 t_env	*create_display_env_list(void);
 void	display_env_list(t_env *display);
 

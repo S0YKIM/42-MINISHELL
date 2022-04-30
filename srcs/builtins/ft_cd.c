@@ -6,33 +6,29 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 12:19:46 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/28 19:53:02 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/30 19:34:14 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	*get_directory(char *path)
+static char	*get_directory(char *path, int cnt)
 {
 	char	*dir;
 
 	if (!ft_strcmp(path, "~"))
-	{
-		dir = get_env_value("HOME");
-		if (!ft_strcmp(dir, ""))
-		{
-			print_not_set("cd", "HOME");
-			return (NULL);
-		}
-	}
+		dir = get_env_value("~");
 	else if (!ft_strcmp(path, "-"))
 	{
 		dir = get_env_value("OLDPWD");
-		if (!ft_strcmp(dir, ""))
-		{
+		if (!dir)
 			print_not_set("cd", "OLDPWD");
-			return (NULL);
-		}
+	}
+	else if (cnt == 1)
+	{
+		dir = get_env_value("HOME");
+		if (!dir)
+			print_not_set("cd", "HOME");
 	}
 	else
 		dir = ft_strdup(path);
@@ -44,7 +40,7 @@ static int	change_directory(char *path, t_ast *ast)
 	int		ret;
 	char	*dir;
 
-	dir = get_directory(path);
+	dir = get_directory(path, ast->argc);
 	if (!dir)
 		return (FALSE);
 	ret = chdir(dir);
@@ -54,6 +50,8 @@ static int	change_directory(char *path, t_ast *ast)
 		print_no_such_file("cd", ast->argv[1], TRUE);
 		return (FALSE);
 	}
+	if (!ft_strcmp(path, "-"))
+		printf("%s\n", path);
 	return (TRUE);
 }
 
@@ -62,11 +60,17 @@ static int	set_old_pwd(void)
 	char	*pwd;
 	int		ret;
 
-	pwd = get_env_value("PWD");
-	if (!pwd)
-		return (TRUE);
 	if (!is_there_node_with_key("OLDPWD"))
 		return (TRUE);
+	pwd = get_env_value("PWD");
+	if (!pwd)
+	{
+		pwd = ft_strdup("");
+		if (!pwd)
+			return (FALSE);
+		update_env("OLDPWD", pwd);
+		return (TRUE);
+	}
 	ret = update_env("OLDPWD", pwd);
 	if (!ret)
 		return (FALSE);
@@ -91,13 +95,9 @@ static int	set_pwd(char *path)
 
 int	ft_cd(t_ast *ast)
 {
-	int		ret;
 	char	path[1024];
 
-	if (ast->argc == 1)
-		return (change_directory("~", ast));
-	ret = change_directory(ast->argv[1], ast);
-	if (!ret)
+	if (!change_directory(ast->argv[1], ast))
 		return (FAILURE);
 	getcwd(path, 1024);
 	if (!set_old_pwd())

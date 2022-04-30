@@ -6,7 +6,7 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 16:22:06 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/29 19:17:12 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/30 19:44:05 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void	display_env_list(t_env *display)
 	curr = display;
 	while (curr)
 	{
-		if (*(curr->key) == '?')
+		if (*(curr->key) == '?' || *(curr->key) == '~')
 		{
 			curr = curr->next;
 			continue ;

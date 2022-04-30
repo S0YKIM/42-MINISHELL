@@ -6,7 +6,7 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 13:42:35 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/29 22:41:10 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/30 20:20:44 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,10 @@ char	*get_env_value(char *key)
 		if (!ft_strcmp(curr->key, key))
 		{
 			if (!curr->value)
-				return (NULL);
+				return (ft_strdup(""));
 			return (ft_strdup(curr->value));
 		}
 		curr = curr->next;
 	}
-	return (NULL);
+	return (ft_strdup(""));
 }
