@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 18:53:17 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/28 01:35:59 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/30 19:31:35 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	ft_env(t_ast *ast)
 	curr = g_env_list;
 	while (curr)
 	{
-		if (*(curr->key) == '?')
+		if (*(curr->key) == '?' || *(curr->key) == '~')
 		{
 			curr = curr->next;
 			continue ;
