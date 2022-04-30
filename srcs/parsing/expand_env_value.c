@@ -6,7 +6,7 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 17:52:23 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/29 18:00:11 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/05/01 01:50:56 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,36 +23,22 @@ static char	*expand_env_value_exception(char *i, char **key_end, int is_dquote)
 {
 	char	*tmp;
 
-	if (!**key_end)
+	if (!**key_end || **key_end == '$')
+	{
+		(*key_end)--;
 		return (ft_strdup("$"));
+	}
 	if (!is_dquote && ft_strchr("\"\'", **key_end))
+	{
+		(*key_end)--;
 		return (ft_strdup(""));
+	}
 	tmp = ft_strchr(*key_end, '\"');
 	if (tmp && is_dquote)
 		*key_end = tmp - 1;
 	else
 		(*key_end)--;
 	return (ft_substr(i, 0, *key_end - i + 1));
-}
-
-static char	*join_dquote_str(char **key_end, char *value)
-{
-	char	*str_end;
-	char	*tail;
-	char	*tmp;
-
-	str_end = ft_strchr(*key_end + 1, '\"') - 1;
-	if (str_end == *key_end)
-		return (value);
-	tail = ft_substr(*key_end + 1, 0, str_end - *key_end);
-	if (!tail)
-		return (NULL);
-	tmp = value;
-	value = ft_strjoin(value, tail);
-	free(tmp);
-	free(tail);
-	*key_end = str_end;
-	return (value);
 }
 
 char	*expand_env_value(char *i, char **key_end, int is_dquote)
@@ -63,12 +49,10 @@ char	*expand_env_value(char *i, char **key_end, int is_dquote)
 
 	key_start = i + 1;
 	*key_end = key_start;
-	if (**key_end != '?' && !ft_isalpha(**key_end) && **key_end != '_')
+	if (**key_end != '?' && **key_end != '_' && !ft_isalpha(**key_end))
 		return (expand_env_value_exception(i, key_end, is_dquote));
 	while (**key_end)
 	{
-		if (**key_end == '?')
-			break ;
 		if (!*(*key_end + 1) || !is_valid_key_char(*(*key_end + 1)))
 			break ;
 		(*key_end)++;
@@ -78,7 +62,5 @@ char	*expand_env_value(char *i, char **key_end, int is_dquote)
 		return (NULL);
 	value = get_env_value(key);
 	free(key);
-	if (is_dquote)
-		return (join_dquote_str(key_end, value));
 	return (value);
 }
