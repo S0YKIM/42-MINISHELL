@@ -6,7 +6,7 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 18:51:17 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/30 20:29:31 by sokim            ###   ########.fr       */
+/*   Updated: 2022/04/30 22:58:23 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,21 @@ static int	add_home_env(void)
 	return (TRUE);
 }
 
+static int	add_oldpwd_env(void)
+{
+	char	*key;
+
+	key = ft_strdup("OLDPWD");
+	if (!key)
+		return (FALSE);
+	if (!update_env(key, NULL))
+	{
+		free_env_list();
+		return (FALSE);
+	}
+	return (TRUE);
+}
+
 int	parse_env(char **envp)
 {
 	int		i;
@@ -103,6 +118,8 @@ int	parse_env(char **envp)
 	if (!add_prev_exit_env())
 		return (FALSE);
 	if (!add_home_env())
+		return (FALSE);
+	if (!add_oldpwd_env())
 		return (FALSE);
 	return (TRUE);
 }
