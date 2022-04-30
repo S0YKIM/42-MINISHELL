@@ -6,7 +6,7 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 17:19:46 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/30 12:56:36 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/04/30 22:02:15 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void	child(t_data *data, int i)
 	close_child_fds(in_fd, out_fd, curr, prev);
 	if (!curr->right)
 		exit(EXIT_SUCCESS);
-	execute_cmd(curr->right, data);
+	execute_cmd(curr->right);
 }
 
 static int	parent(t_data *data, int i)
