@@ -6,7 +6,7 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 17:52:23 by heehkim           #+#    #+#             */
-/*   Updated: 2022/05/01 01:50:56 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/05/01 02:23:50 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ static char	*expand_env_value_exception(char *i, char **key_end, int is_dquote)
 		(*key_end)--;
 		return (ft_strdup(""));
 	}
+	if (!ft_strchr("\"\'$", **key_end) && !ft_isalpha(**key_end))
+		return (ft_strdup(""));
 	tmp = ft_strchr(*key_end, '\"');
 	if (tmp && is_dquote)
 		*key_end = tmp - 1;
