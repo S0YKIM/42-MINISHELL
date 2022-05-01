@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   macro.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 14:43:51 by sokim             #+#    #+#             */
-/*   Updated: 2022/05/01 21:23:58 by sokim            ###   ########.fr       */
+/*   Updated: 2022/05/01 21:32:49 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,5 @@
 # define FLAG_ERROR -1
 # define FLAG_SUCCESS 1
 # define FLAG_EOF 0
-
 
 #endif
