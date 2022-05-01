@@ -6,7 +6,7 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 14:43:13 by sokim             #+#    #+#             */
-/*   Updated: 2022/05/01 15:29:01 by sokim            ###   ########.fr       */
+/*   Updated: 2022/05/01 16:55:42 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ t_env	*create_display_env_list(void);
 void	display_env_list(t_env *display);
 
 /*
- * Cd utils
+ * Echo utils
 */
+int		is_there_tilde(char *arg);
 char	*join_home_directory(char *path);
-
 
 #endif
