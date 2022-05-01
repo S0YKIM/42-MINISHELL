@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handler.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 14:57:46 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/29 21:44:55 by sokim            ###   ########.fr       */
+/*   Updated: 2022/05/01 20:49:58 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,5 @@ void	handle_signal_heredoc(int signum)
 		exit(EXIT_FAILURE);
 	}
 	else if (signum == SIGQUIT)
-		printf("\b\b  \b\b\b\b \b> ");
+		printf("\b\b  \b\b");
 }

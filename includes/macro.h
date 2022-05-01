@@ -6,7 +6,7 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 14:43:51 by sokim             #+#    #+#             */
-/*   Updated: 2022/05/01 20:50:20 by sokim            ###   ########.fr       */
+/*   Updated: 2022/05/01 21:23:58 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # define FAILURE	1
 
 # define REMOVE		-2
+# define CONTINUE	-3
 
 # define T_CMD	0
 # define T_RDR	1
