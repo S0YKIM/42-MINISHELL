@@ -6,7 +6,7 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 23:38:55 by sokim             #+#    #+#             */
-/*   Updated: 2022/05/01 15:41:41 by sokim            ###   ########.fr       */
+/*   Updated: 2022/05/01 21:40:32 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	is_valid_key_name(char *key)
 	if (ft_isdigit(key[0]))
 		return (FALSE);
 	i = -1;
-	while (key[i++])
+	while (key[++i])
 	{
 		if (key[i] >= 'A' && key[i] <= 'Z')
 			continue ;
