@@ -6,7 +6,7 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 18:51:17 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/30 22:58:23 by sokim            ###   ########.fr       */
+/*   Updated: 2022/05/01 21:20:01 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ static int	add_oldpwd_env(void)
 {
 	char	*key;
 
+	if (is_there_node_with_key("OLDPWD"))
+		return (TRUE);
 	key = ft_strdup("OLDPWD");
 	if (!key)
 		return (FALSE);

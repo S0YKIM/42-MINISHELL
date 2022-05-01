@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 16:41:06 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/28 00:09:35 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/05/01 20:20:22 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	if (argc != 1)
 		return (FAILURE);
+	print_art();
 	if (!init(&data, envp))
 		exit(EXIT_FAILURE);
 	loop(&data);
