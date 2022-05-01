@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+         #
+#    By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/18 16:05:23 by heehkim           #+#    #+#              #
-#    Updated: 2022/05/01 16:49:23 by sokim            ###   ########.fr        #
+#    Updated: 2022/05/01 20:53:06 by heehkim          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,7 +57,6 @@ SRC_LIST = main.c \
 			$(D_UTIL)print_error.c \
 			$(D_UTIL)check.c \
 			$(D_UTIL)file.c \
-			$(D_UTIL)print.c \
 			$(D_SIGNAL)signal.c \
 			$(D_SIGNAL)handler.c \
 			$(D_EXECUTE)execute.c \
