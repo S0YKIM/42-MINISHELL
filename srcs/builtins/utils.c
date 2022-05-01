@@ -6,7 +6,7 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 23:38:55 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/30 22:39:51 by sokim            ###   ########.fr       */
+/*   Updated: 2022/05/01 15:41:41 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,9 @@ int	is_valid_key_name(char *key)
 	i = -1;
 	while (key[i++])
 	{
-		if (key[i] > 'A' && key[i] < 'Z')
+		if (key[i] >= 'A' && key[i] <= 'Z')
 			continue ;
-		else if (key[i] > 'a' && key[i] < 'z')
+		else if (key[i] >= 'a' && key[i] <= 'z')
 			continue ;
 		else if (key[i] == '_')
 			continue ;
