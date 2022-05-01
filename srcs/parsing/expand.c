@@ -6,7 +6,7 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 22:36:12 by heehkim           #+#    #+#             */
-/*   Updated: 2022/05/01 02:04:19 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/05/01 20:43:46 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,32 @@ int	expand_env(t_token **curr)
 		}
 		else
 			i++;
+	}
+	return (TRUE);
+}
+
+int	expand(t_data *data, t_token **curr)
+{
+	t_token	*tmp;
+	int		result;
+
+	result = expand_tilde(*curr);
+	if (result == ERROR)
+		return (FALSE);
+	else if (result)
+	{
+		*curr = (*curr)->next;
+		return (CONTINUE);
+	}
+	result = expand_env(curr);
+	if (!result)
+		return (FALSE);
+	else if (result == REMOVE)
+	{
+		tmp = (*curr)->next;
+		delete_token_node(data, curr);
+		*curr = tmp;
+		return (CONTINUE);
 	}
 	return (TRUE);
 }
