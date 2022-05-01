@@ -6,7 +6,7 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 14:45:20 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/30 12:31:49 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/05/01 20:52:44 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,4 @@ int		open_outfile(char *path, int flag);
 int		close_fd(int fd);
 int		dup_fd(int fd1, int fd2);
 
-// 나중에 삭제
-void	print_env_list(void);
-void	print_token_list(t_data *data);
-void	print_astree(t_ast *ast);
 #endif
