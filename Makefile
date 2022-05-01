@@ -6,7 +6,7 @@
 #    By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/18 16:05:23 by heehkim           #+#    #+#              #
-#    Updated: 2022/05/01 15:22:07 by sokim            ###   ########.fr        #
+#    Updated: 2022/05/01 16:49:23 by sokim            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ SRC_LIST = main.c \
 			$(D_BUILTIN)ft_echo.c \
 			$(D_BUILTIN)utils.c \
 			$(D_BUILTIN)export_utils.c \
-			$(D_BUILTIN)cd_utils.c \
+			$(D_BUILTIN)echo_utils.c \
 			$(D_ENV)get.c \
 			$(D_ENV)update.c \
 			$(D_ENV)remove.c \
