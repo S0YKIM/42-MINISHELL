@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   util.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 14:45:20 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/30 12:31:49 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/05/01 20:48:11 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 
 /*
  * Initialize data
-*/
+ */
 int		init(t_data *data, char **envp);
 
 /*
  * Free memory allocated
-*/
+ */
 void	free_env_list(void);
 void	free_token_list(t_data *data);
 void	free_astree(t_ast *ast);
@@ -29,7 +29,7 @@ void	free_display_env_list(t_env **display);
 
 /*
  * Print error messages
-*/
+ */
 void	print_invalid_identifier(char *cmd, char *arg);
 void	print_no_such_file(char *cmd, char *arg, int shellname);
 void	print_not_set(char *cmd, char *arg);
@@ -37,7 +37,7 @@ void	print_command_not_found(char *cmd);
 void	print_file_error(char *path);
 
 /*
-* Check utils
+ * Check utils
  */
 int		check_syntax_error(t_data *data);
 int		is_builtin(t_ast *node);
@@ -50,7 +50,19 @@ int		open_outfile(char *path, int flag);
 int		close_fd(int fd);
 int		dup_fd(int fd1, int fd2);
 
-// 나중에 삭제
+/*
+ * Get next line
+ */
+int		get_next_line(int fd, char **line);
+
+/*
+ * Ascii art
+ */
+void	print_art(void);
+
+/*
+ * 나중에 삭제
+ */
 void	print_env_list(void);
 void	print_token_list(t_data *data);
 void	print_astree(t_ast *ast);
