@@ -6,7 +6,7 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 14:43:13 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/30 21:24:13 by sokim            ###   ########.fr       */
+/*   Updated: 2022/05/01 15:29:01 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,13 @@ int		is_str_long_long(char *str);
 /*
  * Export utils
 */
-
 t_env	*create_display_env_list(void);
 void	display_env_list(t_env *display);
+
+/*
+ * Cd utils
+*/
+char	*join_home_directory(char *path);
+
 
 #endif
