@@ -6,7 +6,7 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 14:15:50 by sokim             #+#    #+#             */
-/*   Updated: 2022/05/01 16:49:45 by sokim            ###   ########.fr       */
+/*   Updated: 2022/05/01 21:29:42 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,18 +43,11 @@ int	ft_echo(t_ast *ast)
 {
 	int		i;
 	int		flag;
-	char	*tmp;
 
 	flag = check_n_option(ast->argv, &i);
 	while (ast->argv[i])
 	{
-		if (is_there_tilde(ast->argv[i]))
-		{
-			tmp = join_home_directory(ast->argv[i]);
-			printf("%s", tmp);
-		}
-		else
-			printf("%s", ast->argv[i]);
+		printf("%s", ast->argv[i]);
 		if (ast->argv[++i])
 			printf(" ");
 	}

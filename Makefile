@@ -6,7 +6,7 @@
 #    By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/18 16:05:23 by heehkim           #+#    #+#              #
-#    Updated: 2022/05/01 21:24:37 by sokim            ###   ########.fr        #
+#    Updated: 2022/05/01 21:27:07 by sokim            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,7 +54,6 @@ SRC_LIST = main.c \
 			$(D_PIPE)util.c \
 			$(D_UTIL)init.c \
 			$(D_UTIL)free.c \
-			$(D_UTIL)print_error.c \
 			$(D_UTIL)check.c \
 			$(D_UTIL)file.c \
 			$(D_UTIL)print.c \
