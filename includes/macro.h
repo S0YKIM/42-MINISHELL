@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   macro.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 14:43:51 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/28 01:10:00 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/05/01 20:50:20 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,12 @@
 # define SHELL_NAME	"microshell"
 
 # define HEREDOC_PATH	".heredoc"
+
+# define BUFFER_SIZE 1024
+# define MAX_FD 256
+# define FLAG_ERROR -1
+# define FLAG_SUCCESS 1
+# define FLAG_EOF 0
+
 
 #endif
