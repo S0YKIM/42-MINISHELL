@@ -6,7 +6,7 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 17:52:23 by heehkim           #+#    #+#             */
-/*   Updated: 2022/05/01 20:44:09 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/05/03 20:06:13 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static char	*expand_env_value_exception(char *i, char **key_end, int is_dquote)
 {
 	char	*tmp;
 
-	if (!**key_end || **key_end == '$')
+	if (!**key_end || ft_strchr(" $", **key_end))
 	{
 		(*key_end)--;
 		return (ft_strdup("$"));
