@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 16:41:06 by heehkim           #+#    #+#             */
-/*   Updated: 2022/05/03 23:37:08 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/05/04 00:39:14 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static int	parse_and_execute(t_data *data, char *line)
 		return (ERROR);
 	if (!create_astree(data))
 		return (FALSE);
-	if (!check_syntax_error(data))
+	if (!check_syntax_error(data, line))
 		return (ERROR);
 	result = execute(data);
 	if (result == ERROR)
