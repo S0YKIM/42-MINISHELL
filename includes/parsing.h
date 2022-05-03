@@ -6,7 +6,7 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 19:17:43 by heehkim           #+#    #+#             */
-/*   Updated: 2022/05/01 20:42:38 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/05/04 00:16:45 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int		trim_token(t_data *data);
 int		trim_quote(t_token *curr);
 
 int		expand(t_data *data, t_token **curr);
-int		expand_env(t_token **curr);
 char	*expand_env_value(char *i, char **key_end, int is_dquote);
 int		expand_tilde(t_token *curr);
 int		replace_token_substr(t_token *curr, char *key_start);

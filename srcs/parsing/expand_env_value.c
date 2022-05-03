@@ -6,7 +6,7 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 17:52:23 by heehkim           #+#    #+#             */
-/*   Updated: 2022/05/03 20:06:13 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/05/04 00:14:06 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,14 +73,14 @@ int	expand_tilde(t_token *curr)
 	char	*ret;
 
 	if (!has_tilde(curr->data))
-		return (FALSE);
+		return (TRUE);
 	home = get_env_value("~");
 	if (!home)
-		return (ERROR);
+		return (FALSE);
 	ret = ft_strjoin(home, curr->data + 1);
 	free(home);
 	if (!ret)
-		return (ERROR);
+		return (FALSE);
 	free(curr->data);
 	curr->data = ret;
 	return (TRUE);
