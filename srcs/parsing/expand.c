@@ -6,7 +6,7 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 22:36:12 by heehkim           #+#    #+#             */
-/*   Updated: 2022/05/04 00:16:14 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/05/04 01:23:57 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,6 @@ static int	expand_and_replace(t_token **curr, char *i, int is_dquote)
 	value = expand_env_value(i, &key_end, is_dquote);
 	if (!value)
 		return (ERROR);
-	if (!*value && !*(key_end + 1))
-		return (handle_invalid_env(curr, value, i));
 	if (!is_dquote && ft_strchr(value, ' '))
 		return (split_value_with_space(curr, value, i, key_end));
 	len = replace_token(*curr, value, i, key_end);
@@ -87,7 +85,7 @@ static int	expand_env_quote(t_token **curr, char **i, char *end)
 	return (TRUE);
 }
 
-static int	expand_env(t_token **curr)
+int	expand_env(t_token **curr)
 {
 	char	*i;
 	int		len;
@@ -100,8 +98,6 @@ static int	expand_env(t_token **curr)
 			len = expand_and_replace(curr, i, FALSE);
 			if (len == ERROR)
 				return (FALSE);
-			if (len == REMOVE)
-				return (REMOVE);
 			i = (*curr)->data + len;
 		}
 		else if (*i == '\"' || *i == '\'')
@@ -115,23 +111,21 @@ static int	expand_env(t_token **curr)
 	return (TRUE);
 }
 
-int	expand(t_data *data, t_token **curr)
+int	expand_tilde(t_token *curr)
 {
-	t_token	*tmp;
-	int		result;
+	char	*home;
+	char	*ret;
 
-	result = expand_tilde(*curr);
-	if (!result)
+	if (!has_tilde(curr->data))
+		return (TRUE);
+	home = get_env_value("~");
+	if (!home)
 		return (FALSE);
-	result = expand_env(curr);
-	if (!result)
+	ret = ft_strjoin(home, curr->data + 1);
+	free(home);
+	if (!ret)
 		return (FALSE);
-	else if (result == REMOVE)
-	{
-		tmp = (*curr)->next;
-		delete_token_node(data, curr);
-		*curr = tmp;
-		return (CONTINUE);
-	}
+	free(curr->data);
+	curr->data = ret;
 	return (TRUE);
 }
