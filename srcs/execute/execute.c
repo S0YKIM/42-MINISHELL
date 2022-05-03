@@ -6,7 +6,7 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 14:04:14 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/30 21:20:58 by sokim            ###   ########.fr       */
+/*   Updated: 2022/05/04 01:18:36 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static int	exec_reserved_path(t_ast *ast, char *path)
 	i = 0;
 	paths = ft_split(path, ':');
 	if (!paths)
-		return (ERROR);
+		return (FALSE);
 	envp = make_envp();
 	if (!envp)
 		return (free_double_pointer(paths));
@@ -103,7 +103,7 @@ void	execute_cmd(t_ast *ast)
 	path = get_env_value("PATH");
 	if (path && path[0])
 	{
-		if (exec_reserved_path(ast, path) == ERROR)
+		if (!exec_reserved_path(ast, path))
 			exit(EXIT_FAILURE);
 	}
 	if (!exec_current_path(ast))
