@@ -3,14 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 16:41:06 by heehkim           #+#    #+#             */
-/*   Updated: 2022/05/01 20:20:22 by sokim            ###   ########.fr       */
+/*   Updated: 2022/05/03 23:37:08 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static int	init(t_data *data, char **envp)
+{
+	ft_memset(data, 0, sizeof(t_data));
+	g_env_list = NULL;
+	set_signal();
+	if (!parse_env(envp))
+		return (FALSE);
+	return (TRUE);
+}
 
 static void	reset_loop(t_data *data, char *line)
 {
