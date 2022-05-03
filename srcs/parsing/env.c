@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 18:51:17 by heehkim           #+#    #+#             */
-/*   Updated: 2022/05/01 21:20:01 by sokim            ###   ########.fr       */
+/*   Updated: 2022/05/03 23:54:31 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,7 @@ static int	add_prev_exit_env(void)
 		return (FALSE);
 	}
 	if (!update_env(key, value))
-	{
-		free_env_list();
 		return (FALSE);
-	}
 	return (TRUE);
 }
 
@@ -74,10 +71,7 @@ static int	add_home_env(void)
 		return (FALSE);
 	}
 	if (!update_env(key, value))
-	{
-		free_env_list();
 		return (FALSE);
-	}
 	return (TRUE);
 }
 
@@ -91,10 +85,7 @@ static int	add_oldpwd_env(void)
 	if (!key)
 		return (FALSE);
 	if (!update_env(key, NULL))
-	{
-		free_env_list();
 		return (FALSE);
-	}
 	return (TRUE);
 }
 
@@ -107,14 +98,10 @@ int	parse_env(char **envp)
 	i = 0;
 	while (envp && envp[i])
 	{
-		if (set_key_value(envp[i], &key, &value))
-		{
-			if (!update_env(key, value))
-			{
-				free_env_list();
-				return (FALSE);
-			}
-		}
+		if (!set_key_value(envp[i], &key, &value))
+			return (FALSE);
+		if (!update_env(key, value))
+			return (FALSE);
 		i++;
 	}
 	if (!add_prev_exit_env())

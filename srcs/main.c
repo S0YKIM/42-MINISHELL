@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 16:41:06 by heehkim           #+#    #+#             */
-/*   Updated: 2022/05/04 00:39:14 by sokim            ###   ########.fr       */
+/*   Updated: 2022/05/04 01:02:39 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,9 @@ static void	reset_loop(t_data *data, char *line)
 	free(line);
 	free_token_list(data);
 	free_astree(data->astree);
-	data->astree = NULL;
 	free(data->pl_list);
-	data->pl_list = NULL;
-	data->pl_cnt = 0;
-	data->curr_pl = 0;
 	free(data->pids);
-	data->pids = NULL;
+	ft_memset(data, 0, sizeof(t_data));
 }
 
 static int	parse_and_execute(t_data *data, char *line)
