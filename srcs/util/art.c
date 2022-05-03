@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   art.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/01 20:13:41 by sokim             #+#    #+#             */
-/*   Updated: 2022/05/01 20:14:07 by sokim            ###   ########.fr       */
+/*   Updated: 2022/05/03 21:02:04 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	print_art(void)
 	int		fd;
 	char	*line;
 
-	fd = open("microshell.txt", O_RDONLY);
+	fd = open(ART_PATH, O_RDONLY);
 	while (get_next_line(fd, &line) > 0)
 	{
 		printf("%s\n", line);
