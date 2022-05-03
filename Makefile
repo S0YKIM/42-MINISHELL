@@ -6,7 +6,7 @@
 #    By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/18 16:05:23 by heehkim           #+#    #+#              #
-#    Updated: 2022/05/01 21:27:07 by sokim            ###   ########.fr        #
+#    Updated: 2022/05/03 22:27:20 by sokim            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -108,7 +108,3 @@ re: fclean all
 debug:
 	@make -s -C $(LIBDIR)
 	$(CC) $(CFLAGS) -g -o $(NAME) $(SRCS) $(INC_FLAGS) $(LIB_FLAGS) $(LINK_FLAGS)
-
-.PHONY: leak
-leak:
-	$(CC) $(CFLAGS) -g3 -fsanitize=address -o $(NAME) $(SRCS) $(INC_FLAGS)
