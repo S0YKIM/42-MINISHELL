@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fork.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 17:19:46 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/30 22:09:27 by sokim            ###   ########.fr       */
+/*   Updated: 2022/05/04 02:13:06 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,28 +41,20 @@ static void	child(t_data *data, int i)
 	execute_cmd(curr->right);
 }
 
-static int	parent(t_data *data, int i)
-{
-	close_parent_fds(data, i);
-	return (TRUE);
-}
-
 static int	wait_pids(t_data *data)
 {
 	int		i;
 	int		status;
-	t_token	*ptr;
 
 	i = 0;
-	ptr = data->token_list;
 	while (i < data->pl_cnt)
 	{
-		if (!ft_strcmp("./minishell", ptr->data))
+		if (data->pl_list[i]->right \
+			&& !ft_strcmp("./minishell", data->pl_list[i]->right->token))
 		{
 			signal(SIGINT, SIG_IGN);
 			signal(SIGQUIT, SIG_IGN);
 		}
-		ptr = ptr->next;
 		if (waitpid(data->pids[i], &status, 0) == ERROR)
 			return (TRUE);
 		set_signal();
@@ -91,10 +83,7 @@ int	fork_process(t_data *data)
 		else if (data->pids[i] == 0)
 			child(data, i);
 		else
-		{
-			if (!parent(data, i))
-				return (FALSE);
-		}
+			close_parent_fds(data, i);
 		i++;
 	}
 	close_parent_fds(data, i);

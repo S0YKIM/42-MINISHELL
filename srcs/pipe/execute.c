@@ -6,7 +6,7 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 15:10:41 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/28 01:03:17 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/05/04 01:49:35 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ int	execute(t_data *data)
 	if (!data->pl_list)
 		return (FALSE);
 	create_pl_list(data, data->astree);
-	data->curr_pl = 0;
 	result = traverse_heredoc(data->astree);
 	if (!result || result == ERROR)
 		return (result);
