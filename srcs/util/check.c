@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 16:14:22 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/30 12:57:31 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/05/04 00:39:45 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,22 @@ static int	traverse_syntax_error(t_ast *node)
 	return (traverse_syntax_error(node->right));
 }
 
-static int	print_syntax_error(void)
+static int	print_syntax_error(char *line)
 {
+	char	*value;
+
 	ft_putstr_fd(SHELL_NAME, STDERR_FILENO);
-	ft_putendl_fd(": syntax error", STDERR_FILENO);
+	ft_putstr_fd(": syntax error near unexpected token `", STDERR_FILENO);
+	ft_putstr_fd(line, STDERR_FILENO);
+	ft_putendl_fd("'", STDERR_FILENO);
+	value = ft_strdup("258");
+	if (!value)
+		return (FALSE);
+	update_env("?", value);
 	return (FALSE);
 }
 
-int	check_syntax_error(t_data *data)
+int	check_syntax_error(t_data *data, char *line)
 {
 	t_ast	*node;
 
@@ -46,12 +54,12 @@ int	check_syntax_error(t_data *data)
 	if (node->type == T_PIPE)
 	{
 		if (!node->right || (!node->left->left && !node->left->right))
-			return (print_syntax_error());
+			return (print_syntax_error(line));
 	}
 	if (!traverse_syntax_error(node->left))
-		return (print_syntax_error());
+		return (print_syntax_error(line));
 	if (!traverse_syntax_error(node->right))
-		return (print_syntax_error());
+		return (print_syntax_error(line));
 	return (TRUE);
 }
 
