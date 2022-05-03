@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 16:02:56 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/29 21:37:55 by sokim            ###   ########.fr       */
+/*   Updated: 2022/05/04 01:58:04 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,11 @@ static int	sub_traverse_heredoc(t_ast *ast)
 	int	fd;
 	int	result;
 
-	fd = open(HEREDOC_PATH, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	fd = open_outfile(HEREDOC_PATH, O_CREAT | O_WRONLY | O_TRUNC);
 	if (fd == ERROR)
 		return (FALSE);
 	result = read_heredoc(ast, fd);
-	if (close(fd) == ERROR)
+	if (close_fd(fd) == ERROR)
 		return (FALSE);
 	if (!result || result == ERROR)
 	{
@@ -76,7 +76,7 @@ static int	sub_traverse_heredoc(t_ast *ast)
 			return (FALSE);
 		return (result);
 	}
-	fd = open(HEREDOC_PATH, O_RDONLY);
+	fd = open_infile(HEREDOC_PATH);
 	if (fd == ERROR)
 		return (FALSE);
 	if (unlink(HEREDOC_PATH) == ERROR)
