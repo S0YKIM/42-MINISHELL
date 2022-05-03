@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   util.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 14:45:20 by sokim             #+#    #+#             */
-/*   Updated: 2022/05/03 23:37:31 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/05/04 00:40:07 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	print_file_error(char *path);
 /*
  * Check utils
  */
-int		check_syntax_error(t_data *data);
+int		check_syntax_error(t_data *data, char *line);
 int		is_builtin(t_ast *node);
 
 /*
