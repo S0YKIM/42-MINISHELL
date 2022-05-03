@@ -6,11 +6,21 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 00:52:42 by heehkim           #+#    #+#             */
-/*   Updated: 2022/04/29 18:10:41 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/05/03 23:24:46 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static void	close_heredoc(t_ast *ast)
+{
+	if (!ast || ast->type < T_RDR)
+		return ;
+	if (ast->type == T_RDR && ast->fd != -1)
+		close_fd(ast->fd);
+	close_heredoc(ast->left);
+	close_heredoc(ast->right);
+}
 
 void	close_parent_fds(t_data *data, int i)
 {
@@ -19,6 +29,7 @@ void	close_parent_fds(t_data *data, int i)
 	(void)data;
 	close_fd(data->pl_list[i - 1]->pipe_fd[READ]);
 	close_fd(data->pl_list[i - 1]->pipe_fd[WRITE]);
+	close_heredoc(data->pl_list[i - 1]);
 }
 
 void	close_child_fds(int in_fd, int out_fd, t_ast *curr, t_ast *prev)
