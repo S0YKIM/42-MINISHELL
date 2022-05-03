@@ -6,7 +6,7 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 22:36:12 by heehkim           #+#    #+#             */
-/*   Updated: 2022/05/01 20:43:46 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/05/03 18:08:29 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,10 @@ static int	replace_token( \
 	t_token *curr, char *value, char *key_start, char *key_end)
 {
 	char	*head;
-	int		value_len;
 	int		len;
 	char	*new_token;
 
 	*key_start = '\0';
-	value_len = ft_strlen(value);
 	head = ft_strjoin(curr->data, value);
 	free(value);
 	if (!head)
