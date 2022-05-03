@@ -6,7 +6,7 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 12:19:46 by sokim             #+#    #+#             */
-/*   Updated: 2022/05/01 21:34:33 by sokim            ###   ########.fr       */
+/*   Updated: 2022/05/04 00:06:06 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,16 @@ static char	*get_directory(char *path, int cnt)
 {
 	char	*dir;
 
-	if (!ft_strcmp(path, "-"))
+	if (cnt == 1)
+	{
+		dir = get_env_value("HOME");
+		if (!dir)
+			print_not_set("cd", "HOME");
+		return (dir);
+	}
+	if (!path)
+		return (NULL);
+	else if (!ft_strcmp(path, "-"))
 	{
 		if (!is_there_env_value("OLDPWD"))
 		{
@@ -24,12 +33,6 @@ static char	*get_directory(char *path, int cnt)
 			return (NULL);
 		}
 		dir = get_env_value("OLDPWD");
-	}
-	else if (cnt == 1)
-	{
-		dir = get_env_value("HOME");
-		if (!dir)
-			print_not_set("cd", "HOME");
 	}
 	else
 		dir = ft_strdup(path);
@@ -41,8 +44,6 @@ static int	change_directory(char *path, t_ast *ast)
 	int		ret;
 	char	*dir;
 
-	if (!path)
-		return (FALSE);
 	dir = get_directory(path, ast->argc);
 	if (!dir)
 		return (FALSE);
@@ -53,7 +54,7 @@ static int	change_directory(char *path, t_ast *ast)
 		print_no_such_file("cd", ast->argv[1], TRUE);
 		return (FALSE);
 	}
-	if (!ft_strcmp(path, "-"))
+	if (path && !ft_strcmp(path, "-"))
 		printf("%s\n", dir);
 	free(dir);
 	return (TRUE);
