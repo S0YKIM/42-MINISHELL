@@ -6,7 +6,7 @@
 /*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 19:52:52 by sokim             #+#    #+#             */
-/*   Updated: 2022/04/30 21:30:12 by sokim            ###   ########.fr       */
+/*   Updated: 2022/05/03 22:25:36 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,11 @@ static long long	exit_code_reserved(char *code, char *argv)
 	if (num == 1)
 		print_too_many_arg();
 	else if (num == 255)
+	{
+		printf("exit\n");
 		print_numeric_arg_required(argv);
+		exit (255);
+	}
 	return (num);
 }
 
@@ -56,14 +60,11 @@ int	ft_exit(t_ast *ast)
 {
 	if (ast->argc == 1)
 		return (exit_code_reserved("0", NULL));
-	else if (ast->argc == 2)
-	{
-		if (!is_str_num(ast->argv[1]) \
+	if (!is_str_num(ast->argv[1]) \
 			|| !is_str_long_long(ast->argv[1]))
-			return (exit_code_reserved("255", ast->argv[1]));
-		else
-			exit_code_custom(ast->argv[1]);
-	}
+		exit_code_reserved("255", ast->argv[1]);
+	if (ast->argc == 2)
+		exit_code_custom(ast->argv[1]);
 	else
 		return (exit_code_reserved("1", NULL));
 	return (0);
