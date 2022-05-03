@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   art.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/01 20:13:41 by sokim             #+#    #+#             */
-/*   Updated: 2022/05/03 21:02:04 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/05/03 23:08:23 by sokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,5 @@ void	print_art(void)
 		free(line);
 	}
 	free(line);
+	close(fd);
 }
