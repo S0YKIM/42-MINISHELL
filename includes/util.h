@@ -3,20 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   util.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sokim <sokim@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 14:45:20 by sokim             #+#    #+#             */
-/*   Updated: 2022/05/01 21:23:28 by sokim            ###   ########.fr       */
+/*   Updated: 2022/05/03 23:37:31 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef UTIL_H
 # define UTIL_H
-
-/*
- * Initialize data
- */
-int		init(t_data *data, char **envp);
 
 /*
  * Free memory allocated
@@ -59,12 +54,5 @@ int		get_next_line(int fd, char **line);
  * Ascii art
  */
 void	print_art(void);
-
-/*
- * 나중에 삭제
- */
-void	print_env_list(void);
-void	print_token_list(t_data *data);
-void	print_astree(t_ast *ast);
 
 #endif
