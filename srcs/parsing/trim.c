@@ -6,7 +6,7 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 21:40:15 by heehkim           #+#    #+#             */
-/*   Updated: 2022/05/01 20:43:16 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/05/04 01:22:59 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,16 +68,14 @@ int	trim_quote(t_token *curr)
 int	trim_token(t_data *data)
 {
 	t_token	*curr;
-	int		result;
 
 	curr = data->token_list;
 	while (curr)
 	{
-		result = expand(data, &curr);
-		if (!result)
+		if (!expand_tilde(curr))
 			return (FALSE);
-		if (result == CONTINUE)
-			continue ;
+		if (!expand_env(&curr))
+			return (FALSE);
 		if (!trim_quote(curr))
 			return (FALSE);
 		curr = curr->next;

@@ -6,7 +6,7 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 14:43:51 by sokim             #+#    #+#             */
-/*   Updated: 2022/05/03 18:05:51 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/05/04 01:26:17 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,9 @@
 # define TRUE		1
 # define FALSE		0
 # define ERROR		-1
+
 # define SUCCESS	0
 # define FAILURE	1
-
-# define REMOVE		-2
-# define CONTINUE	-3
 
 # define T_CMD	0
 # define T_RDR	1
@@ -35,10 +33,10 @@
 # define HEREDOC_PATH	".heredoc"
 # define ART_PATH		"art.txt"
 
-# define BUFFER_SIZE 1024
-# define MAX_FD 256
-# define FLAG_ERROR -1
-# define FLAG_SUCCESS 1
-# define FLAG_EOF 0
+# define BUFFER_SIZE	1024
+# define MAX_FD			256
+# define FLAG_ERROR		-1
+# define FLAG_SUCCESS	1
+# define FLAG_EOF		0
 
 #endif

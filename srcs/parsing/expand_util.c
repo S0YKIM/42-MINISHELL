@@ -6,7 +6,7 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/29 17:14:37 by heehkim           #+#    #+#             */
-/*   Updated: 2022/05/01 20:16:49 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/05/04 01:19:45 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,20 +67,6 @@ int	split_value_with_space( \
 	len = ft_strlen(arr[i - 1]);
 	free_double_pointer(arr);
 	return (len);
-}
-
-int	handle_invalid_env(t_token **curr, char *value, char *key_start)
-{
-	free(value);
-	if ((*curr)->data != key_start)
-	{
-		if (!replace_token_substr(*curr, key_start))
-			return (ERROR);
-		if (!insert_token_node(curr, ft_strdup("")))
-			return (FALSE);
-		*curr = (*curr)->next;
-	}
-	return (REMOVE);
 }
 
 int	has_tilde(char *arg)
