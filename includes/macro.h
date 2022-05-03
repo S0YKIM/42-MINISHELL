@@ -6,7 +6,7 @@
 /*   By: heehkim <heehkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 14:43:51 by sokim             #+#    #+#             */
-/*   Updated: 2022/05/01 21:32:49 by heehkim          ###   ########.fr       */
+/*   Updated: 2022/05/03 18:05:51 by heehkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 # define SHELL_NAME	"microshell"
 
 # define HEREDOC_PATH	".heredoc"
+# define ART_PATH		"art.txt"
 
 # define BUFFER_SIZE 1024
 # define MAX_FD 256
